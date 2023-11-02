@@ -4,7 +4,8 @@
 	"private": true,
 	"scripts": {
 		"build": "tsc -p tsconfig.json",
-		"dev": "nodemon ./source/index.ts"
+		"dev": "nodemon ./source/index.ts",
+		"start": "node ./dist/index.js"
 	},
 	"author": "Letícia Aguiar",
 	"license": "MIT",
