@@ -1,5 +1,5 @@
-import { Module } from "@nestjs/common";
-import { SubjectModule } from "./subject/subject.module";
+import { Module } from '@nestjs/common';
+import { SubjectModule } from './subject/subject.module';
 
 @Module({
 	imports: [

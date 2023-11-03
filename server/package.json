@@ -6,7 +6,7 @@
 		"build": "tsc -p tsconfig.json",
 		"dev": "nodemon ./source/index.ts",
 		"start": "node ./dist/index.js",
-		"lint": "eslint ./source/**/*.ts"
+		"lint": "eslint ./source/*.ts ./source/**/*.ts"
 	},
 	"author": "Letícia Aguiar",
 	"license": "MIT",
