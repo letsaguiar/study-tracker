@@ -12,32 +12,33 @@ export class SubjectController
 	) { }
 
 	@Post('')
-	public create(@Body() body: SubjectCreateDto): Subject
+	public create(@Body() body: SubjectCreateDto): Promise<Subject>
 	{
 		return this.subjectService.create(body);
 	}
 
 	@Patch(':id')
-	public update(@Param() params: SubjectIdDto, @Body() body: SubjectUpdateDto): Subject
+	@HttpCode(HttpStatus.NO_CONTENT)
+	public update(@Param() params: SubjectIdDto, @Body() body: SubjectUpdateDto): Promise<void>
 	{
 		return this.subjectService.update(params.id, body);
 	}
 
 	@Get('')
-	public getMany(): Subject[]
+	public getMany(): Promise<Subject[]>
 	{
 		return this.subjectService.getMany();
 	}
 
 	@Get(':id')
-	public getOne(@Param() params: SubjectIdDto): Subject
+	public getOne(@Param() params: SubjectIdDto): Promise<Subject>
 	{
 		return this.subjectService.getOne(params.id);
 	}
 
 	@Delete(':id')
 	@HttpCode(HttpStatus.NO_CONTENT)
-	public delete(@Param() params: SubjectIdDto): void
+	public delete(@Param() params: SubjectIdDto): Promise<void>
 	{
 		return this.subjectService.delete(params.id);
 	}

@@ -1,53 +1,41 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { Subject } from './subject.dto.out';
 import { SubjectCreateDto, SubjectUpdateDto } from './subject.dto.in';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class SubjectService
 {
-	private db: Subject[] = [];
+	public constructor(
+		@InjectRepository(Subject)
+		private readonly subjectRepository: Repository<Subject>,
+	) { }
 
-	public create(params: SubjectCreateDto): Subject
+	public async create(params: SubjectCreateDto): Promise<Subject>
 	{
-		const subject = new Subject();
-		subject.id = crypto.randomUUID();
-		subject.name = params.name;
-		subject.created_at = new Date();
-		subject.updated_at = new Date();
-
-		this.db.push(subject);
-
-		return subject;
+		const subject = this.subjectRepository.create(params);
+		await this.subjectRepository.save(subject);
+		return (subject);
 	}
 
-	public update(id: string, params: SubjectUpdateDto): Subject
+	public async update(id: string, params: SubjectUpdateDto): Promise<void>
 	{
-		const subject = this.db.find((_subject) =>  _subject.id === id);
-
-		if (!subject)
-			throw new BadRequestException('The requested id does not exists');
-
-		subject.name = params.name;
-		return subject;
+		await this.subjectRepository.update(id, params);
 	}
 
-	public getOne(id: string): Subject
+	public async getOne(id: string): Promise<Subject>
 	{
-		return this.db.find((_subject) => _subject.id === id);
+		return this.subjectRepository.findOneBy({ id });
 	}
 
-	public getMany(): Subject[]
+	public async getMany(): Promise<Subject[]>
 	{
-		return this.db;
+		return this.subjectRepository.find();
 	}
 
-	public delete(id: string): void
+	public async delete(id: string): Promise<void>
 	{
-		const subject = this.db.find((_subject) => _subject.id === id);
-
-		if (!subject)
-			throw new BadRequestException('The requested id does not exists');
-
-		this.db = this.db.filter((_subject) => _subject.id !== id);
+		await this.subjectRepository.delete(id);
 	}
 }
