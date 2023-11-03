@@ -6,8 +6,14 @@
 	"rules": {
 		"indent": "off",
 		"brace-style": "off",
+		"semi": "off",
+		"quotes": "off",
 
 		"@typescript-eslint/indent": ["error", "tab"],
-		"@typescript-eslint/brace-style": ["error", "allman", { "allowSingleLine": true }]
+		"@typescript-eslint/brace-style": ["error", "allman", { "allowSingleLine": true }],
+		"@typescript-eslint/explicit-member-accessibility": "error",
+		"@typescript-eslint/explicit-function-return-type": "error",
+		"@typescript-eslint/semi": "error",
+		"@typescript-eslint/quotes": [ "error", "single"]
 	}
 }
