@@ -1,5 +1,7 @@
-import { IsISO8601, IsString, IsUUID } from 'class-validator';
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Type } from 'class-transformer';
+import { IsDate, IsString, IsUUID, ValidateNested } from 'class-validator';
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { StudySession } from '../study-session/study-session.dto.out';
 
 
 @Entity()
@@ -14,11 +16,15 @@ export class Subject
 	public name: string;
 
 	@CreateDateColumn()
-	@IsISO8601()
+	@IsDate()
 	public created_at: Date;
 
 	@UpdateDateColumn()
-	@IsISO8601()
+	@IsDate()
 	public updated_at: Date;
 
+	@OneToMany(() => StudySession, (study_session) => study_session.subject)
+	@ValidateNested({ each: true })
+	@Type(() => StudySession)
+	public study_sessions: StudySession[];
 }
