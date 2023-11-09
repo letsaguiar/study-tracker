@@ -1,4 +1,5 @@
 <template>
+	subjects!
 </template>
 
 <script setup>
