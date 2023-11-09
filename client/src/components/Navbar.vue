@@ -7,7 +7,7 @@
 						<span>{{ path }}</span>
 					</li>
 				</ol>
-				<h6 class="font-weight-bolder mb-0">Dashboard</h6>
+				<h6 class="font-weight-bolder mb-0">{{ paths[paths.length - 1] }}</h6>
 			</nav>
 		</div>
 	</nav>
