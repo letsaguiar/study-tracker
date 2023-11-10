@@ -18,9 +18,9 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
+									<tr v-for="subject in subjects">
 										<td class="px-3">
-											<span class="text-sm fw-bold">Português</span>
+											<span class="text-sm fw-bold">{{ subject.name }}</span>
 										</td>
 										<td class="px-3">
 											<div class="d-flex justify-content-end">
@@ -40,8 +40,19 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
 import { usePathStore } from '../stores/path-store';
+import { SubjectService } from '../http/SubjectService'
 
+// Update path store
 const pathStore = usePathStore();
 pathStore.update();
+
+// Get user subjects
+const subjects = ref([]);
+async function getSubjects()
+{
+	subjects.value = await new SubjectService().get('');
+}
+getSubjects();
 </script>
