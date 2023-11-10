@@ -22,4 +22,9 @@ export class SubjectService extends HttpService
 	{
 		return this.post('', data);
 	}
+
+	update(id, data)
+	{
+		return this.patch(id, data);
+	}
 }

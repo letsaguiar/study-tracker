@@ -14,7 +14,7 @@
 				</td>
 				<td class="px-3">
 					<div class="d-flex justify-content-end">
-						<button class="btn btn-primary me-3">edit</button>
+						<button class="btn btn-primary me-3" @click="openUpdateModal(subject.id)">edit</button>
 						<button class="btn btn-danger" @click="openDeleteModal(subject.id)">delete</button>	
 					</div>
 				</td>
@@ -26,12 +26,15 @@
 
 	<SubjectDeleteModal :active="deleteModalActive" :subject-to-delete="subjectToDelete" @subject-deleted="getSubjects()"/>
 
+	<SubjectUpdateModal :active="updateModalActive" :subject-to-update="subjectToUpdate" @subject-updated="getSubjects()"/>
+
 </template>
 
 <script setup>
 import { ref } from 'vue';
 import SubjectDeleteModal from './SubjectDeleteModal.vue';
 import SubjectCreateModal from './SubjectCreateModal.vue';
+import SubjectUpdateModal from './SubjectUpdateModal.vue';
 import { SubjectService } from '../../http/SubjectService';
 
 // Get Subjects
@@ -56,5 +59,14 @@ function openDeleteModal(id)
 {
 	subjectToDelete.value = id;
 	deleteModalActive.value++;
+}
+
+// Update Modal
+const updateModalActive = ref(false);
+const subjectToUpdate = ref('');
+function openUpdateModal(id)
+{
+	subjectToUpdate.value = id;
+	updateModalActive.value++;
 }
 </script>

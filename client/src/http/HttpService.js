@@ -47,4 +47,16 @@ export class HttpService
 		}
 	}
 
+	async patch(endpoint, data)
+	{
+		try
+		{
+			const response = await this.requester.patch(endpoint, data);
+			return (response.data);
+		}
+		catch (err)
+		{
+			console.error(err);
+		}
+	}
 }
