@@ -8,6 +8,9 @@ dependencies:
   axios:
     specifier: ^1.6.1
     version: 1.6.1
+  bootstrap:
+    specifier: ^5.3.2
+    version: 5.3.2(@popperjs/core@2.11.8)
   material-dashboard:
     specifier: ^3.0.9
     version: 3.0.9
@@ -22,6 +25,9 @@ dependencies:
     version: 4.2.5(vue@3.3.8)
 
 devDependencies:
+  '@types/bootstrap':
+    specifier: ^5.2.9
+    version: 5.2.9
   '@vitejs/plugin-vue':
     specifier: ^4.4.0
     version: 4.4.1(vite@4.5.0)(vue@3.3.8)
@@ -255,6 +261,15 @@ packages:
   /@jridgewell/sourcemap-codec@1.4.15:
     resolution: {integrity: sha512-eF2rxCRulEKXHTRiDrDy6erMYWqNw4LPdQ8UQA4huuxaQsVeRPFl2oM8oDGxMFhJUWZf9McpLtJasDDZb/Bpeg==}
 
+  /@popperjs/core@2.11.8:
+    resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
+
+  /@types/bootstrap@5.2.9:
+    resolution: {integrity: sha512-Fcg4nORBKaVUAG4F0ePWcatWQVfr3NAT9XIN+hl1PaiAwb4tq55+iua9R3exsbB3yyfhyQlHYg2foTlW86J+RA==}
+    dependencies:
+      '@popperjs/core': 2.11.8
+    dev: true
+
   /@vitejs/plugin-vue@4.4.1(vite@4.5.0)(vue@3.3.8):
     resolution: {integrity: sha512-HCQG8VDFDM7YDAdcj5QI5DvUi+r6xvo9LgvYdk7LSkUNwdpempdB5horkMSZsbdey9Ywsf5aaU8kEPw9M5kREA==}
     engines: {node: ^14.18.0 || >=16.0.0}
@@ -355,6 +370,14 @@ packages:
       proxy-from-env: 1.1.0
     transitivePeerDependencies:
       - debug
+    dev: false
+
+  /bootstrap@5.3.2(@popperjs/core@2.11.8):
+    resolution: {integrity: sha512-D32nmNWiQHo94BKHLmOrdjlL05q1c8oxbtBphQFb9Z5to6eGRDCm0QgeaZ4zFBHzfg2++rqa2JkqCcxDy0sH0g==}
+    peerDependencies:
+      '@popperjs/core': ^2.11.8
+    dependencies:
+      '@popperjs/core': 2.11.8
     dev: false
 
   /combined-stream@1.0.8:

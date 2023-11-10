@@ -17,4 +17,9 @@ export class SubjectService extends HttpService
 	{
 		return this.delete(id);
 	}
+
+	create(data)
+	{
+		return this.post('', data);
+	}
 }

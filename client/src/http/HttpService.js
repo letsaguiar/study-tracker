@@ -34,4 +34,17 @@ export class HttpService
 		}
 	}
 
+	async post(endpoint, data)
+	{
+		try
+		{
+			const response = await this.requester.post(endpoint, data);
+			return (response.data);
+		}
+		catch (err)
+		{
+			console.error(err);
+		}
+	}
+
 }

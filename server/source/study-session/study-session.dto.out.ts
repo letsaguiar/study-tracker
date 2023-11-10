@@ -21,7 +21,7 @@ export class StudySession
 	@Type(() => Date)
 	public end: Date;
     
-	@ManyToOne(() => Subject, (subject) => subject.study_sessions)
+	@ManyToOne(() => Subject, (subject) => subject.study_sessions, { onDelete: 'CASCADE' })
 	@IsObject()
 	@IsNotEmptyObject()
 	@ValidateNested()
