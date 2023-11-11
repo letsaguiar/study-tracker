@@ -22,16 +22,20 @@
 				</td>
 				<td class="px-3">
 					<div class="d-flex justify-content-end">
-						<button class="btn btn-primary me-3">edit</button>
+						<button class="btn btn-primary me-3" @click="openUpdateModal(study_session)">edit</button>
 						<button class="btn btn-danger">delete</button>	
 					</div>
 				</td>
 			</tr>
 		</tbody>
-	</table>>
+	</table>
+
+	<StudySessionUpdateModal :active="updateModalActive" />
 </template>
 
 <script setup>
+import StudySessionUpdateModal from './StudySessionUpdateModal.vue';
+
 import { ref } from 'vue';
 import dayjs from 'dayjs';
 
@@ -57,4 +61,13 @@ async function getStudySessions()
 	study_sessions.value = await new StudySessionService().getMany();
 }
 getStudySessions();
+
+// Open Update Modal
+const updateModalActive = ref(1);
+const studySessionToUpdate = ref(null);
+function openUpdateModal(studySession)
+{
+	studySessionToUpdate.value = studySession;
+	updateModalActive.value++;
+}
 </script>
