@@ -21,15 +21,14 @@
 			</div>
 		</div>
 	</div>
-	<SubjectCreateModal />
 </template>
 
 <script setup>
-import SubjectCreateModal from '../components/subject/SubjectCreateModal.vue';
+import { usePathStore } from '../stores/path-store';
+
 import SubjectTable from '../components/subject/SubjectTable.vue';
 
 // Update path store
-import { usePathStore } from '../stores/path-store';
 const pathStore = usePathStore();
 pathStore.update();
 </script>
