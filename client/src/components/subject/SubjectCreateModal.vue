@@ -26,7 +26,7 @@ import { Modal } from 'bootstrap';
 import { onMounted, ref, watch } from 'vue';
 import { SubjectService } from '../../http/SubjectService';
 
-const emit = defineEmits(['subject-updated']);
+const emit = defineEmits(['subject-created']);
 const props = defineProps(['active']);
 
 let modal;
@@ -45,6 +45,6 @@ async function createSubject()
 	await new SubjectService().create({ name: subjectToCreate.value });
 	subjectToCreate.value = '';
 	modal.hide();
-	emit('subject-updated');
+	emit('subject-created');
 }
 </script>
