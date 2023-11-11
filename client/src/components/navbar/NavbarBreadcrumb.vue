@@ -22,7 +22,9 @@ const pathArray = computed(() => {
 
 	currentPath.value.split('/').forEach((path) => {
 		if (path.length > 0)
-			result.push(path[0].toUpperCase() + path.slice(1));
+			result.push(
+				path.split('-').map((pathName) => pathName[0].toUpperCase() + pathName.slice(1)).join(' ')
+			);
 	});
 
 	return (result);
