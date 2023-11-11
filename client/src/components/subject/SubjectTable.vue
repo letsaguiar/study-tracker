@@ -41,7 +41,7 @@ import { SubjectService } from '../../http/SubjectService';
 const subjects = ref([]);
 async function getSubjects()
 {
-	subjects.value = await new SubjectService().getAll();
+	subjects.value = await new SubjectService().getMany();
 }
 getSubjects();
 

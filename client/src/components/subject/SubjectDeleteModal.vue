@@ -36,7 +36,7 @@ watch(() => props.active, () => {
 });
 
 async function deleteSubject() {
-	await new SubjectService().deleteById(props.subjectToDelete);
+	await new SubjectService().delete(props.subjectToDelete);
 	modal.hide();
 	emit('subject-deleted');
 }

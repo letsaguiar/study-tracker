@@ -7,8 +7,21 @@ export class HttpService
 	{
 		this.requester = axios.create({ baseURL });
 	}
-
-	async get(endpoint)
+	
+	async _post(endpoint, data)
+	{
+		try
+		{
+			const response = await this.requester.post(endpoint, data);
+			return (response.data);
+		}
+		catch (err)
+		{
+			console.error(err);
+		}
+	}
+	
+	async _get(endpoint)
 	{
 		try
 		{
@@ -21,7 +34,7 @@ export class HttpService
 		}
 	}
 	
-	async delete(endpoint)
+	async _delete(endpoint)
 	{
 		try
 		{
@@ -34,20 +47,8 @@ export class HttpService
 		}
 	}
 
-	async post(endpoint, data)
-	{
-		try
-		{
-			const response = await this.requester.post(endpoint, data);
-			return (response.data);
-		}
-		catch (err)
-		{
-			console.error(err);
-		}
-	}
 
-	async patch(endpoint, data)
+	async _patch(endpoint, data)
 	{
 		try
 		{
@@ -58,5 +59,30 @@ export class HttpService
 		{
 			console.error(err);
 		}
+	}
+
+	async getMany()
+	{
+		return this._get('');
+	}
+
+	async getOne(id)
+	{
+		return this._get(id);
+	}
+
+	async create(data)
+	{
+		return this._post('', data);
+	}
+
+	async update(id, data)
+	{
+		return this._patch(id, data);
+	}
+
+	async delete(id)
+	{
+		return this._delete(id);
 	}
 }
