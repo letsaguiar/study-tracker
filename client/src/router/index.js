@@ -13,7 +13,12 @@ const router = createRouter({
       path: '/subjects',
       name: 'subjects',
       component: () => import('../views/SubjectView.vue')
-    }
+    },
+    {
+      path: '/study-sessions',
+      name: 'study-sessions',
+      component: () => import('../views/StudySessionView.vue')
+    },
   ]
 })
 
