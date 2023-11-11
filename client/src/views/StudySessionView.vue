@@ -14,6 +14,7 @@
 					</div>
 					<div class="card-body px-0 pb-2">
 						<div class="table-responsive p-0">
+							<StudySessionTable />
 						</div>
 					</div>
 				</div>
@@ -23,6 +24,8 @@
 </template>
 
 <script setup>
+import StudySessionTable from '../components/study-sessions/StudySessionTable.vue'
+
 import { usePathStore } from '../stores/path-store';
 
 const pathStore = usePathStore();

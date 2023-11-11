@@ -35,6 +35,8 @@
 import { ref } from 'vue';
 import dayjs from 'dayjs';
 
+import { StudySessionService } from '../../http/StudySessionService';
+
 function getStudySessionDate(study_session)
 {
 	return (dayjs(study_session.init).format('DD-MM-YYYY'));
@@ -48,5 +50,11 @@ function getStudySessionDuration(study_session)
 	return (d2.diff(d1, 'minutes') + ' minutes');
 }
 
+// Get Study Sessions
 const study_sessions = ref([]);
+async function getStudySessions()
+{
+	study_sessions.value = await new StudySessionService().getMany();
+}
+getStudySessions();
 </script>
