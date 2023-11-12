@@ -23,7 +23,7 @@
 				<td class="px-3">
 					<div class="d-flex justify-content-end">
 						<button class="btn btn-primary me-3" @click="openUpdateModal(study_session)">edit</button>
-						<button class="btn btn-danger">delete</button>	
+						<button class="btn btn-danger" @click="openDeleteModal(study_session)">delete</button>	
 					</div>
 				</td>
 			</tr>
@@ -32,10 +32,12 @@
 
 	<StudySessionUpdateModal :active="updateModalActive" :study-session="studySessionToUpdate" @update="getStudySessions()" />
 
+	<StudySessionDeleteModal :active="deleteModalActive" :study-session="studySessionToDelete" @delete="getStudySessions()" />
 </template>
 
 <script setup>
 import StudySessionUpdateModal from './StudySessionUpdateModal.vue';
+import StudySessionDeleteModal from './StudySessionDeleteModal.vue';
 
 import { ref } from 'vue';
 import dayjs from 'dayjs';
@@ -70,5 +72,14 @@ function openUpdateModal(studySession)
 {
 	studySessionToUpdate.value = studySession;
 	updateModalActive.value++;
+}
+
+// Open Delete Modal
+const deleteModalActive = ref(1);
+const studySessionToDelete = ref(null);
+function openDeleteModal(studySession)
+{
+	studySessionToDelete.value = studySession;
+	deleteModalActive.value++;
 }
 </script>
