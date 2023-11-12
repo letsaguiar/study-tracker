@@ -6,9 +6,29 @@
             </div>
             <div class="text-end pt-1">
                 <p class="text-sm mb-0 text-capitalize">Total Study Time</p>
-                <span class="fs-6 fw-bold mb-0">20 hours and 50 minutes</span>
+                <span class="fs-6 fw-bold mb-0">{{ getTotalDuration() }}</span>
             </div>
         </div>
         <div class="card-footer p-3"></div>
     </div>
 </template>
+
+<script setup>
+import { ref } from 'vue';
+import { StudySessionService } from '../../http/StudySessionService';
+
+const summary = ref({});
+async function getSummary()
+{
+    summary.value = await new StudySessionService().getSummary();
+}
+getSummary();
+
+function getTotalDuration()
+{
+    const hours = Math.floor(summary.value.total / 60);
+    const minutes = Math.floor(summary.value.total % 60);
+
+    return (`${hours} hours and ${minutes} minutes`);
+}
+</script>

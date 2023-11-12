@@ -6,4 +6,9 @@ export class StudySessionService extends HttpService
 	{
 		super('http://localhost/api/study-session');
 	}
+
+	getSummary()
+	{
+		return this._get('/summary');
+	}
 }
