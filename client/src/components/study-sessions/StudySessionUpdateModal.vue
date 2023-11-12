@@ -7,7 +7,34 @@
 				</div>
 				<div class="modal-body">
 					<form role="form text-left">
-
+						<div class="row">
+							<div class="col-12">
+								<div class="input-group input-group-static mb-4">
+									<label class="ms-0">Subject</label>
+									<select class="form-control">
+										<option
+										 v-for="subject in subjects"
+										 :value="subject.id"
+										 :selected="getDefaultSubject(subject)"
+										>
+											{{ subject.name }}
+										</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-6">
+								<div class="input-group input-group-static my-3">
+									<label>Init</label>
+									<input type="datetime-local" class="form-control" :value="getDefaultDate(studySession?.init)">
+								</div>
+							</div>
+							<div class="col-6">
+								<div class="input-group input-group-static my-3">
+									<label>End</label>
+									<input type="datetime-local" class="form-control" :value="getDefaultDate(studySession?.end)">
+								</div>
+							</div>
+						</div>
 					</form>
 				</div>
 				<div class="modal-footer">
@@ -21,9 +48,12 @@
 
 <script setup>
 import { Modal } from 'bootstrap';
-import { onMounted, watch } from 'vue';
+import { ref, onMounted, watch, toRefs } from 'vue';
+import dayjs from 'dayjs';
 
-const props = defineProps(['active', 'studySessionToUpdate']);
+import { SubjectService } from '../../http/SubjectService';
+
+const props = defineProps(['active', 'studySession']);
 
 let modal;
 
@@ -34,5 +64,26 @@ onMounted(() => {
 watch(() => props.active, () => {
 	modal.show();
 });
+
+// Form Defaults
+function getDefaultDate(date)
+{
+	return (dayjs(date).format('YYYY-MM-DDThh:mm'));
+}
+
+function getDefaultSubject(subject)
+{
+	if (!subject)
+		return (false);
+	return subject.id === props.studySession?.subject?.id;
+}
+
+// Get Subjects
+const subjects = ref([]);
+async function getSubjects()
+{
+	subjects.value = await new SubjectService().getMany();
+}
+getSubjects();
 
 </script>

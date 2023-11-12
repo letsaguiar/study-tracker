@@ -30,7 +30,7 @@
 		</tbody>
 	</table>
 
-	<StudySessionUpdateModal :active="updateModalActive" />
+	<StudySessionUpdateModal :active="updateModalActive" :study-session="studySessionToUpdate" />
 </template>
 
 <script setup>
