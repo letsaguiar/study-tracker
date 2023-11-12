@@ -1,5 +1,5 @@
 import { Type } from 'class-transformer';
-import { IsDate, IsISO8601, IsNotEmptyObject, IsObject, IsUUID, ValidateNested } from 'class-validator';
+import { IsDate, IsISO8601, IsNotEmptyObject, IsNumber, IsObject, IsUUID, ValidateNested } from 'class-validator';
 import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { SubjectIdDto } from '../subject/subject.dto.in';
 import { Subject } from '../subject/subject.dto.out';
@@ -35,4 +35,30 @@ export class StudySession
 	@UpdateDateColumn()
 	@IsDate()
 	public updated_at: Date;
+}
+
+export class StudySessionSumary
+{
+
+	@IsNumber()
+	public total: number;
+
+	@IsObject()
+	@IsNotEmptyObject()
+	@ValidateNested()
+	@Type(() => StudySessionSummaryBySubject)
+	public by_subject: StudySessionSummaryBySubject[];
+
+}
+
+export class StudySessionSummaryBySubject
+{
+	@IsObject()
+	@IsNotEmptyObject()
+	@ValidateNested()
+	@Type(() => Subject)
+	public subject: Subject;
+
+	@IsNumber()
+	public total: number;
 }
