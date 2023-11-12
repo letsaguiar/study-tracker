@@ -1,5 +1,5 @@
 <template>
-	<button class="btn btn-success ms-3">New Study Session</button>
+	<button class="btn btn-success ms-3" @click="openCreateModal()">New Study Session</button>
 	<table class="table align-items-center justify-content-center mb-0">
 		<thead>
 			<tr>
@@ -30,14 +30,18 @@
 		</tbody>
 	</table>
 
+	<StudySessionCreateModal :active="createModalActive" @create="getStudySessions()" />
+
 	<StudySessionUpdateModal :active="updateModalActive" :study-session="studySessionToUpdate" @update="getStudySessions()" />
 
 	<StudySessionDeleteModal :active="deleteModalActive" :study-session="studySessionToDelete" @delete="getStudySessions()" />
+
 </template>
 
 <script setup>
 import StudySessionUpdateModal from './StudySessionUpdateModal.vue';
 import StudySessionDeleteModal from './StudySessionDeleteModal.vue';
+import StudySessionCreateModal from './StudySessionCreateModal.vue';
 
 import { ref } from 'vue';
 import dayjs from 'dayjs';
@@ -64,6 +68,13 @@ async function getStudySessions()
 	study_sessions.value = await new StudySessionService().getMany();
 }
 getStudySessions();
+
+// Open Create Modal
+const createModalActive = ref(1);
+function openCreateModal()
+{
+	createModalActive.value++;
+}
 
 // Open Update Modal
 const updateModalActive = ref(1);
