@@ -50,6 +50,7 @@ import dayjs from 'dayjs';
 import { SubjectService } from '../../http/SubjectService';
 import { StudySessionService } from '../../http/StudySessionService';
 
+const emit = defineEmits(['create']);
 const props = defineProps(['active']);
 
 let modal;
@@ -131,6 +132,7 @@ async function stop()
     modal.hide();
     studySessionTimerStarted.value = false;
     subjectSelection.value = true;
+    emit('create');
 }
 
 </script>
