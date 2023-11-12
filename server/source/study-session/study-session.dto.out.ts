@@ -14,12 +14,12 @@ export class StudySession
 	@Column({ nullable: true })
 	@IsDate()
 	@Type(() => Date)
-	public init: Date;
+	public init?: Date;
 
 	@Column({ nullable: true })
 	@IsDate()
 	@Type(() => Date)
-	public end: Date;
+	public end?: Date;
     
 	@ManyToOne(() => Subject, (subject) => subject.study_sessions, { onDelete: 'CASCADE' })
 	@IsObject()
