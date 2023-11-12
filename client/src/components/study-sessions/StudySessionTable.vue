@@ -3,9 +3,9 @@
 	<table class="table align-items-center justify-content-center mb-0">
 		<thead>
 			<tr>
-				<th id="subject-name" class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-80">Subject</th>
-				<th id="subject-name" class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-80">Date</th>
-				<th id="subject-name" class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-80">Duration</th>
+				<th id="subject-name" class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Subject</th>
+				<th id="subject-name" class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date</th>
+				<th id="subject-name" class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Duration</th>
 				<th></th>
 			</tr>
 		</thead>
