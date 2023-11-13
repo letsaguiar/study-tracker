@@ -25,7 +25,6 @@
                     </form>
                     <div v-if="studySessionTimerStopped || studySessionTimerStarted" class="d-flex align-items-center justify-content-center">
                         <span class="fs-4 fw-bold">
-                            {{ timer._value }}
                             {{ timer.value }}
                         </span>
                     </div>
@@ -89,14 +88,12 @@ const timer = ref({
 
     _end: dayjs(),
 
-    _timer: dayjs("2023-11-12T00:00:00"),
+    _timer: 0,
 
     start()
     {
-        this._end = dayjs();
         this._id = setInterval(() => {
-            this._end = dayjs();
-            this._timer = this._timer.add(1, 'second');
+            this._timer++;
         }, 1000);
     },
 
@@ -104,11 +101,20 @@ const timer = ref({
     {
         clearInterval(this._id);
         this._id = null;
+        this._end = dayjs();
     },
 
     get value()
     {
-        return this._timer.format('HH:mm:ss');
+        let hours = Math.floor(this._timer / 3600);
+        let minutes = Math.floor((this._timer - (hours * 3600)) / 60);
+        let seconds = this._timer - (hours * 3600) - (minutes * 60);
+
+        if (hours < 10) hours = `0${hours}`;
+        if (minutes < 10) minutes = `0${minutes}`;
+        if (seconds < 10) seconds = `0${seconds}`;
+
+        return `${hours}:${minutes}:${seconds}`;
     }
 });
 
