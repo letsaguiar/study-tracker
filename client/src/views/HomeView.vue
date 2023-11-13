@@ -5,11 +5,17 @@
                 <StudySessionTotalDurationCard />
             </div>
         </div>
+        <div class="row mt-5">
+            <div class="col-3">
+                <StudySessionTotalDurationBySujectGraph />
+            </div>
+        </div>
     </div>
 </template>
 
 <script setup>
 import StudySessionTotalDurationCard from '../components/home/StudySessionTotalDurationCard.vue';
+import StudySessionTotalDurationBySujectGraph from '../components/home/StudySessionTotalDurationBySujectGraph.vue';
 
 import { usePathStore } from '../stores/path-store';
 
