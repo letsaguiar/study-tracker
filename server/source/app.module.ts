@@ -8,12 +8,8 @@ import { SubjectModule } from './subject/subject.module';
 @Module({
 	imports: [
 		TypeOrmModule.forRoot({
-			type: 'postgres',
-			host: process.env.POSTGRES_HOST,
-			port: parseInt(process.env.POSTGRES_PORT),
-			username: process.env.POSTGRES_USERNAME,
-			password: process.env.POSTGRES_PASSWORD,
-			database: process.env.POSTGRES_DATABASE,
+			type: 'sqlite',
+			database: 'database.sqlite',
 			entities: [
 				Subject,
 				StudySession,
