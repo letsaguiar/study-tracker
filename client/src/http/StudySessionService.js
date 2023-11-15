@@ -4,7 +4,7 @@ export class StudySessionService extends HttpService
 {
 	constructor()
 	{
-		super('http://localhost/api/study-session');
+		super(import.meta.env.VITE_SERVER_HOST + '/study-session');
 	}
 
 	getSummary()

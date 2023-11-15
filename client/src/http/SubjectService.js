@@ -5,7 +5,7 @@ export class SubjectService extends HttpService
 
 	constructor()
 	{
-		super('http://localhost/api/subject');
+		super(import.meta.env.VITE_SERVER_HOST + '/subject');
 	}
 	
 }
