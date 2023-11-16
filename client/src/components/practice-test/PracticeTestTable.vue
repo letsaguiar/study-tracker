@@ -33,9 +33,9 @@ import Table from '../Table.vue';
 import PracticeTestCreateModal from './PracticeTestCreateModal.vue';
 import PracticeTestUpdateModal from './PracticeTestUpdateModal.vue';
 import PracticeTestDeleteModal from './PracticeTestDeleteModal.vue';
+import { PracticeTestService } from '../../http/PracticeTestService';
 import { ref } from 'vue';
 import dayjs from 'dayjs';
-import { PracticeTestService } from '../../http/PracticeTestService';
 
 // Get Practice Tests
 const practice_tests = ref([]);
@@ -46,7 +46,7 @@ async function getPracticeTests()
 getPracticeTests();
 function getHitsPercentage(practice_test)
 {
-	return (practice_test.number_of_hits / practice_test.number_of_questions) * 100;
+	return Math.floor((practice_test.number_of_hits / practice_test.number_of_questions) * 100);
 }
 
 // Open Create Modal
