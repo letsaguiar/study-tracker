@@ -1,26 +1,18 @@
 <template>
 	<button class="btn btn-success ms-3" @click="openCreateModal">New Subject</button>
-	<table class="table align-items-center justify-content-center mb-0">
-		<thead>
-			<tr>
-				<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-80">Name</th>
-				<th></th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr v-for="subject in subjects">
-				<td class="px-3">
-					<span class="text-sm fw-bold">{{ subject.name }}</span>
-				</td>
-				<td class="px-3">
-					<div class="d-flex justify-content-end">
-						<button class="btn btn-primary me-3" @click="openUpdateModal(subject.id)">edit</button>
-						<button class="btn btn-danger" @click="openDeleteModal(subject.id)">delete</button>	
-					</div>
-				</td>
-			</tr>
-		</tbody>
-	</table>
+	<Table :headers="['name', '']">
+		<tr v-for="subject in subjects">
+			<td class="px-4">
+				<span class="text-sm fw-bold">{{ subject.name }}</span>
+			</td>
+			<td class="px-4">
+				<div class="d-flex justify-content-end">
+					<button class="btn btn-primary me-3" @click="openUpdateModal(subject.id)">edit</button>
+					<button class="btn btn-danger" @click="openDeleteModal(subject.id)">delete</button>	
+				</div>
+			</td>
+		</tr>
+	</Table>
 
 	<SubjectCreateModal :active="createModalActive" @subject-created="getSubjects()"/>
 
@@ -31,11 +23,13 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import Table from '../Table.vue';
 import SubjectDeleteModal from './SubjectDeleteModal.vue';
 import SubjectCreateModal from './SubjectCreateModal.vue';
 import SubjectUpdateModal from './SubjectUpdateModal.vue';
+
 import { SubjectService } from '../../http/SubjectService';
+import { ref } from 'vue';
 
 // Get Subjects
 const subjects = ref([]);
