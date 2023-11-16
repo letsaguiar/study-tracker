@@ -15,7 +15,7 @@
 			<td class="px-4">
 				<div class="d-flex justify-content-end">
 					<button class="btn btn-primary me-3" @click="openUpdateModal(test)">edit</button>
-					<button class="btn btn-danger">delete</button>	
+					<button class="btn btn-danger" @click="openDeleteModal(test)">delete</button>	
 				</div>
 			</td>
 		</tr>
@@ -25,12 +25,14 @@
 
 	<PracticeTestUpdateModal :active="updateModalActive" :practice-test="selectedPracticeTest" @update="getPracticeTests()"/>
 
+	<PracticeTestDeleteModal :active="deleteModalActive" :practice-test="selectedPracticeTest" @delete="getPracticeTests()" />
 </template>
 
 <script setup>
 import Table from '../Table.vue';
 import PracticeTestCreateModal from './PracticeTestCreateModal.vue';
 import PracticeTestUpdateModal from './PracticeTestUpdateModal.vue';
+import PracticeTestDeleteModal from './PracticeTestDeleteModal.vue';
 import { ref } from 'vue';
 import dayjs from 'dayjs';
 import { PracticeTestService } from '../../http/PracticeTestService';
@@ -61,5 +63,13 @@ function openUpdateModal(practice_test)
 {
 	selectedPracticeTest.value = practice_test;
 	updateModalActive.value++;
+}
+
+// Open Delete Modal
+const deleteModalActive = ref(1);
+function openDeleteModal(practice_test)
+{
+	selectedPracticeTest.value = practice_test;
+	deleteModalActive.value++;
 }
 </script>
