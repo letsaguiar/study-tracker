@@ -1,4 +1,3 @@
-
 <template>
 	<Modal id="create-practice-test-modal" title="Create Practice Test">
 		<template v-slot:body>

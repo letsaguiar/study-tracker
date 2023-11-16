@@ -36,10 +36,11 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { SubjectService } from '../../http/SubjectService';
 
 const emits = defineEmits(['form-submitted'])
+const props = defineProps(['subject', 'date', 'number_of_questions', 'number_of_hits']);
 
 // Get Subjects
 const subjects = ref([]);
@@ -50,9 +51,24 @@ async function getSubjects()
 getSubjects();
 
 const selectedSubject = ref(null);
+watch(() => props.subject, () => {
+	selectedSubject.value = props.subject?.id;
+});
+
 const selectedDate = ref(null);
+watch(() => props.date, () => {
+	selectedDate.value = props.date;
+});
+
 const selectedNoQ = ref(null);
+watch(() => props.number_of_questions, () => {
+	selectedNoQ.value = props.number_of_questions;
+});
+
 const selectedNoH = ref(null);
+watch(() => props.number_of_hits, () => {
+	selectedNoH.value = props.number_of_hits;
+});
 
 function submitForm()
 {
