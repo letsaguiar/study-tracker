@@ -1,34 +1,24 @@
 <template>
 	<button class="btn btn-success ms-3" @click="openCreateModal()">New Study Session</button>
-	<table class="table align-items-center justify-content-center mb-0">
-		<thead>
-			<tr>
-				<th id="subject-name" class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Subject</th>
-				<th id="subject-name" class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date</th>
-				<th id="subject-name" class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Duration</th>
-				<th></th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr v-for="study_session in study_sessions">
-				<td class="px-3">
-					<span class="text-sm fw-bold">{{ study_session.subject.name }}</span>
-				</td>
-				<td class="px-3">
-					<span class="text-sm fw-bold">{{ getStudySessionDate(study_session) }}</span>
-				</td>
-				<td class="px-3">
-					<span class="text-sm fw-bold">{{ getStudySessionDuration(study_session) }}</span>
-				</td>
-				<td class="px-3">
-					<div class="d-flex justify-content-end">
-						<button class="btn btn-primary me-3" @click="openUpdateModal(study_session)">edit</button>
-						<button class="btn btn-danger" @click="openDeleteModal(study_session)">delete</button>	
-					</div>
-				</td>
-			</tr>
-		</tbody>
-	</table>
+	<Table :headers="['subject', 'date', 'duration', '']">
+		<tr v-for="study_session in study_sessions">
+			<td class="px-4">
+				<span class="text-sm fw-bold">{{ study_session.subject.name }}</span>
+			</td>
+			<td class="px-4">
+				<span class="text-sm fw-bold">{{ getStudySessionDate(study_session) }}</span>
+			</td>
+			<td class="px-4">
+				<span class="text-sm fw-bold">{{ getStudySessionDuration(study_session) }}</span>
+			</td>
+			<td class="px-4">
+				<div class="d-flex justify-content-end">
+					<button class="btn btn-primary me-3" @click="openUpdateModal(study_session)">edit</button>
+					<button class="btn btn-danger" @click="openDeleteModal(study_session)">delete</button>	
+				</div>
+			</td>
+		</tr>
+	</Table>
 
 	<StudySessionCreateModal :active="createModalActive" @create="getStudySessions()" />
 
@@ -39,6 +29,7 @@
 </template>
 
 <script setup>
+import Table from '../Table.vue';
 import StudySessionUpdateModal from './StudySessionUpdateModal.vue';
 import StudySessionDeleteModal from './StudySessionDeleteModal.vue';
 import StudySessionCreateModal from './StudySessionCreateModal.vue';

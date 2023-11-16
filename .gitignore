@@ -5,5 +5,8 @@ node_modules/
 dist/
 *.tsbuildinfo
 
-# Postgres
-postgres/
+# Sqlite
+*.sqlite
+
+# Env files
+*.env

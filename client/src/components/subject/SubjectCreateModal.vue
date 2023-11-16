@@ -1,28 +1,26 @@
 <template>
-	<div class="modal fade" id="create-modal" tabindex="-1">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">Create Subject</h5>
+	<Modal id="create-subject-modal" title="Create Subject" :hide_footer="true">
+		<template v-slot:body>
+			<form role="form text-left" @submit.prevent="createSubject()">
+				<div class="input-group input-group-outline my-3">
+					<input v-model="subjectToCreate" type="text" class="form-control" placeholder="Name">
 				</div>
-				<div class="modal-body">
-					<form role="form text-left">
-						<div class="input-group input-group-outline my-3">
-							<input v-model="subjectToCreate" type="text" class="form-control" placeholder="Name">
-						</div>
-					</form>
+				<div class="row g-0">
+					<div class="col-9">
+						<button type="submit" class="btn bg-success text-white w-100">Save</button>
+					</div>
+					<div class="col-3">
+						<button type="button" class="btn btn-link w-100" data-bs-dismiss="modal">Close</button>	
+					</div>
 				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn bg-success text-white" @click="createSubject()">Save</button>
-					<button type="button" class="btn btn-link" data-bs-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
+			</form>
+		</template>
+	</Modal>
 </template>
 
 <script setup>
-import { Modal } from 'bootstrap';
+import Modal from '../Modal.vue';
+import { Modal as BsModal } from 'bootstrap';
 import { onMounted, ref, watch } from 'vue';
 import { SubjectService } from '../../http/SubjectService';
 
@@ -32,7 +30,7 @@ const props = defineProps(['active']);
 let modal;
 
 onMounted(() => {
-	modal = new Modal("#create-modal");
+	modal = new BsModal("#create-subject-modal");
 })
 
 watch(() => props.active, () => {

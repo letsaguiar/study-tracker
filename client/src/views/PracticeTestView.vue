@@ -1,9 +1,9 @@
 <template>
-	<div class="container-flud py-4">
+	<div class="container-fluid py-4">
 		<div class="row">
 			<div class="col-12">
-				<Card title="Study Sessions">
-					<StudySessionTable />
+				<Card title="Practice Tests">
+					<PracticeTestTable />
 				</Card>
 			</div>
 		</div>
@@ -12,7 +12,7 @@
 
 <script setup>
 import Card from '../components/Card.vue';
-import StudySessionTable from '../components/study-sessions/StudySessionTable.vue'
+import PracticeTestTable from '../components/practice-test/PracticeTestTable.vue';
 
 import { usePathStore } from '../stores/path-store';
 
