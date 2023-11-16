@@ -3,7 +3,7 @@
 	<table class="table align-items-center justify-content-center mb-0">
 		<thead>
 			<tr>
-				<th id="subject-name" class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-80">Name</th>
+				<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-80">Name</th>
 				<th></th>
 			</tr>
 		</thead>
