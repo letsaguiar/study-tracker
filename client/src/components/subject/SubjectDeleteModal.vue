@@ -1,34 +1,32 @@
 <template>
-	<div class="modal fade" id="delete-modal" tabindex="-1" data-bs-autohide="true">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">Delete Subject</h5>
+	<Modal id="delete-subject-modal" title="Delete Subject" :hide_footer="true">
+		<template v-slot:body>
+			<p class="fs-6 fw-bold">Are you sure you want to delete this subject?</p>
+			<div class="row">
+				<div class="col-9">
+					<button type="button" class="btn bg-danger text-white w-100" @click="deleteSubject()">Yes</button>
 				</div>
-				<div class="modal-body">
-					<p>Are you sure you want to delete this subject?</p>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn bg-gradient-danger text-white" @click="deleteSubject()">Yes</button>
-					<button type="button" class="btn btn-link" data-bs-dismiss="modal">Close</button>
+				<div class="col-3">
+					<button type="button" class="btn btn-link w-100" data-bs-dismiss="modal">Close</button>
 				</div>
 			</div>
-		</div>
-	</div>
+		</template>
+	</Modal>
 </template>
 
 <script setup>
-import { Modal } from 'bootstrap';
-import { SubjectService } from '../../http/SubjectService';
+import Modal from '../Modal.vue';
+import { Modal as BsModal } from 'bootstrap';
 import { onMounted, watch } from 'vue';
+import { SubjectService } from '../../http/SubjectService';
 
 const emit = defineEmits(['subject-deleted']);
-const props = defineProps(['active', 'subjectToDelete']);
+const props = defineProps(['active', 'subject']);
 
 let modal;
 
 onMounted(() => {
-	modal = new Modal("#delete-modal");
+	modal = new BsModal("#delete-subject-modal");
 })
 
 watch(() => props.active, () => {
@@ -36,7 +34,7 @@ watch(() => props.active, () => {
 });
 
 async function deleteSubject() {
-	await new SubjectService().delete(props.subjectToDelete);
+	await new SubjectService().delete(props.subject?.id);
 	modal.hide();
 	emit('subject-deleted');
 }

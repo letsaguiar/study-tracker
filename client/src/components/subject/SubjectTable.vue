@@ -7,8 +7,8 @@
 			</td>
 			<td class="px-4">
 				<div class="d-flex justify-content-end">
-					<button class="btn btn-primary me-3" @click="openUpdateModal(subject.id)">edit</button>
-					<button class="btn btn-danger" @click="openDeleteModal(subject.id)">delete</button>	
+					<button class="btn btn-primary me-3" @click="openUpdateModal(subject)">edit</button>
+					<button class="btn btn-danger" @click="openDeleteModal(subject)">delete</button>	
 				</div>
 			</td>
 		</tr>
@@ -16,9 +16,9 @@
 
 	<SubjectCreateModal :active="createModalActive" @subject-created="getSubjects()"/>
 
-	<SubjectDeleteModal :active="deleteModalActive" :subject-to-delete="subjectToDelete" @subject-deleted="getSubjects()"/>
+	<SubjectDeleteModal :active="deleteModalActive" :subject="subjectToDelete" @subject-deleted="getSubjects()"/>
 
-	<SubjectUpdateModal :active="updateModalActive" :subject-to-update="subjectToUpdate" @subject-updated="getSubjects()"/>
+	<SubjectUpdateModal :active="updateModalActive" :subject="subjectToUpdate" @subject-updated="getSubjects()"/>
 
 </template>
 
@@ -49,18 +49,18 @@ function openCreateModal()
 // Delete Modal
 const deleteModalActive = ref(1);
 const subjectToDelete = ref('');
-function openDeleteModal(id)
+function openDeleteModal(subject)
 {
-	subjectToDelete.value = id;
+	subjectToDelete.value = subject;
 	deleteModalActive.value++;
 }
 
 // Update Modal
-const updateModalActive = ref(false);
+const updateModalActive = ref(1);
 const subjectToUpdate = ref('');
-function openUpdateModal(id)
+function openUpdateModal(subject)
 {
-	subjectToUpdate.value = id;
+	subjectToUpdate.value = subject;
 	updateModalActive.value++;
 }
 </script>
