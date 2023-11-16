@@ -1,5 +1,5 @@
 <template>
-	<button class="btn btn-success ms-3">New Practice Test</button>
+	<button class="btn btn-success ms-3" @click="openCreateModal()">New Practice Test</button>
 
 	<Table :headers="['subject', 'date', 'hit percentage', '']" >
 		<tr v-for="test in practice_tests">
@@ -20,18 +20,34 @@
 			</td>
 		</tr>
 	</Table>
+
+	<PracticeTestCreateModal :active="createModalActive" @create="getPracticeTests()"/>
+
 </template>
 
 <script setup>
+import Table from '../Table.vue';
+import PracticeTestCreateModal from './PracticeTestCreateModal.vue';
 import { ref } from 'vue';
 import dayjs from 'dayjs';
-import Table from '../Table.vue';
+import { PracticeTestService } from '../../http/PracticeTestService';
 
-const practice_tests = ref([
-	{ subject: { name: 'Português' }, number_of_questions: 10, number_of_hits: 8, date: new Date() }
-]);
+// Get Practice Tests
+const practice_tests = ref([]);
+async function getPracticeTests()
+{
+	practice_tests.value = await new PracticeTestService().getMany();
+}
+getPracticeTests();
 function getHitsPercentage(practice_test)
 {
 	return (practice_test.number_of_hits / practice_test.number_of_questions) * 100;
+}
+
+// Open Create Modal
+const createModalActive = ref(1);
+function openCreateModal()
+{
+	createModalActive.value++;
 }
 </script>
