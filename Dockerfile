@@ -25,7 +25,7 @@ RUN npm run build
 FROM ubuntu:20.04 as production
 
 ENV NODE_MAJOR=20
-ENV VITE_SERVER_HOST=http://localhost/api
+ENV VITE_SERVER_HOST="http://localhost/api"
 
 RUN apt-get update \
     && apt-get install -y ca-certificates curl gnupg nginx supervisor \
