@@ -3,6 +3,7 @@ import { IsISO8601, IsNotEmptyObject, IsNumber, IsObject, IsUUID, ValidateNested
 import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { SubjectIdDto } from '../subject/subject.dto.in';
 import { Subject } from '../subject/subject.dto.out';
+import { OmitType, PickType } from '@nestjs/swagger';
 
 @Entity()
 export class PracticeTest
@@ -43,34 +44,24 @@ export class PracticeTest
 
 }
 
-export class PracticeTestSummaryDto
+export class PracticeTestDto extends PracticeTest
 {
-
-	@IsNumber()
-	public number_of_questions: number;
-
-	@IsNumber()
-	public number_of_hits: number;
-
+	
 	@IsNumber()
 	public hit_rate: number;
+
+}
+
+export class PracticeTestSummaryDto extends PickType(PracticeTestDto, ['number_of_questions', 'number_of_hits', 'hit_rate'] as const)
+{
 
 	@IsObject({ each: true })
 	public by_subject: PracticeTestSubjectSummary[];
 	
 }
 
-class PracticeTestSubjectSummary
+class PracticeTestSubjectSummary extends OmitType(PracticeTestSummaryDto, ['by_subject'])
 {
-	
-	@IsNumber()
-	public number_of_questions: number;
-
-	@IsNumber()
-	public number_of_hits: number;
-
-	@IsNumber()
-	public hit_rate: number;
 
 	@IsObject()
 	public subject: Subject;

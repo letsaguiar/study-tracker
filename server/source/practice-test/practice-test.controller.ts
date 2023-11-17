@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post } from '@nestjs/common';
 import { PracticeTestCreateDto, PracticeTestIdDto, PracticeTestUpdateDto } from './practice-test.dto.in';
-import { PracticeTest } from './practice-test.dto.out';
+import { PracticeTest, PracticeTestDto } from './practice-test.dto.out';
 import { PracticeTestService } from './practice-test.service';
 
 @Controller('practice-test')
@@ -12,7 +12,7 @@ export class PracticeTestController
 	) { }
 
 	@Post('')
-	public create(@Body() body: PracticeTestCreateDto): Promise<PracticeTest>
+	public create(@Body() body: PracticeTestCreateDto): Promise<PracticeTestDto>
 	{
 		return this.practiceTestService.create(body);
 	}
@@ -25,13 +25,13 @@ export class PracticeTestController
 	}
 
 	@Get('')
-	public getMany(): Promise<PracticeTest[]>
+	public getMany(): Promise<PracticeTestDto[]>
 	{
 		return this.practiceTestService.getMany();
 	}
 
 	@Get(':id')
-	public getOne(@Param() params: PracticeTestIdDto): Promise<PracticeTest>
+	public getOne(@Param() params: PracticeTestIdDto): Promise<PracticeTestDto>
 	{
 		return this.practiceTestService.getOne(params.id);
 	}
