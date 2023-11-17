@@ -3,7 +3,7 @@ import { IsDate, IsNotEmptyObject, IsNumber, IsObject, IsUUID, ValidateNested } 
 import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { SubjectIdDto } from '../subject/subject.dto.in';
 import { Subject } from '../subject/subject.dto.out';
-import { OmitType } from '@nestjs/swagger';
+import { OmitType, PickType } from '@nestjs/swagger';
 
 @Entity()
 export class StudySession
@@ -46,11 +46,8 @@ export class StudySessionDto extends StudySession
 
 }
 
-export class StudySessionSumaryDto
+export class StudySessionSumaryDto extends PickType(StudySessionDto, ['duration'])
 {
-
-	@IsNumber()
-	public duration: number;
 
 	@IsObject({ each: true })
 	public by_subject: StudySessionSubjectSummary[];

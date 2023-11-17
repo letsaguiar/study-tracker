@@ -51,11 +51,7 @@ export class StudySessionService
 	public async getMany(): Promise<StudySessionDto[]>
 	{
 		const study_sessions = await this.studySessionRepository.find({ relations: [ 'subject' ] });
-
-		for (let session of study_sessions)
-			session = this.buildStudySessionDto(session);
-
-		return (study_sessions as StudySessionDto[]);
+		return (study_sessions.map((study_session) => this.buildStudySessionDto(study_session)));
 	}
 
 	public async delete(id: string): Promise<void>
