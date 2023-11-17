@@ -38,6 +38,14 @@ export class StudySession
 	public updated_at: Date;
 }
 
+export class StudySessionDto extends StudySession
+{
+
+	@IsNumber()
+	public duration: number;
+
+}
+
 export class StudySessionSumaryDto
 {
 
