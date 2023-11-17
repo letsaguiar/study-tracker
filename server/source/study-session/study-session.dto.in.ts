@@ -6,4 +6,3 @@ export class StudySessionIdDto extends PickType(StudySession, ['id'] as const) {
 export class StudySessionCreateDto extends PickType(StudySession, [ 'subject', 'init', 'end' ] as const) { }
 
 export class StudySessionUpdateDto extends PartialType(StudySessionCreateDto) { }
-

@@ -1,8 +1,9 @@
 import { Type } from 'class-transformer';
-import { IsDate, IsISO8601, IsNotEmptyObject, IsNumber, IsObject, IsUUID, ValidateNested } from 'class-validator';
+import { IsDate, IsNotEmptyObject, IsNumber, IsObject, IsUUID, ValidateNested } from 'class-validator';
 import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { SubjectIdDto } from '../subject/subject.dto.in';
 import { Subject } from '../subject/subject.dto.out';
+import { OmitType } from '@nestjs/swagger';
 
 @Entity()
 export class StudySession
@@ -37,28 +38,21 @@ export class StudySession
 	public updated_at: Date;
 }
 
-export class StudySessionSumary
+export class StudySessionSumaryDto
 {
 
 	@IsNumber()
-	public total: number;
+	public duration: number;
 
-	@IsObject()
-	@IsNotEmptyObject()
-	@ValidateNested()
-	@Type(() => StudySessionSummaryBySubject)
-	public by_subject: StudySessionSummaryBySubject[];
+	@IsObject({ each: true })
+	public by_subject: StudySessionSubjectSummary[];
 
 }
 
-export class StudySessionSummaryBySubject
+export class StudySessionSubjectSummary extends OmitType(StudySessionSumaryDto, ['by_subject'] as const)
 {
+	
 	@IsObject()
-	@IsNotEmptyObject()
-	@ValidateNested()
-	@Type(() => Subject)
 	public subject: Subject;
 
-	@IsNumber()
-	public total: number;
 }
