@@ -42,3 +42,37 @@ export class PracticeTest
 	public updated_at: string;
 
 }
+
+export class PracticeTestSummaryDto
+{
+
+	@IsNumber()
+	public number_of_questions: number;
+
+	@IsNumber()
+	public number_of_hits: number;
+
+	@IsNumber()
+	public hit_rate: number;
+
+	@IsObject({ each: true })
+	public by_subject: PracticeTestSubjectSummary[];
+	
+}
+
+class PracticeTestSubjectSummary
+{
+	
+	@IsNumber()
+	public number_of_questions: number;
+
+	@IsNumber()
+	public number_of_hits: number;
+
+	@IsNumber()
+	public hit_rate: number;
+
+	@IsObject()
+	public subject: Subject;
+
+}
