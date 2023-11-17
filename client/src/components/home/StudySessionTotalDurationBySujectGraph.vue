@@ -1,19 +1,16 @@
 <template>
-    <div class="card my-4">
-		<div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-			<div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-				<h6 class="text-white text-capitalize ps-3">Study Time By Subject</h6>
+	<Card title="Study Time By Subject">
+		<div class="d-flex align-items-center justify-content-center">
+			<div class="w-80 mb-3">
+				<canvas id="study-session-time-by-subject"></canvas>
 			</div>
-		</div>
-		<div class="card-body px-0 pb-2 d-flex align-items-center justify-content-center">
-            <div class="w-80 mb-3">
-                <canvas id="study-session-time-by-subject"></canvas>
-            </div>
-		</div>
-	</div>
+        </div>
+	</Card>
 </template>
 
 <script setup>
+import Card from '../Card.vue';
+
 import { computed, onMounted, ref } from 'vue';
 import { Chart, DoughnutController, ArcElement, Tooltip, Legend } from 'chart.js';
 
@@ -31,7 +28,7 @@ const chartData = computed(() => {
         labels: summary.value.by_subject?.map((item) => item.subject.name),
         datasets: [
             {
-                data: summary.value.by_subject?.map((item) => item.total),
+                data: summary.value.by_subject?.map((item) => item.duration),
                 backgroundColor: colorStore.getColorArray(summary.value.by_subject?.length),
                 hoverOffset: 4
             }
