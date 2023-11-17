@@ -20,7 +20,7 @@ const emit = defineEmits(['create']);
 const props = defineProps(['active']);
 
 let modal;
-
+	
 onMounted(() => {
 	modal = new BsModal("#create-subject-modal");
 })

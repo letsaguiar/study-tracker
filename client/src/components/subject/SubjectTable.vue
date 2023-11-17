@@ -18,7 +18,7 @@
 
 	<SubjectDeleteModal :active="deleteModalActive" :subject="subjectToDelete" @subject-deleted="getSubjects()"/>
 
-	<SubjectUpdateModal :active="updateModalActive" :subject="subjectToUpdate" @subject-updated="getSubjects()"/>
+	<SubjectUpdateModal :active="updateModalActive" :subject="subjectToUpdate" @update="getSubjects()"/>
 
 </template>
 
