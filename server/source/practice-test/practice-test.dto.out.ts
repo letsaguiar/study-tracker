@@ -56,11 +56,11 @@ export class PracticeTestSummaryDto extends PickType(PracticeTestDto, ['number_o
 {
 
 	@IsObject({ each: true })
-	public by_subject: PracticeTestSubjectSummary[];
+	public by_subject: PracticeTestSubjectSummaryDto[];
 	
 }
 
-class PracticeTestSubjectSummary extends OmitType(PracticeTestSummaryDto, ['by_subject'])
+export class PracticeTestSubjectSummaryDto extends OmitType(PracticeTestSummaryDto, ['by_subject'])
 {
 
 	@IsObject()
