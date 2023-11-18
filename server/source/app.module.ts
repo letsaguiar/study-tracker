@@ -11,7 +11,7 @@ import { PracticeTestModule } from './practice-test/practice-test.module';
 	imports: [
 		TypeOrmModule.forRoot({
 			type: 'sqlite',
-			database: 'database.sqlite',
+			database: 'database/study-tracker.db',
 			entities: [
 				Subject,
 				StudySession,
