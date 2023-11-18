@@ -6,7 +6,7 @@ dist/
 *.tsbuildinfo
 
 # Sqlite
-*.sqlite
+database/
 
 # Env files
 *.env
