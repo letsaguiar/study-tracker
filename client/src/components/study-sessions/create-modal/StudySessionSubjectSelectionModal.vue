@@ -1,6 +1,6 @@
 <template>
 	<Transition>
-		<form @sumit.prevent="next()">
+		<form @submit.prevent="next()">
 			<div class="row">
 				<div class="col-12">
 					<div class="input-group input-group-static mb-4">
@@ -13,10 +13,10 @@
 					</div>	
 				</div>
 				<div class="col-9">
-					<button type="submit" class="btn bg-success text-white">Next</button>
+					<button type="submit" class="btn bg-success text-white w-100">Next</button>
 				</div>
 				<div class="col-3">
-					<button type="button" class="btn btn-link" data-bs-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-link w-100" data-bs-dismiss="modal">Close</button>
 				</div>
 			</div>
 		</form>
@@ -24,12 +24,21 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
+import { SubjectService } from '../../../http/SubjectService';
 
-const emit = defineEmits(['next']);
+const emit = defineEmits(['subject-selected']);
+
+const subjects = ref([]);
+async function getSubjects()
+{
+	subjects.value = await new SubjectService().getMany();
+}
+getSubjects();
 
 const selectedSubject = ref(null);
-
 function next() {
-	emit('next', { id: selectedSubject.value });
+	if (selectedSubject.value)
+		emit('subject-selected', { id: selectedSubject.value });
 }
 </script>
