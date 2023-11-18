@@ -36,8 +36,11 @@ import StudySessionCreateModal from './StudySessionCreateModal.vue';
 
 import { ref } from 'vue';
 import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 
 import { StudySessionService } from '../../http/StudySessionService';
+
+dayjs.extend(utc);
 
 function getStudySessionDate(study_session)
 {
@@ -56,7 +59,12 @@ function getStudySessionDuration(study_session)
 const study_sessions = ref([]);
 async function getStudySessions()
 {
-	study_sessions.value = await new StudySessionService().getMany();
+	const raw_sessions = await new StudySessionService().getMany();
+	study_sessions.value = raw_sessions.map((session) => ({
+		...session,
+		init: dayjs(session.init).local().toISOString(),
+		end: dayjs(session.end).local().toISOString(),
+	}));
 }
 getStudySessions();
 

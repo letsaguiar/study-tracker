@@ -14,11 +14,11 @@
 		</tr>
 	</Table>
 
-	<SubjectCreateModal :active="createModalActive" @subject-created="getSubjects()"/>
+	<SubjectCreateModal :active="createModalActive" @create="getSubjects()"/>
 
 	<SubjectDeleteModal :active="deleteModalActive" :subject="subjectToDelete" @subject-deleted="getSubjects()"/>
 
-	<SubjectUpdateModal :active="updateModalActive" :subject="subjectToUpdate" @subject-updated="getSubjects()"/>
+	<SubjectUpdateModal :active="updateModalActive" :subject="subjectToUpdate" @update="getSubjects()"/>
 
 </template>
 

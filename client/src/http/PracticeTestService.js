@@ -6,4 +6,7 @@ export class PracticeTestService extends HttpService {
 		super(import.meta.env.VITE_SERVER_HOST + '/practice-test');
 	}
 
+	getSummary() {
+		return this._get('/summary');
+	}
 }
