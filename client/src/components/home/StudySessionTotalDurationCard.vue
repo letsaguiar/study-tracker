@@ -1,5 +1,5 @@
 <template>
-    <IconCard title="Total Study Time" :content="total_study_time" icon="fas fa-clock"></IconCard>
+    <IconCard title="Total Study Time" :content="total_study_time" icon="fas fa-clock" color="dark"></IconCard>
 </template>
 
 <script setup>

@@ -1,7 +1,7 @@
 <template>
     <div class="card">
         <div class="card-header p-3 pt-2">
-            <div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
+            <div class="icon icon-lg icon-shape shadow-dark text-center border-radius-xl mt-n4 position-absolute" :class="[colorDynamicClass]">
                 <i :class="icon"></i>
             </div>
             <div class="text-end pt-1">
@@ -14,7 +14,13 @@
 </template>
 
 <script setup>
+import { computed } from 'vue';
 
-const props = defineProps(['title', 'content', 'icon']);
+
+const props = defineProps(['title', 'content', 'icon', 'color']);
+
+const colorDynamicClass = computed(() => {
+	return `bg-gradient-${props.color}`;
+});
 
 </script>
