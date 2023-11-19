@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Subject } from './subject.dto.out';
 import { SubjectCreateDto, SubjectUpdateDto } from './subject.dto.in';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -26,12 +26,12 @@ export class SubjectService
 
 	public async getOne(id: string): Promise<Subject>
 	{
-		return this.subjectRepository.findOneBy({ id });
+		return this.subjectRepository.findOne({ where: { id }, relations: ['parent'] })
 	}
 
 	public async getMany(): Promise<Subject[]>
 	{
-		return this.subjectRepository.find();
+		return this.subjectRepository.find({ relations: ['parent'] });
 	}
 
 	public async delete(id: string): Promise<void>

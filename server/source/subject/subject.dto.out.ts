@@ -1,8 +1,9 @@
 import { Type } from 'class-transformer';
 import { IsDate, IsString, IsUUID, ValidateNested } from 'class-validator';
-import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { PracticeTest } from '../practice-test/practice-test.dto.out';
 import { StudySession } from '../study-session/study-session.dto.out';
+import { SubjectIdDto } from './subject.dto.in';
 
 
 @Entity()
@@ -24,6 +25,11 @@ export class Subject
 	@UpdateDateColumn()
 	@IsDate()
 	public updated_at: Date;
+
+	@ManyToOne(() => Subject, { nullable: true })
+	@ValidateNested()
+	@Type(() => SubjectIdDto)
+	public parent?: Subject;
 
 	@OneToMany(() => StudySession, (study_session) => study_session.subject)
 	@ValidateNested({ each: true })
