@@ -4,10 +4,18 @@
 		<div class="w-auto">
 			<ul class="navbar-nav">
 				<SidebarItem to="/" icon="fa-solid fa-gauge fa-xl" title="Dashboard" />
-				<SidebarItem to="/subjects" icon="fa-solid fa-bookmark fa-xl" title="Subjects" />
-				<SidebarItem to="/study-sessions" icon="fa-solid fa-clock fa-xl" title="Study Sessions" />
-				<SidebarItem to="/practice-tests" icon="fa-solid fa-square-check fa-xl" title="Practice Tests" />
+				<SidebarItem to="/subjects" icon="fa-solid fa-bookmark fa-xl" title="Matérias" />
+				<SidebarItem to="/study-sessions" icon="fa-solid fa-clock fa-xl" title="Sessões de Estudo" />
+				<SidebarItem to="/practice-tests" icon="fa-solid fa-square-check fa-xl" title="Exercícios" />
+				<SidebarItem to="/exams" icon="fa-solid fa-list-check fa-xl" title="Exames" />
+				<SidebarItem to="/statics" icon="fa-solid fa-chart-simple fa-xl" title="Estatísticas" />
 			</ul>
+		</div>
+		<div class="sidenav-footer position-absolute w-100 bottom-0 ">
+			<div class="mx-3">
+				<a class="btn btn-outline-primary w-100" href="#" type="button">Timer</a>
+				<a class="btn bg-gradient-primary w-100" href="#" type="button">Pomodoro</a>
+			</div>
 		</div>
 	</aside>
 </template>
