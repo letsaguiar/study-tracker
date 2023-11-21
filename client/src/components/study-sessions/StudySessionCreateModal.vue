@@ -1,47 +1,61 @@
 <template>
-	<Modal id="study-session-create-modal" title="Create Study Session" :hide_footer="true">
+	<Modal id="create-study-session-modal" title="Nova Sessão de Estudos">
 		<template v-slot:body>
-			<StudySessionSubjectSelectionModal @subject-selected="(data) => onSubjectSelected(data)" v-if="currentContent === 0"/>
-			<StudySessionTimerModal v-if="currentContent === 1" @timer-finished="(data) => onTimerFinished(data)" />
+			<StudySessionForm @form-submitted="(data) => createStudySession(data)"/>
+		</template>
+		<template v-slot:footer>
+			<button class="btn btn-link" data-bs-dismiss="modal">Fechar</button>
 		</template>
 	</Modal>
 </template>
 
-<script setup>
-import { StudySessionService } from '../../http/StudySessionService';
+<script>
 import Modal from '../Modal.vue';
-import StudySessionSubjectSelectionModal from './create-modal/StudySessionSubjectSelectionModal.vue';
-import StudySessionTimerModal from './create-modal/StudySessionTimerModal.vue';
+import StudySessionForm from './StudySessionForm.vue';
 import { Modal as BsModal } from 'bootstrap';
-import { onMounted, ref, watch } from 'vue';
+import { mapActions } from 'pinia';
+import { useStudySessionStore } from '../../stores/study-session.store.js'
 
-const emit = defineEmits(['create']);
-const props = defineProps(['active']);
 
-let modal;
-onMounted(() => {
-	modal = new BsModal('#study-session-create-modal');
-});
-watch(() => props.active, () => {
-	modal.show();
-});
+export default {
 
-const currentContent = ref(0);
+	props: [ 'active' ],
+	
+	components: { Modal, StudySessionForm },
 
-const subjectSelected = ref(null);
-function onSubjectSelected(data)
-{
-	subjectSelected.value = data;
-	currentContent.value++;
-}
+	data()
+	{
+		return { modal: null };
+	},
 
-async function onTimerFinished(data)
-{
-	await new StudySessionService().create({ subject: { ...subjectSelected.value }, ...data });
-	currentContent.value = 0;
-	subjectSelected.value = null;
-	modal.hide();
-	emit('create');
+	mounted()
+	{
+		this.modal = new BsModal('#create-study-session-modal');
+	},
+
+	watch: {
+
+		active()
+		{
+			this.modal.show();
+		}
+
+	},
+
+	methods: {
+		
+		...mapActions(useStudySessionStore, {
+			createStudySessionEntry: 'createEntry',
+		}),
+
+		createStudySession(data)
+		{
+			this.createStudySessionEntry(data);
+			this.modal.hide();
+		},
+
+	},
+
 }
 
 </script>

@@ -30,40 +30,70 @@
 	</form>
 </template>
 
-<script setup>
-import { SubjectService } from '../../http/SubjectService';
-import { ref, watch } from 'vue';
-import dayjs from 'dayjs';
+<script> 
+import { mapState, mapActions } from 'pinia';
+import { useSubjectStore } from '../../stores/subject.store';
 
-const emit = defineEmits(['form-submitted']);
-const props = defineProps(['studySession']);
+export default {
 
-const subjects = ref([]);
-async function getSubjects()
-{
-	subjects.value = await new SubjectService().getMany();
-}
-getSubjects();
+	emits: [ 'form-submitted' ],
 
-const selectedSubject = ref(null);
-const selectedInit = ref(null);
-const selectedEnd = ref(null);
+	props: [ 'studySession' ],
 
-watch(() => props.studySession, (studySession) => {
-	selectedSubject.value = studySession.subject.id;
-	selectedInit.value = dayjs(studySession.init).format('YYYY-MM-DDTHH:mm');
-	selectedEnd.value = dayjs(studySession.end).format('YYYY-MM-DDTHH:mm');
-});
+	data()
+	{
+		return {
+			_selectedSubject: null,
+			_selectedInit: null,
+			_selectedEnd: null,
+		};
+	},
 
-function submitForm()
-{
-	emit('form-submitted', {
-		subject: {
-			id: selectedSubject.value,
+	computed: {
+		
+		...mapState(useSubjectStore, {
+			subjectEntries: 'entries',
+			subjects: 'orderByRelationship',
+		}),
+
+		selectedSubject: {
+			get () { return this._selectedSubject || this.studySession?.subject.id },
+			set (value) { this._selectedSubject = value },
 		},
-		init: selectedInit.value,
-		end: selectedEnd.value,
-	});
-}
 
+		selectedInit: {
+			get () { return this._selectedInit|| this.studySession?.init },
+			set (value) { this._selectedInit = value },
+		},
+
+		selectedEnd: {
+			get () { return this._selectedEnd || this.studySession?.end },
+			set (value) { this._selectedEnd = value },
+		},
+		
+	},
+
+	methods: {
+
+		...mapActions(useSubjectStore, {
+			updateSubjectEntries: 'updateEntries',
+		}),
+
+		submitForm()
+		{
+			this.$emit('form-submitted', {
+				subject: { id: this.selectedSubject },
+				init: this.selectedInit,
+				end: this.selectedEnd,
+			});
+		}
+
+	},
+
+	beforeMount() {
+		if (this.subjectEntries.length === 0)
+			this.updateSubjectEntries();
+	},
+
+}
 </script>

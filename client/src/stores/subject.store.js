@@ -4,7 +4,7 @@ import { HttpService } from "./http.service";
 export const useSubjectStore = defineStore('subject', {
 	state: () => ({
 		entries: [],
-		summary: null,
+		summary: {},
 	}),
 
 	actions: {

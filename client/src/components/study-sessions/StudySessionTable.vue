@@ -1,5 +1,5 @@
 <template>
-	<button class="btn btn-success ms-3" @click="openCreateModal()">New Study Session</button>
+	<button class="btn btn-success ms-3" @click="openCreateModal()">Nova Sessão de Estudo</button>
 	<Table :headers="['subject', 'date', 'duration', '']">
 		<tr v-for="study_session in study_sessions">
 			<td class="px-4">
