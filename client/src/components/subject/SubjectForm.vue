@@ -2,6 +2,17 @@
 	<form role="form text-left" @submit.prevent="submitForm()">
 		<div class="row">
 			<div class="col-12">
+				<div class="input-group input-group-static mb-4">
+					<label class="ms-0">Parent</label>
+					<select class="form-control" v-model="selectedParent">
+						<option v-for="subject in subjects" :value="subject.id">
+							{{ subject.name }}
+						</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="col-12">
 				<div class="input-group input-group-outline my-3">
 					<input v-model="selectedName" type="text" class="form-control" placeholder="Name">
 				</div>
@@ -14,23 +25,68 @@
 	</form>
 </template>
 
-<script setup>
-import { ref, watch } from 'vue';
+<script>
+import { mapState, mapActions } from 'pinia';
+import { useSubjectStore } from '../../stores/subject.store';
 
-const emit = defineEmits(['form-submitted']);
-const props = defineProps(['name']);
+export default {
 
-const selectedName = ref('');
-watch(() => props.name, () => {
-	selectedName.value = props.name;
-});
+	emits: [ 'form-submited' ],
 
-function submitForm()
-{
-	emit('form-submitted', {
-		name: selectedName.value,
-	});
-	selectedName.value = '';
+	props: [ 'subject' ],
+
+	data()
+	{
+		return {
+			_selectedParent: null,
+			_selectedName: null,
+		}
+	},
+	
+	computed: {
+
+		...mapState(useSubjectStore, {
+			subjectEntries: 'entries',
+			subjects: 'onlyParents'
+		}),
+
+		selectedName: {
+			get () { return this._selectedName || this.subject?.name },
+			set (value) { this._selectedName = value },
+		},
+
+		selectedParent: {
+			get () { return this._selectedParent || this.subject?.parent?.id },
+			set (value) { this._selectedParent = value },
+		},
+
+	},
+
+	methods: {
+
+		...mapActions(useSubjectStore, {
+			updateSubjectEntries: 'updateEntries',
+		}),
+
+		submitForm()
+		{
+			this.$emit('form-submited', {
+				parent: {
+					id: this.selectedParent,
+				},
+				name: this.selectedName
+			});
+
+			this.selectedName = null;
+			this.selectedParent = null;
+		}
+
+	},
+
+	beforeMount() {
+		if (this.subjectEntries.length === 0)
+			this.updateSubjectEntries();
+	},
+
 }
-
 </script>

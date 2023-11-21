@@ -1,4 +1,5 @@
 <template>
+	<button  class="btn btn-success ms-4" @click="openCreateModal()">New Subject</button>
 	<Table :headers="['name', '']">
 		<tr v-for="subject in subjects">
 			<td class="px-4" :class="{ 'child': subject.parent }">
@@ -14,44 +15,47 @@
 			</td>
 		</tr>
 	</Table>
+
+	<SubjectCreateModal :active="createModalActive" />
+
 </template>
 
 <script>
 import Table from '../Table.vue';
+import SubjectCreateModal from './SubjectCreateModal.vue';
 import { mapState, mapActions } from 'pinia';
 import { useSubjectStore } from '../../stores/subject.store.js';
 
 export default {
 
-	components: { Table },
+	components: { Table, SubjectCreateModal },
+
+	data()
+	{
+		return { 
+			createModalActive: 0,
+		};
+	},
 
 	computed: {
 
-		...mapState(useSubjectStore, { subjectEntries: 'entries' }),
+		...mapState(useSubjectStore, {
+			subjectEntries: 'entries',
+			subjects: 'orderByRelationship'
+		}),
 
-		subjects()
-		{
-
-			const subjectTree = [];
-
-			for (const subject of this.subjectEntries)
-			{
-				if (!subject.parent)
-					subjectTree.push(subject);
-				else
-				{
-					const parentIndex = subjectTree.findIndex((parent) => parent.id === subject.parent.id);
-					subjectTree.splice(parentIndex + 1, 0, subject);
-				}
-			}
-
-			return subjectTree;
-		}
 	},
 
 	methods: {
 		
-		...mapActions(useSubjectStore, { updateSubjectEntries: 'updateEntries' }),
+		...mapActions(useSubjectStore, {
+			updateSubjectEntries: 'updateEntries'
+		}),
+
+		openCreateModal()
+		{
+			this.createModalActive++;
+		}
 
 	},
 

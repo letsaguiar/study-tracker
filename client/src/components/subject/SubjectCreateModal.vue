@@ -1,38 +1,57 @@
 <template>
 	<Modal id="create-subject-modal" title="Create Subject">
 		<template v-slot:body>
-			<SubjectForm @form-submitted="(data) => createSubject(data)"/>
+			<SubjectForm @form-submited="(data) => createSubject(data)"/>
 		</template>
 		<template v-slot:footer>
 			<button class="btn btn-link" data-bs-dismiss="modal">Close</button>
-		</template>	
+		</template>
 	</Modal>
 </template>
 
-<script setup>
+<script>
 import Modal from '../Modal.vue';
 import SubjectForm from './SubjectForm.vue';
 import { Modal as BsModal } from 'bootstrap';
-import { onMounted, watch } from 'vue';
-import { SubjectService } from '../../http/SubjectService';
+import { mapActions } from 'pinia';
+import { useSubjectStore } from '../../stores/subject.store';
 
-const emit = defineEmits(['create']);
-const props = defineProps(['active']);
+export default {
+	components: { Modal, SubjectForm },
 
-let modal;
-	
-onMounted(() => {
-	modal = new BsModal("#create-subject-modal");
-})
+	props: [ 'active' ],
 
-watch(() => props.active, () => {
-	modal.show();
-});
+	data()
+	{
+		return { modal: null };
+	},
 
-async function createSubject(data)
-{
-	await new SubjectService().create(data);
-	modal.hide();
-	emit('create');
+	mounted()
+	{
+		this.modal = new BsModal('#create-subject-modal');
+	},
+
+	watch: {
+		
+		active()
+		{
+			this.modal.show();
+		}
+
+	},
+
+	methods: {
+
+		...mapActions(useSubjectStore, {
+			createSubjectEntry: 'createEntry'
+		}),
+
+		async createSubject(data)
+		{
+			await this.createSubjectEntry(data);
+			this.modal.hide();
+		}
+
+	},
 }
 </script>
