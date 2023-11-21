@@ -14,8 +14,8 @@
 			</td>
 			<td class="px-4">
 				<div class="d-flex justify-content-end">
-					<button class="btn btn-primary me-3" @click="openUpdateModal(test)">edit</button>
-					<button class="btn btn-danger" @click="openDeleteModal(test)">delete</button>	
+					<button class="btn btn-primary me-3" @click="openUpdateModal(test)">editar</button>
+					<button class="btn btn-danger" @click="openDeleteModal(test)">deletar</button>	
 				</div>
 			</td>
 		</tr>
@@ -23,23 +23,28 @@
 
 	<PracticeTestCreateModal :active="createModalActive" />
 
+	<PracticeTestUpdateModal :active="updateModalActive" :practice-test="selectedPracticeTest" />
+
 </template>
 
 <script>
 import Table from '../Table.vue';
 import PracticeTestCreateModal from './PracticeTestCreateModal.vue';
+import PracticeTestUpdateModal from './PracticeTestUpdateModal.vue';
 import { mapState, mapActions } from 'pinia';
 import { usePracticeTestStore } from '../../stores/practice-test.store.js';
 import dayjs from 'dayjs';
 
 export default {
 
-	components: { Table, PracticeTestCreateModal },
+	components: { Table, PracticeTestCreateModal, PracticeTestUpdateModal },
 
 	data()
 	{
 		return {
+			selectedPracticeTest: null,
 			createModalActive: 0,
+			updateModalActive: 0,
 		};
 	},
 
@@ -70,6 +75,12 @@ export default {
 		openCreateModal()
 		{
 			this.createModalActive++;
+		},
+
+		openUpdateModal(test)
+		{
+			this.selectedPracticeTest = test;
+			this.updateModalActive++;
 		}
 
 	},

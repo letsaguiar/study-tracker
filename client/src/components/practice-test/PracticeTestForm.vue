@@ -26,7 +26,7 @@
 				<input type="number" class="form-control" v-model="selectedNoH">
 			</div>
 			<div class="col-12">
-				<button type="submit" class="btn btn-success mt-4 w-100">Create</button>
+				<button type="submit" class="btn btn-success mt-4 w-100">Salvar</button>
 			</div>
 		</div>
 	</form>
@@ -41,7 +41,7 @@ export default {
 
 	emits: [ 'form-submitted' ],
 
-	props: [ 'practicTest' ],
+	props: [ 'practiceTest' ],
 
 	data()
 	{
@@ -60,22 +60,22 @@ export default {
 		}),
 
 		selectedSubject: {
-			get () { return this._selectedSubject || this.practicTest?.subject?.id },
+			get () { return this._selectedSubject || this.practiceTest?.subject?.id },
 			set (value) { this._selectedSubject = value },
 		},
 		
 		selectedDate: {
-			get () { return this._selectedDate || dayjs(this.practicTest?.date) },
+			get () { return this._selectedDate || dayjs(this.practiceTest?.date).format("YYYY-MM-DD") },
 			set (value) { this._selectedDate = value },
 		},
 
 		selectedNoQ: {
-			get () { return this._selectedNoQ|| this.practicTest?.number_of_questions },
+			get () { return this._selectedNoQ|| this.practiceTest?.number_of_questions },
 			set (value) { this._selectedNoQ = value },
 		},
 
 		selectedNoH: {
-			get () { return this._selectedNoH || this.practicTest?.number_of_hits },
+			get () { return this._selectedNoH || this.practiceTest?.number_of_hits },
 			set (value) { this._selectedNoH = value },
 		},
 	},
