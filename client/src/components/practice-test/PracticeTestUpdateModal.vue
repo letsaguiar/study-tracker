@@ -47,9 +47,9 @@ export default {
 			updatePracticeTestEntry: 'updateEntry',
 		}),
 
-		updatePracticeTest(data)
+		async updatePracticeTest(data)
 		{
-			this.updatePracticeTestEntry(this.practiceTest?.id, data);
+			await this.updatePracticeTestEntry(this.practiceTest?.id, data);
 			this.modal.hide();
 		}
 

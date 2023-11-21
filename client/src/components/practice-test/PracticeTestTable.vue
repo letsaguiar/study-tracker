@@ -24,6 +24,8 @@
 	<PracticeTestCreateModal :active="createModalActive" />
 
 	<PracticeTestUpdateModal :active="updateModalActive" :practice-test="selectedPracticeTest" />
+	
+	<PracticeTestDeleteModal :active="deleteModalActive" :practice-test="selectedPracticeTest" />
 
 </template>
 
@@ -31,13 +33,14 @@
 import Table from '../Table.vue';
 import PracticeTestCreateModal from './PracticeTestCreateModal.vue';
 import PracticeTestUpdateModal from './PracticeTestUpdateModal.vue';
+import PracticeTestDeleteModal from './PracticeTestDeleteModal.vue';
 import { mapState, mapActions } from 'pinia';
 import { usePracticeTestStore } from '../../stores/practice-test.store.js';
 import dayjs from 'dayjs';
 
 export default {
 
-	components: { Table, PracticeTestCreateModal, PracticeTestUpdateModal },
+	components: { Table, PracticeTestCreateModal, PracticeTestUpdateModal, PracticeTestDeleteModal },
 
 	data()
 	{
@@ -45,6 +48,7 @@ export default {
 			selectedPracticeTest: null,
 			createModalActive: 0,
 			updateModalActive: 0,
+			deleteModalActive: 0,
 		};
 	},
 
@@ -81,6 +85,12 @@ export default {
 		{
 			this.selectedPracticeTest = test;
 			this.updateModalActive++;
+		},
+
+		openDeleteModal(test)
+		{
+			this.selectedPracticeTest = test;
+			this.deleteModalActive++;
 		}
 
 	},

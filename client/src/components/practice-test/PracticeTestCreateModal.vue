@@ -47,9 +47,9 @@ export default {
 			createPracticeTestEntry: 'createEntry',
 		}),
 
-		createPracticeTest(data)
+		async createPracticeTest(data)
 		{
-			this.createPracticeTestEntry(data);
+			await this.createPracticeTestEntry(data);
 			this.modal.hide();
 		}
 

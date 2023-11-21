@@ -1,39 +1,60 @@
 <template>
-	<Modal id="delete-practice-test-modal" title="Delete Practice Test">
+	<Modal id="delete-practice-test-modal" title="Deletar Exercícios">
 		<template v-slot:body>
-			<p class="fs-6 fw-bold">Are you sure you want to delete this practice test?</p>
+			<p class="fs-6 fw-bold">Você tem certeza que deseja deletar estes exercícios?</p>
 		</template>
 		<template v-slot:footer>
-			<button class="btn btn-link" data-bs-dismiss="modal">Close</button>
-			<button class="btn btn-danger" @click="deletePracticeTest()">Delete</button>
+			<button class="btn btn-danger" @click="deletePracticeTest()">Sim</button>
+			<button class="btn btn-link" data-bs-dismiss="modal">Não</button>
 		</template>
 	</Modal>
 </template>
 
-<script setup>
+<script>
 import Modal from '../Modal.vue';
 import { Modal as BsModal } from 'bootstrap';
-import { onMounted, watch } from 'vue';
-import { PracticeTestService } from '../../http/PracticeTestService';
+import { mapActions } from 'pinia';
+import { usePracticeTestStore } from '../../stores/practice-test.store';
 
-const emits = defineEmits(['delete']);
-const props = defineProps(['active', 'practiceTest']);
+export default {
 
-let modal;
+	components: { Modal },
 
-onMounted(() => {
-	modal = new BsModal('#delete-practice-test-modal');
-})
+	props: [ 'active', 'practiceTest' ],
 
-watch(() => props.active, () => {
-	modal.show();
-});
+	data()
+	{
+		return { modal: null };
+	},
 
-async function deletePracticeTest()
-{
-	await new PracticeTestService().delete(props.practiceTest?.id);
-	modal.hide();
-	emits('delete');
+	mounted()
+	{
+		this.modal = new BsModal('#delete-practice-test-modal');
+	},
+
+	watch: {
+
+		active()
+		{
+			this.modal.show();
+		},
+
+	},
+
+	methods: {
+
+		...mapActions(usePracticeTestStore, {
+			deletePracticeTestEntry: 'deleteEntry',
+		}),
+
+		async deletePracticeTest()
+		{
+			await this.deletePracticeTestEntry(this.practiceTest?.id);
+			this.modal.hide();
+		}
+
+	}
+
 }
 
 </script>
