@@ -47,9 +47,9 @@ export default {
 			updateSubjectEntry: 'updateEntry',
 		}),
 
-		updateSubject(data)
+		async updateSubject(data)
 		{
-			this.updateSubjectEntry(this.subject?.id, data);
+			await this.updateSubjectEntry(this.subject?.id, data);
 			this.modal.hide();
 		},
 

@@ -27,7 +27,7 @@
 
 <script>
 import { mapState, mapActions } from 'pinia';
-import { useSubjectStore } from '../../stores/subject.store';
+import { useSubjectStore, useSubjectBuilder } from '../../stores/subject.store';
 
 export default {
 
@@ -70,12 +70,12 @@ export default {
 
 		submitForm()
 		{
-			this.$emit('form-submited', {
-				parent: {
-					id: this.selectedParent,
-				},
-				name: this.selectedName
-			});
+			const data = useSubjectBuilder()
+				.addName(this.selectedName)
+				.addParent(this.selectedParent)
+				.build();
+
+			this.$emit('form-submited', data);
 
 			this.selectedName = null;
 			this.selectedParent = null;

@@ -10,7 +10,7 @@
 			<td class="px-4">
 				<div class="d-flex justify-content-end">
 					<button class="btn btn-primary me-3" @click="openUpdateModal(subject)">edit</button>
-					<button class="btn btn-danger">delete</button>	
+					<button class="btn btn-danger" @click="openDeleteModal(subject)">delete</button>	
 				</div>
 			</td>
 		</tr>
@@ -20,18 +20,21 @@
 
 	<SubjectUpdateModal :active="updateModalActive" :subject="selectedSubject" />
 
+	<SubjectDeleteModal :active="deleteModalActive" :subject="selectedSubject" />
+
 </template>
 
 <script>
 import Table from '../Table.vue';
 import SubjectCreateModal from './SubjectCreateModal.vue';
 import SubjectUpdateModal from './SubjectUpdateModal.vue';
+import SubjectDeleteModal from './SubjectDeleteModal.vue';
 import { mapState, mapActions } from 'pinia';
 import { useSubjectStore } from '../../stores/subject.store.js';
 
 export default {
 
-	components: { Table, SubjectCreateModal, SubjectUpdateModal },
+	components: { Table, SubjectCreateModal, SubjectUpdateModal, SubjectDeleteModal },
 
 	data()
 	{
@@ -39,6 +42,7 @@ export default {
 			selectedSubject: null,
 			createModalActive: 0,
 			updateModalActive: 0,
+			deleteModalActive: 0,
 		};
 	},
 
@@ -66,8 +70,13 @@ export default {
 		{
 			this.selectedSubject = subject;
 			this.updateModalActive++;
-		}
+		},
 
+		openDeleteModal(subject)
+		{
+			this.selectedSubject = subject;
+			this.deleteModalActive++;
+		}
 	},
 
 	beforeMount()

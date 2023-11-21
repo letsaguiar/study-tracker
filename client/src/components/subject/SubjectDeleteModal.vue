@@ -14,28 +14,51 @@
 	</Modal>
 </template>
 
-<script setup>
+<script>
 import Modal from '../Modal.vue';
 import { Modal as BsModal } from 'bootstrap';
-import { onMounted, watch } from 'vue';
-import { SubjectService } from '../../http/SubjectService';
+import { mapActions } from 'pinia';
+import { useSubjectStore } from '../../stores/subject.store';
 
-const emit = defineEmits(['subject-deleted']);
-const props = defineProps(['active', 'subject']);
+export default {
 
-let modal;
+	components: { Modal },
 
-onMounted(() => {
-	modal = new BsModal("#delete-subject-modal");
-})
+	props: [ 'active', 'subject' ],
 
-watch(() => props.active, () => {
-	modal.show();
-});
+	data()
+	{
+		return { modal: null };
+	},
 
-async function deleteSubject() {
-	await new SubjectService().delete(props.subject?.id);
-	modal.hide();
-	emit('subject-deleted');
+	mounted()
+	{
+		this.modal = new BsModal('#delete-subject-modal');
+	},
+
+	watch: {
+
+		active()
+		{
+			this.modal.show();
+		}
+
+	},
+
+	methods: {
+
+		...mapActions(useSubjectStore, {
+			deleteSubjectEntry: 'deleteEntry',
+		}),
+
+		async deleteSubject()
+		{
+			await this.deleteSubjectEntry(this.subject?.id);
+			this.modal.hide();
+		}
+
+	}
+
 }
+
 </script>

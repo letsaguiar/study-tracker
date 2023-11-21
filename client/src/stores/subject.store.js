@@ -31,6 +31,11 @@ export const useSubjectStore = defineStore('subject', {
 			this.updateEntries();
 		},
 
+		async deleteEntry(id)
+		{
+			await new HttpService().delete(`/subject/${id}`);
+			this.updateEntries();
+		}
 	},
 
 	getters: {
@@ -62,3 +67,33 @@ export const useSubjectStore = defineStore('subject', {
 
 	}
 });
+
+export function useSubjectBuilder()
+{
+	return {
+	
+		_entry: {},
+
+		addName(name)
+		{
+			if (name && name.length > 0)
+				this._entry.name = name;
+
+			return this;
+		},
+
+		addParent(parent_id)
+		{
+			if (parent_id && parent_id.length > 0)
+				this._entry.parent = { id: parent_id };
+
+			return this;
+		},
+
+		build()
+		{
+			return this._entry;
+		}
+
+	}
+}
