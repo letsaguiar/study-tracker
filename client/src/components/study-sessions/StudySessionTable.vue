@@ -1,95 +1,85 @@
 <template>
 	<button class="btn btn-success ms-3" @click="openCreateModal()">Nova Sessão de Estudo</button>
 	<Table :headers="['subject', 'date', 'duration', '']">
-		<tr v-for="study_session in study_sessions">
+		<tr v-for="studySession in studySessions">
 			<td class="px-4">
-				<span class="text-sm fw-bold">{{ study_session.subject.name }}</span>
+				<span class="text-sm fw-bold">{{ studySession.subject.name }}</span>
 			</td>
 			<td class="px-4">
-				<span class="text-sm fw-bold">{{ getStudySessionDate(study_session) }}</span>
+				<span class="text-sm fw-bold">{{ formatDate(studySession.init) }}</span>
 			</td>
 			<td class="px-4">
-				<span class="text-sm fw-bold">{{ getStudySessionDuration(study_session) }}</span>
+				<span class="text-sm fw-bold">{{ formatDuration(studySession.duration) }}</span>
 			</td>
 			<td class="px-4">
 				<div class="d-flex justify-content-end">
-					<button class="btn btn-primary me-3" @click="openUpdateModal(study_session)">edit</button>
-					<button class="btn btn-danger" @click="openDeleteModal(study_session)">delete</button>	
+					<button class="btn btn-primary me-3" @click="openUpdateModal(studySession)">edit</button>
+					<button class="btn btn-danger" @click="openDeleteModal(studySession)">delete</button>	
 				</div>
 			</td>
 		</tr>
 	</Table>
 
-	<StudySessionCreateModal :active="createModalActive" @create="getStudySessions()" />
-
-	<StudySessionUpdateModal :active="updateModalActive" :study-session="studySessionToUpdate" @update="getStudySessions()" />
-
-	<StudySessionDeleteModal :active="deleteModalActive" :study-session="studySessionToDelete" @delete="getStudySessions()" />
+	<StudySessionCreateModal :active="createModalActive" />
 
 </template>
 
-<script setup>
+<script>
 import Table from '../Table.vue';
-import StudySessionUpdateModal from './StudySessionUpdateModal.vue';
-import StudySessionDeleteModal from './StudySessionDeleteModal.vue';
 import StudySessionCreateModal from './StudySessionCreateModal.vue';
+import { mapState, mapActions } from 'pinia';
+import { useStudySessionStore } from '../../stores/study-session.store.js'
 
-import { ref } from 'vue';
+import  duration  from 'dayjs/plugin/duration';
 import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
+dayjs.extend(duration);
 
-import { StudySessionService } from '../../http/StudySessionService';
+export default {
 
-dayjs.extend(utc);
+	components: { Table, StudySessionCreateModal },
 
-function getStudySessionDate(study_session)
-{
-	return (dayjs(study_session.init).format('DD-MM-YYYY'));
-}
+	data()
+	{
+		return {
+			createModalActive: 0,
+		};
+	},
 
-function getStudySessionDuration(study_session)
-{
-	const d1 = dayjs(study_session.init);
-	const d2 = dayjs(study_session.end);
-	
-	return (d2.diff(d1, 'minutes') + ' minutes');
-}
+	computed: {
 
-// Get Study Sessions
-const study_sessions = ref([]);
-async function getStudySessions()
-{
-	const raw_sessions = await new StudySessionService().getMany();
-	study_sessions.value = raw_sessions.map((session) => ({
-		...session,
-		init: dayjs(session.init).local().toISOString(),
-		end: dayjs(session.end).local().toISOString(),
-	}));
-}
-getStudySessions();
+		...mapState(useStudySessionStore, {
+			studySessions: 'entries',
+		}),
 
-// Open Create Modal
-const createModalActive = ref(1);
-function openCreateModal()
-{
-	createModalActive.value++;
-}
+	},
 
-// Open Update Modal
-const updateModalActive = ref(1);
-const studySessionToUpdate = ref(null);
-function openUpdateModal(studySession)
-{
-	studySessionToUpdate.value = studySession;
-	updateModalActive.value++;
-}
+	methods: {
 
-// Open Delete Modal
-const deleteModalActive = ref(1);
-const studySessionToDelete = ref(null);
-function openDeleteModal(studySession)
-{
-	studySessionToDelete.value = studySession;
-	deleteModalActive.value++;
+		...mapActions(useStudySessionStore, {
+			updateStudySessions: 'updateEntries',
+		}),
+
+		formatDate(date)
+		{
+			return dayjs(date).format('DD-MM-YYYY');
+		},
+
+		formatDuration(duration)
+		{
+			return dayjs.duration(duration, 'minutes').format("HH:mm");
+		},
+
+		openCreateModal()
+		{
+			this.createModalActive++;
+		},
+
+	},
+
+	beforeMount() {
+		if (this.studySessions.length === 0)
+			this.updateStudySessions();
+	},
+
 }
 </script>
