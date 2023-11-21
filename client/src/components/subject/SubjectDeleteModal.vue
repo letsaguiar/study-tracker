@@ -1,13 +1,13 @@
 <template>
-	<Modal id="delete-subject-modal" title="Delete Subject" :hide_footer="true">
+	<Modal id="delete-subject-modal" title="Deletar Matéria" :hide_footer="true">
 		<template v-slot:body>
-			<p class="fs-6 fw-bold">Are you sure you want to delete this subject?</p>
+			<p class="fs-6 fw-bold">Você tem certeza que deseja deletar esta matéria?</p>
 			<div class="row">
 				<div class="col-9">
-					<button type="button" class="btn bg-danger text-white w-100" @click="deleteSubject()">Yes</button>
+					<button type="button" class="btn bg-danger text-white w-100" @click="deleteSubject()">Sim</button>
 				</div>
 				<div class="col-3">
-					<button type="button" class="btn btn-link w-100" data-bs-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-link w-100" data-bs-dismiss="modal">Não</button>
 				</div>
 			</div>
 		</template>

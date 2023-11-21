@@ -1,5 +1,5 @@
 <template>
-	<button  class="btn btn-success ms-4" @click="openCreateModal()">New Subject</button>
+	<button  class="btn btn-success ms-4" @click="openCreateModal()">Nova Matéria</button>
 	<Table :headers="['name', '']">
 		<tr v-for="subject in subjects">
 			<td class="px-4" :class="{ 'child': subject.parent }">
@@ -9,8 +9,8 @@
 
 			<td class="px-4">
 				<div class="d-flex justify-content-end">
-					<button class="btn btn-primary me-3" @click="openUpdateModal(subject)">edit</button>
-					<button class="btn btn-danger" @click="openDeleteModal(subject)">delete</button>	
+					<button class="btn btn-primary me-3" @click="openUpdateModal(subject)">Editar</button>
+					<button class="btn btn-danger" @click="openDeleteModal(subject)">Deletar</button>	
 				</div>
 			</td>
 		</tr>

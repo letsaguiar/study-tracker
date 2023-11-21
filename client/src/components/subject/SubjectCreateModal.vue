@@ -1,10 +1,10 @@
 <template>
-	<Modal id="create-subject-modal" title="Create Subject">
+	<Modal id="create-subject-modal" title="Nova Matéria">
 		<template v-slot:body>
 			<SubjectForm @form-submited="(data) => createSubject(data)"/>
 		</template>
 		<template v-slot:footer>
-			<button class="btn btn-link" data-bs-dismiss="modal">Close</button>
+			<button class="btn btn-link" data-bs-dismiss="modal">Fechar</button>
 		</template>
 	</Modal>
 </template>

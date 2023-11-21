@@ -3,7 +3,7 @@
 		<div class="row g-0">
 			<div class="col-12">
 				<div class="input-group input-group-static mb-4">
-					<label class="ms-0">Parent</label>
+					<label class="ms-0">Área do Conhecimento</label>
 					<select class="form-control" v-model="selectedParent">
 						<option v-for="subject in subjects" :value="subject.id">
 							{{ subject.name }}
@@ -14,12 +14,12 @@
 
 			<div class="col-12">
 				<div class="input-group input-group-outline my-3">
-					<input v-model="selectedName" type="text" class="form-control" placeholder="Name">
+					<input v-model="selectedName" type="text" class="form-control" placeholder="Nome">
 				</div>
 			</div>
 
 			<div class="col-12">
-				<button type="submit" class="btn bg-success text-white w-100">Save</button>
+				<button type="submit" class="btn bg-success text-white w-100">Salvar</button>
 			</div>
 		</div>		
 	</form>

@@ -2,7 +2,7 @@
 	<div class="container-flud py-4">
 		<div class="row">
 			<div class="col-12">
-				<Card title="Subjects">
+				<Card title="Matérias">
 					<SubjectTable />
 				</Card>
 			</div>

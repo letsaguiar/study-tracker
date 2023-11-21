@@ -1,10 +1,10 @@
 <template>
-	<Modal id="update-subject-modal" title="Update Subject">
+	<Modal id="update-subject-modal" title="Editar Matéria">
 		<template v-slot:body>
 			<SubjectForm :subject="subject" @form-submited="(data) => updateSubject(data)"/>
 		</template>
 		<template v-slot:footer>
-			<button class="btn btn-link" data-bs-dismiss="modal">Close</button>
+			<button class="btn btn-link" data-bs-dismiss="modal">Fechar</button>
 		</template>
 	</Modal>
 </template>
