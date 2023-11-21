@@ -24,12 +24,15 @@
 
 	<StudySessionUpdateModal :active="updateModalActive" :study-session="selectedStudySession" />
 
+	<StudySessionDeleteModal :active="deleteModalActive" :study-session="selectedStudySession" />
+
 </template>
 
 <script>
 import Table from '../Table.vue';
 import StudySessionCreateModal from './StudySessionCreateModal.vue';
 import StudySessionUpdateModal from './StudySessionUpdateModal.vue';
+import StudySessionDeleteModal from './StudySessionDeleteModal.vue';
 import { mapState, mapActions } from 'pinia';
 import { useStudySessionStore } from '../../stores/study-session.store.js'
 
@@ -39,7 +42,7 @@ dayjs.extend(duration);
 
 export default {
 
-	components: { Table, StudySessionCreateModal, StudySessionUpdateModal },
+	components: { Table, StudySessionCreateModal, StudySessionUpdateModal, StudySessionDeleteModal },
 
 	data()
 	{
@@ -47,6 +50,7 @@ export default {
 			selectedStudySession: null,
 			createModalActive: 0,
 			updateModalActive: 0,
+			deleteModalActive: 0,
 		};
 	},
 
@@ -83,6 +87,12 @@ export default {
 		{
 			this.selectedStudySession = studySession;
 			this.updateModalActive++;
+		},
+
+		openDeleteModal(studySession)
+		{
+			this.selectedStudySession = studySession;
+			this.deleteModalActive++;
 		}
 
 	},

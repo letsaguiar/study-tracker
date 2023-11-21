@@ -87,6 +87,10 @@ export default {
 				init: this.selectedInit,
 				end: this.selectedEnd,
 			});
+
+			this._selectedSubject = null;
+			this._selectedInit = null;
+			this._selectedEnd = null;
 		}
 
 	},

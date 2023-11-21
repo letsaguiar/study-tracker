@@ -1,38 +1,60 @@
 <template>
-	<Modal id="study-session-delete-modal" title="Delete Study Session">
+	<Modal id="delete-study-session-modal" title="Deletar Sessão de Estudos">
 		<template v-slot:body>
-			<p>Are you sure you want to delete this study session?</p>
+			<p>Você tem certeza que deseja deletar esta sessão de estudos?</p>
 		</template>
 		<template v-slot:footer>
-			<button type="button" class="btn bg-gradient-danger text-white" @click="deleteStudySession()">Yes</button>
-			<button type="button" class="btn btn-link" data-bs-dismiss="modal">Close</button>
+			<button type="button" class="btn bg-gradient-danger text-white" @click="deleteStudySession()">Sim</button>
+			<button type="button" class="btn btn-link" data-bs-dismiss="modal">Não</button>
 		</template>
 	</Modal>
 </template>
 
-<script setup>
+<script>
 import Modal from '../Modal.vue';
-import { Modal as BsModal} from 'bootstrap';
-import { onMounted, watch } from 'vue';
+import { Modal as BsModal } from 'bootstrap';
+import { mapActions } from 'pinia';
+import { useStudySessionStore } from '../../stores/study-session.store';
 
-import { StudySessionService } from '../../http/StudySessionService';
+export default {
 
-const emit = defineEmits(['delete']);
-const props = defineProps(['active', 'studySession']);
+	components: { Modal },
 
-let modal;
+	props: [ 'active', 'studySession' ],
 
-onMounted(() => {
-	modal = new BsModal("#study-session-delete-modal");
-})
+	data()
+	{
+		return { modal: null };
+	},
 
-watch(() => props.active, () => {
-	modal.show();
-});
+	mounted()
+	{
+		this.modal = new BsModal('#delete-study-session-modal');
+	},
 
-async function deleteStudySession() {
-	await new StudySessionService().delete(props.studySession?.id);
-	modal.hide();
-	emit('delete');
+	watch: {
+
+		active()
+		{
+			this.modal.show();
+		}
+
+	},
+
+	methods: {
+
+		...mapActions(useStudySessionStore, {
+			deleteStudySessionEntry: 'deleteEntry',
+		}),
+
+		deleteStudySession()
+		{
+			this.deleteStudySessionEntry(this.studySession?.id);
+			this.modal.hide();
+		}
+
+	}
+
 }
+
 </script>

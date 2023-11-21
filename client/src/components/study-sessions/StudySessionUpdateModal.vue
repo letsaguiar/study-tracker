@@ -1,10 +1,10 @@
 <template>
-	<Modal id="update-study-session-modal" title="Update Study Session">
+	<Modal id="update-study-session-modal" title="Editar Sessão de Estudos">
 		<template v-slot:body>
 			<StudySessionForm :studySession="studySession" @form-submitted="(data) => updateStudySession(data)" />
 		</template>
 		<template v-slot:footer>
-			<button type="button" class="btn btn-link" data-bs-dismiss="modal">Close</button>
+			<button type="button" class="btn btn-link" data-bs-dismiss="modal">Fechar</button>
 		</template>
 	</Modal>
 </template>
