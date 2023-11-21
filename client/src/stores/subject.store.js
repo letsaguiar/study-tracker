@@ -23,7 +23,13 @@ export const useSubjectStore = defineStore('subject', {
 		{
 			await new HttpService().post('/subject', data);
 			this.updateEntries();
-		}
+		},
+
+		async updateEntry(id, data)
+		{
+			await new HttpService().patch(`/subject/${id}`, data);
+			this.updateEntries();
+		},
 
 	},
 

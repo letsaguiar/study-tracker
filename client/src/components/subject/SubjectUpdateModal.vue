@@ -1,40 +1,60 @@
 <template>
-	<Modal id="update-subject-modal" title="Update Subject" :hide_footer="true">
+	<Modal id="update-subject-modal" title="Update Subject">
 		<template v-slot:body>
-			<SubjectForm :name="selectedName" @form-submitted="(data) => updateSubject(data)"/>
+			<SubjectForm :subject="subject" @form-submited="(data) => updateSubject(data)"/>
+		</template>
+		<template v-slot:footer>
+			<button class="btn btn-link" data-bs-dismiss="modal">Close</button>
 		</template>
 	</Modal>
 </template>
 
-<script setup>
+<script>
 import Modal from '../Modal.vue';
 import SubjectForm from './SubjectForm.vue';
 import { Modal as BsModal } from 'bootstrap';
-import { onMounted, ref, watch } from 'vue';
-import { SubjectService } from '../../http/SubjectService';
+import { mapActions } from 'pinia';
+import { useSubjectStore } from '../../stores/subject.store';
 
-const emit = defineEmits(['update']);
-const props = defineProps(['active', 'subject']);
+export default {
 
-let modal;
-	
-onMounted(() => {
-	modal = new BsModal("#update-subject-modal");
-})
+	components: { Modal, SubjectForm },
 
-watch(() => props.active, () => {
-	modal.show();
-});
+	props: [ 'active', 'subject' ],
 
-const selectedName = ref(props.subject?.name)
-watch(() => props.subject, () => {
-	selectedName.value = props.subject?.name;
-});
+	data()
+	{
+		return { modal: null };
+	},
 
-async function updateSubject(data)
-{
-	await new SubjectService().update(props.subject?.id, data);
-	modal.hide();
-	emit('update');
+	mounted()
+	{
+		this.modal = new BsModal('#update-subject-modal');
+	},
+
+	watch: {
+		
+		active()
+		{
+			this.modal.show();
+		},
+
+	},
+
+	methods: {
+		
+		...mapActions(useSubjectStore, {
+			updateSubjectEntry: 'updateEntry',
+		}),
+
+		updateSubject(data)
+		{
+			this.updateSubjectEntry(this.subject?.id, data);
+			this.modal.hide();
+		},
+
+	},
+
+
 }
 </script>

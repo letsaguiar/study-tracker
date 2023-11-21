@@ -1,6 +1,6 @@
 <template>
 	<form role="form text-left" @submit.prevent="submitForm()">
-		<div class="row">
+		<div class="row g-0">
 			<div class="col-12">
 				<div class="input-group input-group-static mb-4">
 					<label class="ms-0">Parent</label>
