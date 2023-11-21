@@ -1,16 +1,16 @@
 <template>
-	<button class="btn btn-success ms-3" @click="openCreateModal()">New Practice Test</button>
+	<button class="btn btn-success ms-3" @click="openCreateModal()">Novos Exercícios</button>
 
-	<Table :headers="['subject', 'date', 'hit percentage', '']" >
-		<tr v-for="test in practice_tests">
+	<Table :headers="['matéria', 'data', 'percentual de acerto', '']" >
+		<tr v-for="test in practiceTests">
 			<td class="px-4">
 				<span class="text-sm fw-bold">{{ test.subject.name }}</span>
 			</td>
 			<td class="px-4">
-				<span class="text-sm fw-bold">{{ dayjs(test.date).format("DD-MM-YYYY") }}</span>
+				<span class="text-sm fw-bold">{{ formatDate(test.date) }}</span>
 			</td>
 			<td class="px-4">
-				<span class="text-sm fw-bold">{{ getHitsPercentage(test) + "%" }}</span>
+				<span class="text-sm fw-bold">{{ formatPercentage(test.hit_rate) }}</span>
 			</td>
 			<td class="px-4">
 				<div class="d-flex justify-content-end">
@@ -21,55 +21,64 @@
 		</tr>
 	</Table>
 
-	<PracticeTestCreateModal :active="createModalActive" @create="getPracticeTests()"/>
+	<PracticeTestCreateModal :active="createModalActive" />
 
-	<PracticeTestUpdateModal :active="updateModalActive" :practice-test="selectedPracticeTest" @update="getPracticeTests()"/>
-
-	<PracticeTestDeleteModal :active="deleteModalActive" :practice-test="selectedPracticeTest" @delete="getPracticeTests()" />
 </template>
 
-<script setup>
+<script>
 import Table from '../Table.vue';
 import PracticeTestCreateModal from './PracticeTestCreateModal.vue';
-import PracticeTestUpdateModal from './PracticeTestUpdateModal.vue';
-import PracticeTestDeleteModal from './PracticeTestDeleteModal.vue';
-import { PracticeTestService } from '../../http/PracticeTestService';
-import { ref } from 'vue';
+import { mapState, mapActions } from 'pinia';
+import { usePracticeTestStore } from '../../stores/practice-test.store.js';
 import dayjs from 'dayjs';
 
-// Get Practice Tests
-const practice_tests = ref([]);
-async function getPracticeTests()
-{
-	practice_tests.value = await new PracticeTestService().getMany();
-}
-getPracticeTests();
-function getHitsPercentage(practice_test)
-{
-	return Math.floor((practice_test.number_of_hits / practice_test.number_of_questions) * 100);
-}
+export default {
 
-// Open Create Modal
-const createModalActive = ref(1);
-function openCreateModal()
-{
-	createModalActive.value++;
-}
+	components: { Table, PracticeTestCreateModal },
 
-// Open Update Modal
-const updateModalActive = ref(1);
-const selectedPracticeTest = ref(null);
-function openUpdateModal(practice_test)
-{
-	selectedPracticeTest.value = practice_test;
-	updateModalActive.value++;
-}
+	data()
+	{
+		return {
+			createModalActive: 0,
+		};
+	},
 
-// Open Delete Modal
-const deleteModalActive = ref(1);
-function openDeleteModal(practice_test)
-{
-	selectedPracticeTest.value = practice_test;
-	deleteModalActive.value++;
+	computed: {
+
+		...mapState(usePracticeTestStore, {
+			practiceTests: 'entries',
+		}),
+
+	},
+
+	methods: {
+
+		...mapActions(usePracticeTestStore, {
+			updatePracticeTests: 'updateEntries',
+		}),
+
+		formatDate(date)
+		{
+			return dayjs(date).format("DD-MM-YYYY");
+		},
+
+		formatPercentage(percentage)
+		{
+			return `${percentage}%`;
+		},
+
+		openCreateModal()
+		{
+			this.createModalActive++;
+		}
+
+	},
+
+	beforeMount()
+	{
+		if (this.practiceTests.length === 0)
+			this.updatePracticeTests();
+	}
+
 }
 </script>

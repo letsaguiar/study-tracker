@@ -5,10 +5,7 @@
 				<div class="input-group input-group-static mb-4">
 					<label class="ms-0">Subject</label>
 					<select class="form-control" v-model="selectedSubject">
-						<option
-						 v-for="subject in subjects"
-						 :value="subject.id"
-						>
+						<option v-for="subject in subjects" :value="subject.id">
 							{{ subject.name }}
 						</option>
 					</select>
@@ -35,50 +32,85 @@
 	</form>
 </template>
 
-<script setup>
-import { ref, watch } from 'vue';
-import { SubjectService } from '../../http/SubjectService';
+<script>
+import dayjs from 'dayjs';
+import { mapState, mapActions } from 'pinia';
+import { useSubjectStore } from '../../stores/subject.store';
 
-const emits = defineEmits(['form-submitted'])
-const props = defineProps(['subject', 'date', 'number_of_questions', 'number_of_hits']);
+export default {
 
-// Get Subjects
-const subjects = ref([]);
-async function getSubjects()
-{
-	subjects.value = await new SubjectService().getMany();
-}
-getSubjects();
+	emits: [ 'form-submitted' ],
 
-const selectedSubject = ref(null);
-watch(() => props.subject, () => {
-	selectedSubject.value = props.subject?.id;
-});
+	props: [ 'practicTest' ],
 
-const selectedDate = ref(null);
-watch(() => props.date, () => {
-	selectedDate.value = props.date;
-});
+	data()
+	{
+		return {
+			_selectedSubject: null,
+			_selectedDate: null,
+			_selectedNoQ: null,
+			_selectedNoH: null,
+		};
+	},
 
-const selectedNoQ = ref(null);
-watch(() => props.number_of_questions, () => {
-	selectedNoQ.value = props.number_of_questions;
-});
+	computed: {
 
-const selectedNoH = ref(null);
-watch(() => props.number_of_hits, () => {
-	selectedNoH.value = props.number_of_hits;
-});
+		...mapState(useSubjectStore, {
+			subjects: 'orderByRelationship',
+		}),
 
-function submitForm()
-{
-	emits('form-submitted', {
-		subject: {
-			id: selectedSubject.value
+		selectedSubject: {
+			get () { return this._selectedSubject || this.practicTest?.subject?.id },
+			set (value) { this._selectedSubject = value },
 		},
-		date: selectedDate.value,
-		number_of_questions: selectedNoQ.value,
-		number_of_hits: selectedNoH.value
-	});
+		
+		selectedDate: {
+			get () { return this._selectedDate || dayjs(this.practicTest?.date) },
+			set (value) { this._selectedDate = value },
+		},
+
+		selectedNoQ: {
+			get () { return this._selectedNoQ|| this.practicTest?.number_of_questions },
+			set (value) { this._selectedNoQ = value },
+		},
+
+		selectedNoH: {
+			get () { return this._selectedNoH || this.practicTest?.number_of_hits },
+			set (value) { this._selectedNoH = value },
+		},
+	},
+
+	methods: {
+
+		...mapActions(useSubjectStore, {
+			updateSubjects: 'updateEntries',
+		}),
+
+		submitForm()
+		{
+			this.$emit('form-submitted', {
+				subject: {
+					id: this.selectedSubject,
+				},
+				date: this.selectedDate,
+				number_of_questions: this.selectedNoQ,
+				number_of_hits: this.selectedNoH,
+			});
+
+			this.selectedSubject = null;
+			this.selectedDate = null;
+			this.selectedNoQ = null;
+			this.selectedNoH = null;
+		}
+
+	},
+
+	beforeMount()
+	{
+		if (this.subjects.length === 0)
+			this.updateSubjects();
+	}
+
 }
+
 </script>

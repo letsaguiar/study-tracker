@@ -9,31 +9,52 @@
 	</Modal>
 </template>
 
-<script setup>
-import { PracticeTestService } from '../../http/PracticeTestService';
+<script>
 import Modal from '../Modal.vue';
 import PracticeTestForm from './PracticeTestForm.vue';
 import { Modal as BsModal } from 'bootstrap';
-import { onMounted, watch } from 'vue';
+import { mapActions } from 'pinia';
+import { usePracticeTestStore } from '../../stores/practice-test.store';
 
-const emits = defineEmits(['create']);
-const props = defineProps(['active']);
+export default {
 
-let modal;
+	components: { Modal, PracticeTestForm },
 
-onMounted(() => {
-	modal = new BsModal('#create-practice-test-modal');
-})
+	props: [ 'active' ],
 
-watch(() => props.active, () => {
-	modal.show();
-});
+	data()
+	{
+		return { modal: null };
+	},
 
-async function createPracticeTest(data)
-{
-	await new PracticeTestService().create(data);
-	modal.hide();
-	emits('create');
+	mounted()
+	{
+		this.modal = new BsModal('#create-practice-test-modal');
+	},
+
+	watch: {
+
+		active()
+		{
+			this.modal.show();
+		}
+
+	},
+
+	methods: {
+		
+		...mapActions(usePracticeTestStore, {
+			createPracticeTestEntry: 'createEntry',
+		}),
+
+		createPracticeTest(data)
+		{
+			this.createPracticeTestEntry(data);
+			this.modal.hide();
+		}
+
+	}
+
 }
 
 </script>
