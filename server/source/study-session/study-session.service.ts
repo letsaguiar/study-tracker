@@ -50,7 +50,7 @@ export class StudySessionService
 
 	public async getMany(): Promise<StudySessionDto[]>
 	{
-		const study_sessions = await this.studySessionRepository.find({ relations: [ 'subject' ] });
+		const study_sessions = await this.studySessionRepository.find({ relations: [ 'subject' ], order: { init: 'DESC' } });
 		return (study_sessions.map((study_session) => this.buildStudySessionDto(study_session)));
 	}
 
