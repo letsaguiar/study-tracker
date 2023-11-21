@@ -13,8 +13,8 @@
 			</td>
 			<td class="px-4">
 				<div class="d-flex justify-content-end">
-					<button class="btn btn-primary me-3" @click="openUpdateModal(studySession)">edit</button>
-					<button class="btn btn-danger" @click="openDeleteModal(studySession)">delete</button>	
+					<button class="btn btn-primary me-3" @click="openUpdateModal(studySession)">Editar</button>
+					<button class="btn btn-danger" @click="openDeleteModal(studySession)">Deletar</button>	
 				</div>
 			</td>
 		</tr>
@@ -22,11 +22,14 @@
 
 	<StudySessionCreateModal :active="createModalActive" />
 
+	<StudySessionUpdateModal :active="updateModalActive" :study-session="selectedStudySession" />
+
 </template>
 
 <script>
 import Table from '../Table.vue';
 import StudySessionCreateModal from './StudySessionCreateModal.vue';
+import StudySessionUpdateModal from './StudySessionUpdateModal.vue';
 import { mapState, mapActions } from 'pinia';
 import { useStudySessionStore } from '../../stores/study-session.store.js'
 
@@ -36,12 +39,14 @@ dayjs.extend(duration);
 
 export default {
 
-	components: { Table, StudySessionCreateModal },
+	components: { Table, StudySessionCreateModal, StudySessionUpdateModal },
 
 	data()
 	{
 		return {
+			selectedStudySession: null,
 			createModalActive: 0,
+			updateModalActive: 0,
 		};
 	},
 
@@ -73,6 +78,12 @@ export default {
 		{
 			this.createModalActive++;
 		},
+
+		openUpdateModal(studySession)
+		{
+			this.selectedStudySession = studySession;
+			this.updateModalActive++;
+		}
 
 	},
 

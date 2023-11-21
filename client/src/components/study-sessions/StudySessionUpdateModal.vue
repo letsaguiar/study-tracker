@@ -1,5 +1,5 @@
 <template>
-	<Modal id="study-session-update-modal" title="Update Study Session">
+	<Modal id="update-study-session-modal" title="Update Study Session">
 		<template v-slot:body>
 			<StudySessionForm :studySession="studySession" @form-submitted="(data) => updateStudySession(data)" />
 		</template>
@@ -9,31 +9,52 @@
 	</Modal>
 </template>
 
-<script setup>
+<script>
 import Modal from '../Modal.vue';
 import StudySessionForm from './StudySessionForm.vue';
-import { Modal as BsModal} from 'bootstrap';
-import { onMounted, watch } from 'vue';
-import { StudySessionService } from '../../http/StudySessionService';
+import { Modal as BsModal } from 'bootstrap';
+import { mapActions } from 'pinia';
+import { useStudySessionStore } from '../../stores/study-session.store';
 
-const emit = defineEmits(['update']);
-const props = defineProps(['active', 'studySession']);
+export default {
 
-let modal;
+	components: { Modal, StudySessionForm },
 
-onMounted(() => {
-	modal = new BsModal('#study-session-update-modal');
-})
+	props: ['active', 'studySession'],
 
-watch(() => props.active, () => {
-	modal.show();
-});
+	data()
+	{
+		return { modal: null };
+	},
 
-async function updateStudySession(data)
-{
-	await new StudySessionService().update(props.studySession.id, data);
-	modal.hide();
-	emit('update');
+	mounted()
+	{
+		this.modal = new BsModal('#update-study-session-modal');
+	},
+
+	watch: {
+
+		active()
+		{
+			this.modal.show();
+		}
+
+	},
+
+	methods: {
+
+		...mapActions(useStudySessionStore, {
+			updateStudySessionEntry: 'updateEntry',
+		}),
+		
+		updateStudySession(data)
+		{
+			this.updateStudySessionEntry(this.studySession?.id, data);
+			this.modal.hide();
+		}
+
+	},
+
 }
 
 </script>

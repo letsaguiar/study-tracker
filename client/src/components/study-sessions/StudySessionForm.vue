@@ -33,6 +33,7 @@
 <script> 
 import { mapState, mapActions } from 'pinia';
 import { useSubjectStore } from '../../stores/subject.store';
+import dayjs from 'dayjs';
 
 export default {
 
@@ -62,12 +63,12 @@ export default {
 		},
 
 		selectedInit: {
-			get () { return this._selectedInit|| this.studySession?.init },
+			get () { return this._selectedInit|| dayjs(this.studySession?.init).format("YYYY-MM-DDTHH:mm") },
 			set (value) { this._selectedInit = value },
 		},
 
 		selectedEnd: {
-			get () { return this._selectedEnd || this.studySession?.end },
+			get () { return this._selectedEnd || dayjs(this.studySession?.end).format("YYYY-MM-DDTHH:mm") },
 			set (value) { this._selectedEnd = value },
 		},
 		
