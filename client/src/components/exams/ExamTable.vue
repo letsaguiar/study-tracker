@@ -17,30 +17,35 @@
 
 			<td class="px-4">
 				<div class="d-flex justify-content-end">
-					<button class="btn btn-primary me-3" @click="openUpdateModal(subject)">Editar</button>
-					<button class="btn btn-danger" @click="openDeleteModal(subject)">Deletar</button>	
+					<button class="btn btn-primary me-3" @click="openUpdateModal(exam)">Editar</button>
+					<button class="btn btn-danger" @click="openDeleteModal(exam)">Deletar</button>	
 				</div>
 			</td>
 		</tr>
 	</Table>
 
 	<ExamCreateModal :active="createModalActive" />
+
+	<ExamUpdateModal :active="updateModalActive" :exam="selectedExam" />
 </template>
 
 <script>
 import Table from '../Table.vue';
 import ExamCreateModal from './ExamCreateModal.vue';
+import ExamUpdateModal from './ExamUpdateModal.vue';
 import { mapState, mapActions } from 'pinia';
 import { useExamStore } from '../../stores/exam.store';
 import dayjs from 'dayjs';
 
 export default {
 
-	components: { Table, ExamCreateModal },
+	components: { Table, ExamCreateModal, ExamUpdateModal },
 
 	data() {
 		return {
+			selectedExam: null,
 			createModalActive: 0,
+			updateModalActive: 0,
 		}
 	},
 
@@ -69,6 +74,12 @@ export default {
 		openCreateModal()
 		{
 			this.createModalActive++;
+		},
+
+		openUpdateModal(exam)
+		{
+			this.selectedExam = exam;
+			this.updateModalActive++;
 		}
 
 	},
