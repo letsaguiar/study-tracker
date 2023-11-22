@@ -3,7 +3,7 @@ import { ExamService } from './exam.service';
 import { ExamCreateDto, ExamIdDto, ExamUpdateDto } from './exam.dto.in';
 import { Exam } from './exam.dto.out';
 
-@Controller()
+@Controller('exam')
 export class ExamController
 {
 
