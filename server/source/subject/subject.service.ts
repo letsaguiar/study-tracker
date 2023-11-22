@@ -26,7 +26,7 @@ export class SubjectService
 
 	public async getOne(id: string): Promise<Subject>
 	{
-		return this.subjectRepository.findOne({ where: { id }, relations: ['parent'] })
+		return this.subjectRepository.findOne({ where: { id }, relations: ['parent'] });
 	}
 
 	public async getMany(): Promise<Subject[]>

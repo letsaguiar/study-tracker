@@ -6,6 +6,8 @@ import { StudySessionModule } from './study-session/study-session.module';
 import { Subject } from './subject/subject.dto.out';
 import { SubjectModule } from './subject/subject.module';
 import { PracticeTestModule } from './practice-test/practice-test.module';
+import { Exam } from './exam/exam.dto.out';
+import { ExamModule } from './exam/exam.module';
 
 @Module({
 	imports: [
@@ -16,12 +18,14 @@ import { PracticeTestModule } from './practice-test/practice-test.module';
 				Subject,
 				StudySession,
 				PracticeTest,
+				Exam,
 			],
 			synchronize: true,
 		}),
 		SubjectModule,
 		StudySessionModule,
 		PracticeTestModule,
+		ExamModule,
 	]
 })
 export class AppModule { }

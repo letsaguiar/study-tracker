@@ -1,4 +1,4 @@
-import { IsISO8601, IsNotEmpty, IsString, IsUUID } from 'class-validator';
+import { IsISO8601, IsNotEmpty, IsOptional, IsString, IsUUID } from 'class-validator';
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity()
@@ -16,11 +16,13 @@ export class Exam
 
 	@Column({ nullable: true })
 	@IsISO8601()
-	public first_application_date: string;
+	@IsOptional()
+	public first_application_date?: string;
 
 	@Column({ nullable: true })
 	@IsISO8601()
-	public second_application_date: string;
+	@IsOptional()
+	public second_application_date?: string;
 
 	@CreateDateColumn()
 	@IsISO8601()
