@@ -13,8 +13,7 @@
 		</div>
 		<div class="sidenav-footer position-absolute w-100 bottom-0 ">
 			<div class="mx-3">
-				<a class="btn btn-outline-primary w-100" href="#" type="button">Timer</a>
-				<a class="btn bg-gradient-primary w-100" href="#" type="button">Pomodoro</a>
+				<button class="btn bg-gradient-primary w-100" href="#" type="button">Timer</button>
 			</div>
 		</div>
 	</aside>
