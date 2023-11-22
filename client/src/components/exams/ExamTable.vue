@@ -27,25 +27,30 @@
 	<ExamCreateModal :active="createModalActive" />
 
 	<ExamUpdateModal :active="updateModalActive" :exam="selectedExam" />
+
+	<ExamDeleteModal :active="deleteModalActive" :exam="selectedExam" />
+
 </template>
 
 <script>
 import Table from '../Table.vue';
 import ExamCreateModal from './ExamCreateModal.vue';
 import ExamUpdateModal from './ExamUpdateModal.vue';
+import ExamDeleteModal from './ExamDeleteModal.vue';
 import { mapState, mapActions } from 'pinia';
 import { useExamStore } from '../../stores/exam.store';
 import dayjs from 'dayjs';
 
 export default {
 
-	components: { Table, ExamCreateModal, ExamUpdateModal },
+	components: { Table, ExamCreateModal, ExamUpdateModal, ExamDeleteModal },
 
 	data() {
 		return {
 			selectedExam: null,
 			createModalActive: 0,
 			updateModalActive: 0,
+			deleteModalActive: 0,
 		}
 	},
 
@@ -80,6 +85,12 @@ export default {
 		{
 			this.selectedExam = exam;
 			this.updateModalActive++;
+		},
+
+		openDeleteModal(exam)
+		{
+			this.selectedExam = exam;
+			this.deleteModalActive++;
 		}
 
 	},
