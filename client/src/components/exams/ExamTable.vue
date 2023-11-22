@@ -6,6 +6,8 @@
 
 <script>
 import ExamCreateModal from './ExamCreateModal.vue';
+import { mapState, mapActions } from 'pinia';
+import { useExamStore } from '../../stores/exam.store';
 
 export default {
 
@@ -17,14 +19,32 @@ export default {
 		}
 	},
 
+	computed: {
+
+		...mapState(useExamStore, {
+			exams: 'entries',
+		}),
+
+	},
+
 	methods: {
 		
+		...mapActions(useExamStore, {
+			updateExams: 'updateEntries',
+		}),
+
 		openCreateModal()
 		{
 			this.createModalActive++;
 		}
 
 	},
+
+	mounted()
+	{
+		if (this.exams.length === 0)
+			this.updateExams();
+	}
 
 }
 </script>

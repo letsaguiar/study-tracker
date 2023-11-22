@@ -12,6 +12,8 @@
 <script>
 import Modal from '../Modal.vue';
 import ExamForm from './ExamForm.vue'
+import { mapActions } from 'pinia';
+import { useExamStore } from '../../stores/exam.store';
 import { Modal as BsModal } from 'bootstrap';
 
 export default {
@@ -40,9 +42,14 @@ export default {
 
 	methods: {
 
-		createExam(data)
+		...mapActions(useExamStore, {
+			createExamEntry: 'createEntry',
+		}),
+
+		async createExam(data)
 		{
-			console.log(data);
+			await this.createExamEntry(data);
+			this.modal.hide();
 		}
 
 	}
