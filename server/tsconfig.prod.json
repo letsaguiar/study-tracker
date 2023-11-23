@@ -14,7 +14,6 @@
 		"allowSyntheticDefaultImports": true,
 	},
 	"include": [
-		"./source",
-		"./test/"
-	]
+		"./source"
+	],
 }

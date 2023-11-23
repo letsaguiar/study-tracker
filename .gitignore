@@ -10,3 +10,6 @@ database/
 
 # Env files
 *.env
+
+# Jest
+coverage/
