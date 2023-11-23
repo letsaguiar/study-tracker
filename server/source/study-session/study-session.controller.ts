@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post } from '@nestjs/common';
 import { StudySessionService } from './study-session.service';
 import { StudySessionCreateDto, StudySessionIdDto, StudySessionUpdateDto } from './study-session.dto.in';
-import { StudySession, StudySessionDto, StudySessionSumaryDto } from './study-session.dto.out';
+import { StudySessionDto } from './study-session.dto.out';
 
 @Controller('study-session')
 export class StudySessionController
@@ -27,12 +27,6 @@ export class StudySessionController
 	public getMany(): Promise<StudySessionDto[]>
 	{
 		return this.studySessionService.getMany();
-	}
-
-	@Get('summary')
-	public getSummary(): Promise<StudySessionSumaryDto>
-	{
-		return this.studySessionService.getSummary();
 	}
 
 	@Get(':id')

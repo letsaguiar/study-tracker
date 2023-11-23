@@ -20,10 +20,12 @@ export class Subject
 
 	@CreateDateColumn()
 	@IsDate()
+	@Type(() => Date)
 	public created_at: Date;
 
 	@UpdateDateColumn()
 	@IsDate()
+	@Type(() => Date)
 	public updated_at: Date;
 
 	@ManyToOne(() => Subject, { nullable: true })

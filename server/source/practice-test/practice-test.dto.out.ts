@@ -1,5 +1,5 @@
 import { Type } from 'class-transformer';
-import { IsISO8601, IsNotEmptyObject, IsNumber, IsObject, IsUUID, ValidateNested } from 'class-validator';
+import { IsDate, IsISO8601, IsNotEmptyObject, IsNumber, IsObject, IsUUID, ValidateNested } from 'class-validator';
 import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { SubjectIdDto } from '../subject/subject.dto.in';
 import { Subject } from '../subject/subject.dto.out';
@@ -31,16 +31,19 @@ export class PracticeTest
 	public number_of_hits: number;
 
 	@Column()
-	@IsISO8601()
-	public date: string;
+	@IsDate()
+	@Type(() => Date)
+	public date: Date;
 
 	@CreateDateColumn()
-	@IsISO8601()
-	public created_at: string;
+	@IsDate()
+	@Type(() => Date)
+	public created_at: Date;
 
 	@UpdateDateColumn()
-	@IsISO8601()
-	public updated_at: string;
+	@IsDate()
+	@Type(() => Date)
+	public updated_at: Date;
 
 }
 
@@ -49,21 +52,5 @@ export class PracticeTestDto extends PracticeTest
 	
 	@IsNumber()
 	public hit_rate: number;
-
-}
-
-export class PracticeTestSummaryDto extends PickType(PracticeTestDto, ['number_of_questions', 'number_of_hits', 'hit_rate'] as const)
-{
-
-	@IsObject({ each: true })
-	public by_subject: PracticeTestSubjectSummaryDto[];
-	
-}
-
-export class PracticeTestSubjectSummaryDto extends OmitType(PracticeTestSummaryDto, ['by_subject'])
-{
-
-	@IsObject()
-	public subject: Subject;
 
 }
