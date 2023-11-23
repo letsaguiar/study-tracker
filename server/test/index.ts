@@ -2,6 +2,7 @@ import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { TestModule } from './test.module';
 import { unlink } from 'fs';
+import * as request from 'supertest';
 
 export class TestApplication
 {
@@ -43,8 +44,28 @@ export class TestApplication
 		unlink('database/study-tracker-test.db', () => true);
 	}
 
-	public get<TInput = any>(resource: any): TInput
+	public getResource<TInput = any>(resource: any): TInput
 	{
 		return this.server.get<TInput>(resource);
+	}
+
+	public get(path: string): request.Test
+	{
+		return request(this.server.getHttpServer()).get(path);
+	}
+
+	public post(path: string): request.Test
+	{
+		return request(this.server.getHttpServer()).post(path);
+	}
+
+	public patch(path: string): request.Test
+	{
+		return request(this.server.getHttpServer()).patch(path);
+	}
+	
+	public delete(path: string): request.Test
+	{
+		return request(this.server.getHttpServer()).delete(path);
 	}
 }

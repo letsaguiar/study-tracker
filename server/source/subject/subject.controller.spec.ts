@@ -9,7 +9,7 @@ describe('SubjectController', () =>
 	beforeAll(async () => 
 	{
 		app = await TestApplication.create();
-		controller = app.get<SubjectController>(SubjectController);
+		controller = app.getResource<SubjectController>(SubjectController);
 	});
 
 	afterAll(async () => 
@@ -21,6 +21,17 @@ describe('SubjectController', () =>
 	test('should be defined', () => 
 	{
 		expect(controller).toBeDefined();
+	});
+
+
+	describe('create', () => 
+	{
+		test('should create a new subject', () => 
+		{
+			app.post('/subject')
+				.send({ name: 'Português' })
+				.expect(201);
+		});
 	});
 
 });

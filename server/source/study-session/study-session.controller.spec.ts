@@ -9,7 +9,7 @@ describe('StudySessionController', () =>
 	beforeAll(async () => 
 	{
 		app = await TestApplication.create();
-		controller = app.get<StudySessionController>(StudySessionController);
+		controller = app.getResource<StudySessionController>(StudySessionController);
 	});
 
 	afterAll(async () => 
@@ -22,5 +22,4 @@ describe('StudySessionController', () =>
 	{
 		expect(controller).toBeDefined();
 	});
-
 });
