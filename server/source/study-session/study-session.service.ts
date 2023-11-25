@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import * as dayjs from 'dayjs';
 import { Repository } from 'typeorm';
 import { StudySessionCreateDto, StudySessionUpdateDto } from './study-session.dto.in';
-import { StudySession, StudySessionDto } from './study-session.dto.out';
-import * as dayjs from 'dayjs';
+import { StudySessionDto } from './study-session.dto.out';
+import { StudySession } from './study-session.entity';
 
 @Injectable()
 export class StudySessionService
