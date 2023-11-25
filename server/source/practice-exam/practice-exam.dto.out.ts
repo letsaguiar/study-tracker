@@ -1,5 +1,5 @@
 import { Type } from 'class-transformer';
-import { IsDate, IsInt, IsUUID, ValidateNested } from 'class-validator';
+import { IsDate, IsInt, IsNotEmptyObject, IsObject, IsUUID, ValidateNested } from 'class-validator';
 import { ExamIdDto } from '../exam/exam.dto.in';
 
 export class PracticeExamDto
@@ -8,6 +8,8 @@ export class PracticeExamDto
 	@IsUUID()
 	public id: string;
 
+	@IsObject()
+	@IsNotEmptyObject()
 	@ValidateNested()
 	@Type(() => ExamIdDto)
 	public exam: ExamIdDto;

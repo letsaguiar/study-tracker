@@ -29,12 +29,12 @@ export class PracticeExamService
 
 	public async getOne(id: string): Promise<PracticeExamDto>
 	{
-		return this.practiceExamRepository.findOne({ where: { id } });
+		return this.practiceExamRepository.findOne({ where: { id }, relations: ['exam'] });
 	}
 
 	public async getMany(): Promise<PracticeExamDto[]>
 	{
-		return this.practiceExamRepository.find();
+		return this.practiceExamRepository.find({ relations: ['exam'] });
 	}
 
 	public async delete(id: string): Promise<void>

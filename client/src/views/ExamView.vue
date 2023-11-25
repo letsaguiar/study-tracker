@@ -7,17 +7,26 @@
 				</Card>
 			</div>
 		</div>
+
+		<div class="row">
+			<div class="col-12">
+				<Card title="Simulados">
+					<PracticeExamTable />
+				</Card>
+			</div>
+		</div>
 	</div>
 </template>
 
 <script>
-import Card from '../components/Card.vue';
-import ExamTable from '../components/exams/ExamTable.vue'
 import { mapActions } from 'pinia';
+import Card from '../components/Card.vue';
+import ExamTable from '../components/exams/ExamTable.vue';
+import PracticeExamTable from '../components/practice-exam/PracticeExamTable.vue';
 import { usePathStore } from '../stores/path-store.js';
 
 export default {
-	components: { Card, ExamTable },
+	components: { Card, ExamTable, PracticeExamTable, PracticeExamTable },
 
 	methods: {
 		...mapActions(usePathStore, {
