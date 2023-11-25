@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Exam } from './exam/exam.entity';
 import { ExamModule } from './exam/exam.module';
 import { PracticeExam } from './practice-exam/practice-exam.entity';
+import { PracticeExamModule } from './practice-exam/practice-exam.module';
 import { PracticeTest } from './practice-test/practice-test.dto.out';
 import { PracticeTestModule } from './practice-test/practice-test.module';
 import { StudySession } from './study-session/study-session.dto.out';
@@ -28,6 +29,7 @@ import { SubjectModule } from './subject/subject.module';
 		StudySessionModule,
 		PracticeTestModule,
 		ExamModule,
+		PracticeExamModule,
 	]
 })
 export class AppModule { }
