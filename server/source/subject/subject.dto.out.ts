@@ -1,46 +1,33 @@
 import { Type } from 'class-transformer';
-import { IsDate, IsString, IsUUID, ValidateNested } from 'class-validator';
-import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
-import { PracticeTest } from '../practice-test/practice-test.dto.out';
-import { StudySession } from '../study-session/study-session.dto.out';
-import { SubjectIdDto } from './subject.dto.in';
+import { IsDate, IsNotEmpty, IsNotEmptyObject, IsObject, IsOptional, IsString, IsUUID, ValidateNested } from 'class-validator';
+import { Entity } from 'typeorm';
+import { Subject } from './subject.entity';
 
 
 @Entity()
-export class Subject
+export class SubjectDto
 {
 
-	@PrimaryGeneratedColumn('uuid')
 	@IsUUID()
 	public id: string;
 
-	@Column()
 	@IsString()
+	@IsNotEmpty()
 	public name: string;
 
-	@CreateDateColumn()
 	@IsDate()
 	@Type(() => Date)
 	public created_at: Date;
 
-	@UpdateDateColumn()
 	@IsDate()
 	@Type(() => Date)
 	public updated_at: Date;
 
-	@ManyToOne(() => Subject, { nullable: true })
+	@IsObject()
+	@IsNotEmptyObject()
 	@ValidateNested()
-	@Type(() => SubjectIdDto)
+	@Type(() => Subject)
+	@IsOptional()
 	public parent?: Subject;
-
-	@OneToMany(() => StudySession, (study_session) => study_session.subject)
-	@ValidateNested({ each: true })
-	@Type(() => StudySession)
-	public study_sessions: StudySession[];
-
-	@OneToMany(() => PracticeTest, (practice_test) => practice_test.subject)
-	@ValidateNested({ each: true })
-	@Type(() => PracticeTest)
-	public practice_tests: PracticeTest[];
 	
 }

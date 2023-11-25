@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { Subject } from './subject.dto.out';
-import { SubjectCreateDto, SubjectUpdateDto } from './subject.dto.in';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { SubjectCreateDto, SubjectUpdateDto } from './subject.dto.in';
+import { SubjectDto } from './subject.dto.out';
+import { Subject } from './subject.entity';
 
 @Injectable()
 export class SubjectService
@@ -12,7 +13,7 @@ export class SubjectService
 		private readonly subjectRepository: Repository<Subject>,
 	) { }
 
-	public async create(params: SubjectCreateDto): Promise<Subject>
+	public async create(params: SubjectCreateDto): Promise<SubjectDto>
 	{
 		const subject = this.subjectRepository.create(params);
 		await this.subjectRepository.save(subject);
@@ -24,12 +25,12 @@ export class SubjectService
 		await this.subjectRepository.update(id, params);
 	}
 
-	public async getOne(id: string): Promise<Subject>
+	public async getOne(id: string): Promise<SubjectDto>
 	{
 		return this.subjectRepository.findOne({ where: { id }, relations: ['parent'] });
 	}
 
-	public async getMany(): Promise<Subject[]>
+	public async getMany(): Promise<SubjectDto[]>
 	{
 		return this.subjectRepository.find({ relations: ['parent'] });
 	}

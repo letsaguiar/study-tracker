@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post } from '@nestjs/common';
-import { SubjectService } from './subject.service';
 import { SubjectCreateDto, SubjectIdDto, SubjectUpdateDto } from './subject.dto.in';
-import { Subject } from './subject.dto.out';
+import { SubjectDto } from './subject.dto.out';
+import { SubjectService } from './subject.service';
 
 @Controller('subject')
 export class SubjectController
@@ -12,7 +12,7 @@ export class SubjectController
 	) { }
 
 	@Post('')
-	public create(@Body() body: SubjectCreateDto): Promise<Subject>
+	public create(@Body() body: SubjectCreateDto): Promise<SubjectDto>
 	{
 		return this.subjectService.create(body);
 	}
@@ -25,13 +25,13 @@ export class SubjectController
 	}
 
 	@Get('')
-	public getMany(): Promise<Subject[]>
+	public getMany(): Promise<SubjectDto[]>
 	{
 		return this.subjectService.getMany();
 	}
 
 	@Get(':id')
-	public getOne(@Param() params: SubjectIdDto): Promise<Subject>
+	public getOne(@Param() params: SubjectIdDto): Promise<SubjectDto>
 	{
 		return this.subjectService.getOne(params.id);
 	}
