@@ -3,7 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import BigNumber from 'bignumber.js';
 import { Repository } from 'typeorm';
 import { PracticeTestCreateDto, PracticeTestUpdateDto } from './practice-test.dto.in';
-import { PracticeTest, PracticeTestDto  } from './practice-test.dto.out';
+import { PracticeTestDto } from './practice-test.dto.out';
+import { PracticeTest } from './practice-test.entity';
 
 @Injectable()
 export class PracticeTestService

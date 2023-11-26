@@ -1,8 +1,20 @@
 import { PartialType, PickType } from '@nestjs/swagger';
-import { PracticeTest } from './practice-test.dto.out';
+import { Type } from 'class-transformer';
+import { IsNotEmptyObject, IsObject, ValidateNested } from 'class-validator';
+import { SubjectIdDto } from '../subject/subject.dto.in';
+import { PracticeTestDto } from './practice-test.dto.out';
 
-export class PracticeTestIdDto extends PickType(PracticeTest, ['id'] as const) { }
+export class PracticeTestIdDto extends PickType(PracticeTestDto, ['id']) { }
 
-export class PracticeTestCreateDto extends PickType(PracticeTest, ['subject' ,'number_of_questions', 'number_of_hits', 'date'] as const) { }
+export class PracticeTestCreateDto extends PickType(PracticeTestDto, ['number_of_questions', 'number_of_hits', 'date'])
+{
+
+	@IsObject()
+	@IsNotEmptyObject()
+	@ValidateNested()
+	@Type(() => SubjectIdDto)
+	public subject: SubjectIdDto;
+
+}
 
 export class PracticeTestUpdateDto extends PartialType(PracticeTestCreateDto) { }
