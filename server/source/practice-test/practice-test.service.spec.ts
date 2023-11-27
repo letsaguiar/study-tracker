@@ -1,14 +1,27 @@
 import { getRepositoryToken } from '@nestjs/typeorm';
+import { v4 as uuid } from 'uuid';
 import { TestApplication } from '../../test';
+import { Subject } from '../subject/subject.entity';
 import { PracticeTest } from './practice-test.entity';
 import { PracticeTestService } from './practice-test.service';
 
+const entity: PracticeTest = {
+	id: uuid(),
+	subject: { id: uuid() } as Subject,
+	number_of_hits: 1,
+	number_of_questions: 2,
+	date: new Date(),
+	created_at: new Date(),
+	updated_at: new Date(),
+
+};
+
 const repositoryMock = {
-	create: jest.fn().mockReturnValue({}),
+	create: jest.fn().mockReturnValue(entity),
 	save: jest.fn().mockReturnValue(null),
-	update: jest.fn().mockReturnValue(null),
-	findOne: jest.fn().mockReturnValue({}),
-	find: jest.fn().mockReturnValue([]),
+	update: jest.fn().mockReturnValue(entity),
+	findOne: jest.fn().mockReturnValue(entity),
+	find: jest.fn().mockReturnValue([entity]),
 	delete: jest.fn().mockReturnValue(null),
 };
 
