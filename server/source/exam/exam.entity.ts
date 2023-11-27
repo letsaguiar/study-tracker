@@ -1,5 +1,4 @@
-import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
-import { PracticeExam } from '../practice-exam/practice-exam.entity';
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity()
 export class Exam
@@ -22,9 +21,6 @@ export class Exam
 
 	@UpdateDateColumn()
 	public updated_at: Date;
-
-	@OneToMany(() => PracticeExam, (practice_exam) => practice_exam.exam)
-	public practice_exams: PracticeExam[];
 
 }
 
