@@ -14,10 +14,10 @@ export class PracticeTestService
 		private readonly practiceTestRepository: Repository<PracticeTest>,
 	) { }
 
-	private getHitRate(number_of_questions: number, number_of_hits: number): number
+	private getHitRate(practice_test: PracticeTest): number
 	{
-		return new BigNumber(number_of_hits)
-			.dividedBy(number_of_questions)
+		return new BigNumber(practice_test.number_of_hits)
+			.dividedBy(practice_test.number_of_questions)
 			.multipliedBy(100)
 			.decimalPlaces(2)
 			.toNumber();
@@ -25,7 +25,7 @@ export class PracticeTestService
 
 	private buildPracticeTestDto(practice_test: PracticeTest): PracticeTestDto
 	{
-		const hit_rate = this.getHitRate(practice_test.number_of_questions, practice_test.number_of_hits);
+		const hit_rate = this.getHitRate(practice_test);
 		return ({ ...practice_test, hit_rate });
 	}
 
