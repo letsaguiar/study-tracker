@@ -18,7 +18,7 @@ export class PracticeExamService
 	private getHitRate(practice_exam: PracticeExam): number
 	{
 		return new BigNumber(practice_exam.number_of_hits)
-			.dividedBy(practice_exam.number_of_hits)
+			.dividedBy(practice_exam.number_of_questions)
 			.multipliedBy(100)
 			.decimalPlaces(2)
 			.toNumber();

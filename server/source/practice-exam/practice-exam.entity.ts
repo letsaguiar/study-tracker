@@ -8,7 +8,7 @@ export class PracticeExam
 	@PrimaryGeneratedColumn('uuid')
 	public id: string;
 
-	@ManyToOne(() => Exam, (exam) => exam.practice_exams)
+	@ManyToOne(() => Exam)
 	public exam: Exam;
 
 	@Column()
