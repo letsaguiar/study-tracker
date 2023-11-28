@@ -2,6 +2,7 @@
 	<Sidebar />
 	<div class="relative md:ml-64 bg-blueGray-50">
 		<Navbar />
+
 		<div class="relative bg-pink-600 md:pt-32 pb-32 pt-12">
 			<RouterView />
 		</div>

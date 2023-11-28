@@ -1,11 +1,5 @@
 <template>
-	<Navbar>
-		<template #left>
-			<RouterLink to="/" class="text-white text-sm uppercase hidden lg:inline-block font-semibold">
-				{{ route.name }}
-			</RouterLink>
-		</template>
-	</Navbar>
+	<Navbar></Navbar>
 </template>
 
 <script>
