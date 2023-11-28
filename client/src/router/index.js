@@ -9,26 +9,6 @@ const router = createRouter({
       name: 'home',
       component: HomeView
     },
-    {
-      path: '/subjects',
-      name: 'subjects',
-      component: () => import('../views/SubjectView.vue')
-    },
-    {
-      path: '/study-sessions',
-      name: 'study-sessions',
-      component: () => import('../views/StudySessionView.vue')
-    },
-	{
-      path: '/practice-tests',
-      name: 'pratice-tests',
-      component: () => import('../views/PracticeTestView.vue')
-    },
-	{
-		path: '/exams',
-		name: 'exams',
-		component: () => import('../views/ExamView.vue')
-	},
   ]
 })
 
