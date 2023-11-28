@@ -40,7 +40,7 @@
 				<SidebarItem
 				 path="/statiscs"
 				 title="estatísticas"
-				 icon="fa-solid fa-char-simple"
+				 icon="fa-solid fa-chart-simple"
 				 :active="isActive('/statiscs')"
 				/>
 			</SidebarItemGroup>
