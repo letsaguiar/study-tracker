@@ -69,7 +69,7 @@ export default {
       },
     },
   },
-  plugins: [],plugins: [
+  plugins: [
     require("@tailwindcss/forms"),
     plugin(function ({ addComponents, theme }) {
       const screens = theme("screens", {});
@@ -128,6 +128,9 @@ export default {
     "active",
     "visited",
     "disabled",
+  ],
+  safelist: [
+	{ pattern: /bg-+/ },
   ],
 }
 
