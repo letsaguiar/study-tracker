@@ -58,15 +58,15 @@ export const useSubjectStore = defineStore('subject', {
 			this.get();
 		},
 
-		async update(subject)
+		async update(id, subject)
 		{
-			await this._service.patch(subject.id, subject);
+			await this._service.patch(id, subject);
 			this.get();
 		},
 
-		async delete(subject)
+		async delete(id)
 		{
-			await this._service.delete(subject.id);
+			await this._service.delete(id);
 			this.get();
 		},
 
