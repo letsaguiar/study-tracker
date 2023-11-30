@@ -1,6 +1,6 @@
 <template>
 	<form @submit.prevent="submit">
-		<Select label="área do conhecimento" :options="subjectOptions" @change="(value) => parent = value"></Select>
+		<Select label="área do conhecimento" :options="subjectOptions" :value="subject?.parent?.id" @change="(value) => parent = value"></Select>
 		<Input label="nome" placeholder="Português" :value="subject?.name" @change="(value) => name = value" />
 		<div class="p-2">
 			<Button color="amber" custom-class="w-full" @click="submit">salvar</Button>
