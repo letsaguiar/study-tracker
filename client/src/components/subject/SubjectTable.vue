@@ -17,13 +17,15 @@
 				</TableItem>
 				<TableItem>
 					<div class="flex justify-end">
-						<Button color="pink" size="sm" custom-class="mr-3">editar</Button>
+						<Button color="pink" size="sm" custom-class="mr-3" @click="openUpdateModal(subject)">editar</Button>
 						<Button color="red" size="sm">deletar</Button>
 					</div>
 				</TableItem>
 			</TableRow>
 		</template>
 	</Table>
+
+	<SubjectUpdateModal :subject="selectedSubject" :active="updateModalActive" />
 </template>
 
 <script>
@@ -34,10 +36,19 @@ import Table from '../base/table/Table.vue';
 import TableHead from '../base/table/TableHead.vue';
 import TableItem from '../base/table/TableItem.vue';
 import TableRow from '../base/table/TableRow.vue';
+import SubjectUpdateModal from './SubjectUpdateModal.vue';
 
 export default {
 
-	components: { Button, Table, TableHead, TableItem, TableRow },
+	components: { Button, Table, TableHead, TableItem, TableRow, SubjectUpdateModal },
+
+	data()
+	{
+		return {
+			selectedSubject: null,
+			updateModalActive: 0
+		};
+	},
 
 	computed: {
 
@@ -52,6 +63,12 @@ export default {
 		...mapActions(useSubjectStore, {
 			getSubjects: 'get',
 		}),
+
+		openUpdateModal(subject)
+		{
+			this.selectedSubject = subject;
+			this.updateModalActive++;
+		},
 
 	},
 
