@@ -1,16 +1,14 @@
 <template>
-	<div class="p-2">
-    	<label class="block text-sm font-medium leading-6 text-gray-900 uppercase">{{ label }}</label>
-        <div class="mt-2">
-            <select
-			 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-pink-500"
-			 :value="value"
-			 @change="$emit('change', $event.target.value)"
-			>
-                <option v-for="option in options" :value="option.value">{{ option.name }}</option>
-            </select>
-        </div>
-    </div>
+  <div class="mb-5">
+    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white uppercase">{{ label }}</label>
+    <select
+      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-pink-500 focus:border-pink-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+      :value="value"
+      @change="$emit('change', $event.target.value)"
+    >
+      <option v-for="option in options" :value="option.value">{{ option.name }}</option>
+    </select>
+  </div>
 </template>
 
 <script>

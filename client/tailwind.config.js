@@ -4,7 +4,8 @@ const colors = require('tailwindcss/colors');
 export default {
   content: [
 	'./index.html',
-	'./src/**/*.{vue,js,ts,jsx,tsx}'
+	'./src/**/*.{vue,js,ts,jsx,tsx}',
+	'./node_modules/flowbite/**/*.js"'
   ],
   theme: {
     colors: {
@@ -70,6 +71,7 @@ export default {
     },
   },
   plugins: [
+	require('flowbite/plugin'),
     require("@tailwindcss/forms"),
     plugin(function ({ addComponents, theme }) {
       const screens = theme("screens", {});

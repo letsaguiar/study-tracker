@@ -1,5 +1,5 @@
 <template>
-	<Button color="amber" size="md" custom-class="relative mb-5" @click="openCreateModal()">nova matéria</Button>
+	<Button color="green" size="md" custom-class="relative mb-5" @click="openCreateModal()">nova matéria</Button>
 
 	<Card title="Matérias">
 		<SubjectTable />
