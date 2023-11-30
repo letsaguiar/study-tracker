@@ -1,7 +1,7 @@
 <template>
 	<form @submit.prevent="submit">
 		<Select label="área do conhecimento" :options="subjectOptions" @change="(value) => parent = value"></Select>
-		<Input label="nome" placeholder="Português" @change="(value) => name = value" />
+		<Input label="nome" placeholder="Português" :value="subject?.name" @change="(value) => name = value" />
 		<div class="p-2">
 			<Button color="amber" custom-class="w-full" @click="submit">salvar</Button>
 		</div>
@@ -17,9 +17,11 @@ import Select from '../base/form/Select.vue';
 
 export default {
 
-	emits: [ 'submit' ],
-
 	components: { Input, Select, Button },
+
+	emits: [ 'submit' ],
+	
+	props: [ 'subject' ],
 
 	data()
 	{
