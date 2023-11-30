@@ -32,7 +32,7 @@ export default {
 		async submit(subject)
 		{
 			await this.updateSubject(this.subject.id, subject);
-			this.modalActive++;
+			this.modalActive = 0;
 		}
 
 	},

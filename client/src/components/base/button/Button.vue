@@ -1,6 +1,6 @@
 <template>
 	<button
-	 :type="type"
+	 :type="type || 'button'"
 	 class="text-white font-bold uppercase rounded focus:outline-none"
 	 :class="[ ...colorClass, ...sizeClass, customClass ]"
 	 @click="$emit('click')"

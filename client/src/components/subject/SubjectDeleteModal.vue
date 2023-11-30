@@ -1,7 +1,14 @@
 <template>
 	<Modal title="deletar matéria" :active="modalActive" id="subject-delete-modal">
 		<template #body>
-			<span class="text-base font-bold">Você tem certeza que deseja deletar esta matéria?</span>
+			<span class="text-base font-bold">
+				<strong>🚨 ATENÇÃO! 🚨</strong><br><br>
+				Você está prestes a excluir uma matéria. Antes de prosseguir, por favor, leve em consideração os seguintes pontos:<br><br>
+				🔍 Ao deletar esta matéria, todas as informações associadas a ela serão permanentemente removidas do sistema.<br><br>
+				⚠️ Isso inclui quaisquer recursos, anotações ou dados relacionados a esta matéria.<br><br>
+				🤔 Tem certeza de que deseja prosseguir com a exclusão? Recomendamos revisar cuidadosamente para garantir que não há informações importantes vinculadas a esta matéria.<br><br>
+				📚 Lembre-se: Uma vez excluída, a matéria não poderá ser recuperada.<br><br>
+			</span>
 		</template>
 		<template #footer>
 			<div class="flex justify-end">
@@ -39,7 +46,7 @@ export default {
 		async submit()
 		{
 			await this.deleteSubject(this.subject.id);
-			this.modalActive++;
+			this.modalActive = 0;
 		},
 
 		close()

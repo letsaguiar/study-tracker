@@ -3,7 +3,7 @@
 		<Select label="área do conhecimento" :options="subjectOptions" :value="subject?.parent?.id" @change="(value) => parent = value"></Select>
 		<Input label="nome" placeholder="Português" :value="subject?.name" @change="(value) => name = value" />
 		<div>
-			<Button color="green" custom-class="w-full" @click="submit">salvar</Button>
+			<Button type="submit" color="green" custom-class="w-full">salvar</Button>
 		</div>
 	</form>
 </template>
@@ -39,12 +39,8 @@ export default {
 
 		subjectOptions()
 		{
-			const options = [ {} ];
-			for (const subject of this.subjects)
-				options.push({ name: subject.name, value: subject.id });
-
-			return (options);
-		}
+			return this.subjects.map((subject) => ({ name: subject.name, value: subject.id }));
+		},
 
 	},
 

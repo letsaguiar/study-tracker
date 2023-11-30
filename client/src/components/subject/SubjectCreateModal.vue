@@ -1,7 +1,7 @@
 <template>
-	<Modal title="nova matéria" :active="modalActive" id="subject-create-modal">
+	<Modal title="Nova Matéria" :active="modalActive" id="subject-create-modal">
 		<template #body>
-			<SubjectForm @submit="(data) => submit(data)"/>
+			<SubjectForm @submit="(data) => submit(data)" />
 		</template>
 	</Modal>
 </template>
@@ -32,8 +32,9 @@ export default {
 		async submit(subject)
 		{
 			await this.createSubject(subject);
-			this.modalActive++;
-		}
+			this.modalActive = 0;
+			this.$forceUpdate();
+		},
 
 	},
 
