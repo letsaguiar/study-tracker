@@ -1,6 +1,6 @@
 <template>
 	<div class="hidden overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center" id="modal">
-		<div class="relative w-auto my-6 mx-auto max-w-sm">
+		<div class="relative w-auto my-6 mx-auto max-w-6xl min-w-[500px]">
 			<div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
 				<div class="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
 					<h3 class="text-base font-semibold uppercase">
@@ -25,7 +25,7 @@ import CloseButton from '../button/CloseButton.vue';
 
 export default {
 
-	components: { CloseButton },
+	components: { CloseButton, CloseButton },
 
     props: ["title", "active"],
 
