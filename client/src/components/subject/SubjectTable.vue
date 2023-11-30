@@ -18,7 +18,7 @@
 				<TableItem>
 					<div class="flex justify-end">
 						<Button color="pink" size="sm" custom-class="mr-3" @click="openUpdateModal(subject)">editar</Button>
-						<Button color="red" size="sm">deletar</Button>
+						<Button color="red" size="sm" @click="openDeleteModal(subject)">deletar</Button>
 					</div>
 				</TableItem>
 			</TableRow>
@@ -26,6 +26,8 @@
 	</Table>
 
 	<SubjectUpdateModal :subject="selectedSubject" :active="updateModalActive" />
+
+	<SubjectDeleteModal :subject="selectedSubject" :active="deleteModalActive" />
 </template>
 
 <script>
@@ -36,17 +38,19 @@ import Table from '../base/table/Table.vue';
 import TableHead from '../base/table/TableHead.vue';
 import TableItem from '../base/table/TableItem.vue';
 import TableRow from '../base/table/TableRow.vue';
+import SubjectDeleteModal from './SubjectDeleteModal.vue';
 import SubjectUpdateModal from './SubjectUpdateModal.vue';
 
 export default {
 
-	components: { Button, Table, TableHead, TableItem, TableRow, SubjectUpdateModal },
+	components: { Button, Table, TableHead, TableItem, TableRow, SubjectUpdateModal, SubjectDeleteModal },
 
 	data()
 	{
 		return {
 			selectedSubject: null,
-			updateModalActive: 0
+			updateModalActive: 0,
+			deleteModalActive: 0,
 		};
 	},
 
@@ -68,6 +72,12 @@ export default {
 		{
 			this.selectedSubject = subject;
 			this.updateModalActive++;
+		},
+
+		openDeleteModal(subject)
+		{
+			this.selectedSubject = subject;
+			this.deleteModalActive++;
 		},
 
 	},

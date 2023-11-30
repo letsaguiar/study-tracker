@@ -1,5 +1,5 @@
 <template>
-	<Modal title="editar matéria" :active="modalActive">
+	<Modal title="editar matéria" :active="modalActive" id="subject-update-modal">
 		<template #body>
 			<SubjectForm :subject="subject" @submit="(data) => submit(data)"/>
 		</template>
