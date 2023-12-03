@@ -11,5 +11,8 @@ module.exports = {
 	plugins: [
 		require('flowbite/plugin')
 	],
+	safelist: [
+		{ pattern: /bg\D+/ },
+	]
 }
 
