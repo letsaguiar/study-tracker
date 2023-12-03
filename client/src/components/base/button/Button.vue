@@ -1,5 +1,5 @@
 <template>
-	<button type="button" class="text-white font-bold rounded uppercase" :class="[ colorClasses, sizeClasses, customClass ]" @click="$emit('click')">
+	<button :type="type" class="text-white font-bold rounded uppercase" :class="[ colorClasses, sizeClasses, customClass ]" @click="$emit('click')">
 		<slot></slot>
 	</button>
 </template>
@@ -15,6 +15,7 @@ export default defineComponent({
 	emits: [ 'click' ],
 
 	props: {
+		tyoe: String,
 		color: String as PropType<ColorProp>,
 		size: String as PropType<SizeProp>,
 		class: String,
