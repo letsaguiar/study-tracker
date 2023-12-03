@@ -1,5 +1,5 @@
 <template>
-	<button :type="type" class="text-white font-bold rounded uppercase" :class="[ colorClasses, sizeClasses, customClass ]" @click="$emit('click')">
+	<button :type="type || 'button'" class="text-white font-bold rounded uppercase" :class="[ colorClasses, sizeClasses, customClass ]" @click="$emit('click')">
 		<slot></slot>
 	</button>
 </template>
