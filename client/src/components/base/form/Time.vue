@@ -35,7 +35,7 @@ export default defineComponent({
 
 	data()
 	{
-		return { _value: undefined };
+		return { _value: new Date() };
 	},
 
 	watch: {
@@ -43,12 +43,12 @@ export default defineComponent({
 		value(value)
 		{
 			if (value)
-				this._value = value;
+				this._value = new Date(value);
 		},
 
-		_value(value)
+		_value()
 		{
-			this.$emit('change', value);
+			this.$emit('change', this._value.toISOString());
 		}
 
 	}

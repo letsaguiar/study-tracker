@@ -20,13 +20,15 @@
 				</TableItem>
 				<TableItem>
 					<div class="flex justify-end">
-						<Button color="pink" size="xs" class="me-3" @click="openUpdateModal(session)">Edit</Button>
-						<Button color="red" size="xs" @click="openDeleteModal(session)">Delete</Button>
+						<Button color="pink" size="xs" class="me-3" @click="openUpdateModal(session)">editar</Button>
+						<Button color="red" size="xs" @click="openDeleteModal(session)">deletar</Button>
 					</div>
 				</TableItem>
 			</TableRow>
 		</template>
 	</Table>
+
+	<StudySessionUpdateModal :study-session="selectedSession" :active="updateModalActive" /> 
 </template>
 
 <script lang="ts">
@@ -43,6 +45,7 @@ import Table from '../base/table/Table.vue';
 import TableHead from '../base/table/TableHead.vue';
 import TableRow from '../base/table/TableRow.vue';
 import TableItem from '../base/table/TableItem.vue';
+import StudySessionUpdateModal from './StudySessionUpdateModal.vue';
 
 export default defineComponent({
 	components: {
@@ -51,6 +54,7 @@ export default defineComponent({
 		TableHead,
 		TableRow,
 		TableItem,
+		StudySessionUpdateModal,
 	},
 
 	data() {

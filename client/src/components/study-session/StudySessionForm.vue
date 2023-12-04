@@ -1,11 +1,11 @@
 <template>
 	<form @submit.prevent="submit">
-		<Select label="matéria" :value="studySession?.subject?.id" :options="subjectOptions" @change="(value) => subject_id = value" />
-		<Date label="Data" @change="(value) => date = value" />
+		<Select label="matéria" :value="subject_id" :options="subjectOptions" @change="(value) => subject_id = value" />
+		<Date label="Data" :value="date" @change="(value) => date = value" />
 		<div class="container">
 			<div class="grid grid-cols-2 gap-4">
-				<Time label="início" @change="(value) => init = value" />
-				<Time label="fim" @change="(value) => end = value" />
+				<Time label="início" :value="init" @change="(value) => init = value" />
+				<Time label="fim" :value="end" @change="(value) => end = value" />
 			</div>
 		</div>
 		<Button type="submit" color="green" class="w-full">salvar</Button>
@@ -14,14 +14,14 @@
 
 <script lang="ts">
 import dayjs from 'dayjs';
-import { defineComponent } from 'vue';
+import { defineComponent, type PropType } from 'vue';
 import { mapState, mapActions } from 'pinia';
 import { useSubjectStore } from '@/stores/subject.store';
 import Select from '../base/form/Select.vue';
 import Date from '../base/form/Date.vue';
 import Time from '../base/form/Time.vue';
 import Button from '../base/button/Button.vue';
-import type { StudySessionCreateDto } from '@/stores/study-session.store';
+import type { StudySessionCreateDto, StudySessionDto } from '@/stores/study-session.store';
 
 export default defineComponent({
 
@@ -29,15 +29,17 @@ export default defineComponent({
 
 	emits: [ 'submit' ],
 
-	props: [ 'studySession' ],
+	props: {
+		studySession: Object as PropType<StudySessionDto>
+	},
 
 	data()
 	{
 		return {
 			subject_id: '',
-			date: dayjs().toDate(),
-			init: dayjs().toDate(),
-			end: dayjs().toDate(),
+			date: dayjs().toISOString(),
+			init: dayjs().toISOString(),
+			end: dayjs().toISOString()
 		};
 	},
 
@@ -59,7 +61,7 @@ export default defineComponent({
 			updateSubjects: 'get',
 		}),
 
-		buildDateTime(date: Date, time: Date)
+		buildDateTime(date: string, time: string)
 		{
 			const dTime = dayjs(time);
 	
@@ -78,6 +80,28 @@ export default defineComponent({
 			};
 
 			this.$emit('submit', study_session);
+		}
+
+	},
+
+	watch: {
+
+		studySession()
+		{
+			if (this.studySession)
+			{
+				this.subject_id = this.studySession.subject.id;
+				this.date = dayjs(this.studySession.init).toISOString();
+				this.init = dayjs(this.studySession.init).toISOString();
+				this.end = dayjs(this.studySession.end).toISOString();
+			}
+			else
+			{
+				this.subject_id = '';
+				this.date = dayjs().toISOString();
+				this.init = dayjs().toISOString();
+				this.end = dayjs().toISOString();
+			}
 		}
 
 	},
