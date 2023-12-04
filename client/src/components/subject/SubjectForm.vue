@@ -1,7 +1,7 @@
 <template>
 	<form @submit.prevent="submit">
-		<Input type="text" placeholder="Português" :required="true" label="nome" @change="(data) => name = data" />
-		<Select label="área do conhecimento" :options="subjectOptions" @change="(data) => parent_id = data" />
+		<Input type="text" placeholder="Português" :required="true" label="nome" :value="subject?.name" @change="(data) => name = data" />
+		<Select label="área do conhecimento" :options="subjectOptions" :value="subject?.parent?.id" @change="(data) => parent_id = data" />
 		<Button type="submit" color="green" class="w-full">salvar</Button>
 	</form>
 </template>
@@ -19,6 +19,8 @@ export default defineComponent({
 	components: { Input, Select, Button },
 	
 	emits: [ 'submit' ],
+
+	props: [ 'subject' ],
 
 	data() {
 		return {
@@ -50,7 +52,7 @@ export default defineComponent({
 		{
 			const subject: SubjectCreateDto = { name: this.name };
 			if (this.parent_id)
-				subject.parent.id = this.parent_id;
+				subject.parent = { id: this.parent_id };
 
 			this.$emit('submit', subject);
 		},
