@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import { mapActions, mapState } from 'pinia';
-import { SubjectCreateDto, useSubjectStore } from '../../stores/subject.store';
+import { type SubjectCreateDto, useSubjectStore } from '../../stores/subject.store';
 import { defineComponent } from 'vue';
 import Input from '../base/form/Input.vue';
 import Select from '../base/form/Select.vue';
@@ -32,7 +32,7 @@ export default defineComponent({
 	computed: {
 		
 		...mapState(useSubjectStore, {
-			subjects:  'subjectFlatTree',
+			subjects:  'subjectTree',
 		}),
 
 		subjectOptions()
