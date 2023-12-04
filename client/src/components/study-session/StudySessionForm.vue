@@ -1,6 +1,7 @@
 <template>
 	<form>
 		<Select label="matéria" :value="studySession?.subject?.id" :options="subjects" />
+		<Date label="Data"/>
 	</form>
 </template>
 
@@ -9,10 +10,11 @@ import { defineComponent } from 'vue';
 import { mapState, mapActions } from 'pinia';
 import { useSubjectStore } from '@/stores/subject.store';
 import Select from '../base/form/Select.vue';
+import Date from '../base/form/Date.vue';
 
 export default defineComponent({
 
-	components: { Select },
+	components: { Select, Date },
 
 	props: [ 'studySession' ],
 
