@@ -29,6 +29,8 @@
 	</Table>
 
 	<StudySessionUpdateModal :study-session="selectedSession" :active="updateModalActive" /> 
+
+	<StudySessionDeleteModal :study-session="selectedSession" :active="deleteModalActive" />
 </template>
 
 <script lang="ts">
@@ -46,8 +48,10 @@ import TableHead from '../base/table/TableHead.vue';
 import TableRow from '../base/table/TableRow.vue';
 import TableItem from '../base/table/TableItem.vue';
 import StudySessionUpdateModal from './StudySessionUpdateModal.vue';
+import StudySessionDeleteModal from './StudySessionDeleteModal.vue';
 
 export default defineComponent({
+
 	components: {
 		Button,
 		Table,
@@ -55,6 +59,7 @@ export default defineComponent({
 		TableRow,
 		TableItem,
 		StudySessionUpdateModal,
+		StudySessionDeleteModal,
 	},
 
 	data() {
@@ -106,5 +111,5 @@ export default defineComponent({
 		}
 	},
 });
-</script>
 
+</script>
