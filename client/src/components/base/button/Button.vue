@@ -5,9 +5,10 @@
 </template>
 
 <script lang="ts">
-import { PropType, defineComponent } from 'vue';
+import { type PropType, defineComponent } from 'vue';
 
-type ColorProp = 'blue' | 'dark' | 'green'  | 'red' | 'yellow' | 'purple' | 'pink';
+type TypeProp = 'button' | 'submit' | 'reset' | undefined
+type ColorProp = 'white' | 'blue' | 'dark' | 'green'  | 'red' | 'yellow' | 'purple' | 'pink';
 type SizeProp = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 export default defineComponent({
@@ -15,7 +16,7 @@ export default defineComponent({
 	emits: [ 'click' ],
 
 	props: {
-		tyoe: String,
+		type: String as PropType<TypeProp>,
 		color: String as PropType<ColorProp>,
 		size: String as PropType<SizeProp>,
 		class: String,
@@ -43,7 +44,10 @@ export default defineComponent({
 				xl: `px-6 py-3.5 text-base`,
 			};
 
-			return sizeMap[this.size] || sizeMap.md;
+			if (this.size)
+				return sizeMap[this.size];
+
+			return sizeMap.md;
 		},
 
 		customClass()

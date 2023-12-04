@@ -34,7 +34,7 @@ export default defineComponent({
 	props: {
 		id: String,
 		title: String,
-		active: Boolean,
+		active: Number,
 	},
 
 	data()

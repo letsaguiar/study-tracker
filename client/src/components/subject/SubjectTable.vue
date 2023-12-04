@@ -15,13 +15,17 @@
 				</TableItem>
 				<TableItem>
 					<div class="flex justify-end">
-						<Button color="pink" size="xs" class="me-3">editar</Button>
-						<Button color="red" size="xs">deletar</Button>
+						<Button color="pink" size="xs" class="me-3" @click="openUpdateModal(subject)">editar</Button>
+						<Button color="red" size="xs" @click="openDeleteModal(subject)">deletar</Button>
 					</div>
 				</TableItem>
 			</TableRow>
 		</template>
 	</Table>
+
+	<SubjectUpdateModal :subject="selectedSubject" :active="updateModalActive" />
+
+	<SubjectDeleteModal :subject="selectedSubject" :active="deleteModalActive" />
 </template>
 
 <script lang="ts">
@@ -33,10 +37,20 @@ import Table from '../base/table/Table.vue';
 import TableHead from '../base/table/TableHead.vue';
 import TableRow from '../base/table/TableRow.vue';
 import TableItem from '../base/table/TableItem.vue';
+import SubjectUpdateModal from './SubjectUpdateModal.vue';
+import SubjectDeleteModal from './SubjectDeleteModal.vue';
 
 export default defineComponent({
 	
-	components: { Button, Table, TableHead, TableRow, TableItem },
+	components: { Button, Table, TableHead, TableRow, TableItem, SubjectUpdateModal, SubjectDeleteModal },
+
+	data() {
+		return {
+			selectedSubject: null,
+			updateModalActive: 0,
+			deleteModalActive: 0,
+		};
+	},
 
 	computed: {
 		
@@ -51,6 +65,18 @@ export default defineComponent({
 		...mapActions(useSubjectStore, {
 			updateSubjects: 'get',
 		}),
+
+		openUpdateModal(subject: any)
+		{
+			this.selectedSubject = subject;
+			this.updateModalActive++;
+		},
+
+		openDeleteModal(subject: any)
+		{
+			this.selectedSubject = subject;
+			this.deleteModalActive++;
+		}
 
 	},
 
