@@ -7,6 +7,7 @@ export interface StudySessionDto {
 	subject: SubjectDto;
 	init: string;
 	end: string;
+	duration: number;
 }
 
 export interface StudySessionCreateDto extends Pick<StudySessionDto, 'init' | 'end'>

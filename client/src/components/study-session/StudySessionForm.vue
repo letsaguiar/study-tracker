@@ -1,6 +1,6 @@
 <template>
 	<form @submit.prevent="submit">
-		<Select label="matéria" :value="studySession?.subject?.id" :options="subjects" @change="(value) => subject_id = value" />
+		<Select label="matéria" :value="studySession?.subject?.id" :options="subjectOptions" @change="(value) => subject_id = value" />
 		<Date label="Data" @change="(value) => date = value" />
 		<div class="container">
 			<div class="grid grid-cols-2 gap-4">
@@ -21,6 +21,7 @@ import Select from '../base/form/Select.vue';
 import Date from '../base/form/Date.vue';
 import Time from '../base/form/Time.vue';
 import Button from '../base/button/Button.vue';
+import type { StudySessionCreateDto } from '@/stores/study-session.store';
 
 export default defineComponent({
 
@@ -46,6 +47,10 @@ export default defineComponent({
 			subjects: 'subjectFlatTree',
 		}),
 
+		subjectOptions()
+		{
+			return this.subjects.map((subject) => ({ name: subject.name, value: subject.id }));
+		}
 	},
 
 	methods: {
@@ -66,10 +71,11 @@ export default defineComponent({
 
 		submit()
 		{
-			const study_session = {};
-			study_session.subject = { id: this.subject_id };
-			study_session.init = this.buildDateTime(this.date, this.init);
-			study_session.end = this.buildDateTime(this.date, this.end);
+			const study_session: StudySessionCreateDto = {
+				subject: { id: this.subject_id },
+				init: this.buildDateTime(this.date, this.init),
+				end: this.buildDateTime(this.date, this.end),
+			};
 
 			this.$emit('submit', study_session);
 		}
