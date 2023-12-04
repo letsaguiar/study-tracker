@@ -30,7 +30,7 @@ export default defineComponent({
 			_createSubject: 'create',
 		}),
 
-		async createSubject(data)
+		async createSubject(data: any)
 		{
 			await this._createSubject(data);
 			this._active = 0;
