@@ -7,7 +7,7 @@
 <script lang="ts">
 import { PropType, defineComponent } from 'vue';
 
-type ColorProp = 'blue' | 'dark' | 'green'  | 'red' | 'yellow' | 'purple';
+type ColorProp = 'blue' | 'dark' | 'green'  | 'red' | 'yellow' | 'purple' | 'pink';
 type SizeProp = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 export default defineComponent({
