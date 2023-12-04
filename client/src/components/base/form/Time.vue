@@ -5,12 +5,14 @@
 		</label>
 		<div class="relative">
 			<div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none z-10">
-				<i class="fa-solid fa-calendar text-gray-500"></i>
+				<i class="fa-solid fa-clock text-gray-500"></i>
 			</div>
 		<date-picker
 			v-model="_value"
 			class="border border-gray-300 text-gray-900 text-sm rounded focus:ring-pink-500 focus:border-pink-500 block w-full ps-9 p-2.5"
-			:input-format="'dd/MM/yyyy'"
+			:minimum-view="'time'"
+			:starting-view="'time'"
+			:input-format="'HH:mm'"
 		/>
 		</div>
 	</div>

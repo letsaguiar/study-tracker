@@ -1,27 +1,42 @@
 <template>
-	<form>
-		<Select label="matéria" :value="studySession?.subject?.id" :options="subjects" />
-		<Date label="Data"/>
+	<form @submit.prevent="submit">
+		<Select label="matéria" :value="studySession?.subject?.id" :options="subjects" @change="(value) => subject_id = value" />
+		<Date label="Data" @change="(value) => date = value" />
+		<div class="container">
+			<div class="grid grid-cols-2 gap-4">
+				<Time label="início" @change="(value) => init = value" />
+				<Time label="fim" @change="(value) => end = value" />
+			</div>
+		</div>
+		<Button type="submit" color="green" class="w-full">salvar</Button>
 	</form>
 </template>
 
 <script lang="ts">
+import dayjs from 'dayjs';
 import { defineComponent } from 'vue';
 import { mapState, mapActions } from 'pinia';
 import { useSubjectStore } from '@/stores/subject.store';
 import Select from '../base/form/Select.vue';
 import Date from '../base/form/Date.vue';
+import Time from '../base/form/Time.vue';
+import Button from '../base/button/Button.vue';
 
 export default defineComponent({
 
-	components: { Select, Date },
+	components: { Select, Date, Time, Button },
+
+	emits: [ 'submit' ],
 
 	props: [ 'studySession' ],
 
 	data()
 	{
 		return {
-			subject: '',
+			subject_id: '',
+			date: dayjs().toDate(),
+			init: dayjs().toDate(),
+			end: dayjs().toDate(),
 		};
 	},
 
@@ -38,6 +53,26 @@ export default defineComponent({
 		...mapActions(useSubjectStore, {
 			updateSubjects: 'get',
 		}),
+
+		buildDateTime(date: Date, time: Date)
+		{
+			const dTime = dayjs(time);
+	
+			return dayjs(date)
+				.set('hour', dTime.hour())
+				.set('minute', dTime.minute())
+				.toISOString();
+		},
+
+		submit()
+		{
+			const study_session = {};
+			study_session.subject = { id: this.subject_id };
+			study_session.init = this.buildDateTime(this.date, this.init);
+			study_session.end = this.buildDateTime(this.date, this.end);
+
+			this.$emit('submit', study_session);
+		}
 
 	},
 
