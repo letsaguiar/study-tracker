@@ -28,9 +28,6 @@ export default defineComponent({
 			const colorArr = [
 				`bg-${this.color}-700`,
 				`hover:bg-${this.color}-800`,
-				`focus:ring-4`,
-				`focus:ring-${this.color}-300`,
-
 			];
 
 			return colorArr.join(' ');

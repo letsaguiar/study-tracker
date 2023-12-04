@@ -1,6 +1,6 @@
 <template>
-	<div class="block max-w-full p-3 bg-white rounded-lg border-2 border-gray-100" :class="customClass">
-		<h5 v-if="title" class="mb-2 text-2xl font-bold tracking-tight text-gray-900">{{ title }}</h5>
+	<div class="relative flex flex-col w-full break-words bg-white rounded shadow-lg mb-6" :class="customClass">
+		<h3 v-if="title" class="font-semibold text-xl text-gray-700 py-3 px-4">{{ title }}</h3>
 		<slot></slot>
 	</div>
 </template>

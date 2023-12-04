@@ -1,8 +1,10 @@
 <template>
 	<Sidebar />
 
-	<div class="ml-64 min-h-screen bg-gray-50">
+	<div class="ml-64 pt-32 pb-32 relative bg-pink-600">
 		<Navbar />
+	</div>
+	<div class="ml-64 px-10 mx-auto -m-24">
 		<div class="p-4">
 			<RouterView />
 		</div>
