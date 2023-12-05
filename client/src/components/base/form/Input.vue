@@ -7,7 +7,7 @@
 			:placeholder="placeholder"
 			:required="required"
 			:value="value"
-			@change="$emit('change', $event.target.value)"
+			@change="$emit('change', ($event.target as any).value)"
 		>
 	</div>
 </template>

@@ -39,19 +39,21 @@ export default defineComponent({
 
 	data()
 	{
-		return { modal: null };
+		return { modal: {} as Modal };
 	},
 
 	methods: {
 		
 		openModal()
 		{
-			this.modal.show();
+			if (this.modal)
+				this.modal.show();
 		},
 
 		closeModal()
 		{
-			this.modal.hide();
+			if (this.modal)
+				this.modal.hide();
 		}
 
 	},
@@ -71,7 +73,7 @@ export default defineComponent({
 	mounted()
 	{
 		this.modal = new Modal(
-			document.getElementById(this.id)
+			document.getElementById(this.id as string)
 		);
 	}
 
