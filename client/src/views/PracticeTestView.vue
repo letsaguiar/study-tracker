@@ -2,7 +2,7 @@
 	<Button color="pink" class="relative mb-5 border-2 border-white" @click="openCreateModal">novos exercícios</Button>
 	<PracticeTestCreateModal :active="createModalActive" />
 
-	<Card title="sessões de estudo">
+	<Card title="Sessões de Estudo">
 		<PracticeTestTable />
 	</Card>
 </template>
