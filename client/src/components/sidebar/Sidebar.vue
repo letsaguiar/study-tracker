@@ -10,6 +10,7 @@
 			<SidebarItem to="/" icon="fa-solid fa-gauge" name="dashboard" />
 			<SidebarItem to="/subjects" icon="fa-solid fa-bookmark" name="matérias" />
 			<SidebarItem to="/study-sessions" icon="fa-solid fa-clock" name="sessões de estudo" />
+			<SidebarItem to="/practice-tests" icon="fa-regular fa-clipboard" name="exercícios" />
 			<SidebarItem to="/exams" icon="fa-solid fa-rectangle-list" name="exames" />
 			<SidebarItem to="/statistics" icon="fa-solid fa-chart-simple" name="estatísticas" />
 		</template>

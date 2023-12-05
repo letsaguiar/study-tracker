@@ -20,7 +20,7 @@ export interface SubjectUpdateDto extends Partial<SubjectCreateDto> { }
 
 export interface SubjectTreeNode extends SubjectDto
 {
-	children: SubjectDto[];
+	children: SubjectTreeNode[];
 }
 
 export const useSubjectStore = defineStore('subject', {
@@ -44,7 +44,7 @@ export const useSubjectStore = defineStore('subject', {
 				else
 				{
 					const parent = tree.find(item => item.id === subject.parent.id);
-					parent?.children?.push(subject);
+					parent?.children?.push({ ...subject, children: [] });
 				}
 			}
 
@@ -54,7 +54,7 @@ export const useSubjectStore = defineStore('subject', {
 		subjectFlatTree() : SubjectTreeNode[]
 		{
 			const tree = this.subjectTree;
-			const flatTree = [];
+			const flatTree: SubjectTreeNode[] = [];
 
 			for (const subject of tree)
 			{
@@ -94,4 +94,4 @@ export const useSubjectStore = defineStore('subject', {
 
 	}
 
-})
+});
