@@ -14,7 +14,7 @@
 	  <template #footer>
 		<div class="flex justify-end w-full">
 		  <Button color="red" @click="confirmDelete">Confirmar Exclusão</Button>
-		  <Button color="white" class="text-black" @click="cancelDelete">Cancelar</Button>
+		  <Button color="white" @click="cancelDelete">Cancelar</Button>
 		</div>
 	  </template>
 	</Modal>

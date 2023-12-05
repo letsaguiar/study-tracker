@@ -1,11 +1,11 @@
 <template>
-	<button :type="type || 'button'" class="text-white font-bold rounded uppercase" :class="[ colorClasses, sizeClasses, customClass ]" @click="$emit('click')">
+	<button :type="type || 'button'" class="font-bold rounded uppercase" :class="[ colorClasses, sizeClasses, customClass ]" @click="$emit('click')">
 		<slot></slot>
 	</button>
 </template>
 
 <script lang="ts">
-import { type PropType, defineComponent } from 'vue';
+import { defineComponent, type PropType } from 'vue';
 
 type TypeProp = 'button' | 'submit' | 'reset' | undefined
 type ColorProp = 'white' | 'blue' | 'dark' | 'green'  | 'red' | 'yellow' | 'purple' | 'pink';
@@ -30,6 +30,10 @@ export default defineComponent({
 				`bg-${this.color}-700`,
 				`hover:bg-${this.color}-800`,
 			];
+
+			this.color === 'white'
+				? colorArr.push(`text-gray-700`)
+				: colorArr.push(`text-white`);
 
 			return colorArr.join(' ');
 		},
