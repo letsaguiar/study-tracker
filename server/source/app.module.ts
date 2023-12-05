@@ -5,6 +5,11 @@ import { PracticeExamModule } from './practice-exam/practice-exam.module';
 import { PracticeTestModule } from './practice-test/practice-test.module';
 import { StudySessionModule } from './study-session/study-session.module';
 import { SubjectModule } from './subject/subject.module';
+import { Subject } from './subject/subject.entity';
+import { StudySession } from './study-session/study-session.entity';
+import { PracticeTest } from './practice-test/practice-test.entity';
+import { Exam } from './exam/exam.entity';
+import { PracticeExam } from './practice-exam/practice-exam.entity';
 
 @Module({
 	imports: [
@@ -12,7 +17,11 @@ import { SubjectModule } from './subject/subject.module';
 			type: 'sqlite',
 			database: 'database/study-tracker.db',
 			entities: [
-				__dirname + '/**/*.entity.ts',
+				Subject,
+				StudySession,
+				PracticeTest,
+				Exam,
+				PracticeExam,
 			],
 			synchronize: true,
 		}),
