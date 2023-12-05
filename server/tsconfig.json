@@ -1,20 +1,16 @@
 {
 	"compilerOptions": {
-		"incremental": true,                              /* Save .tsbuildinfo files to allow for incremental compilation of projects. */
-		"target": "ES2022",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
-		"experimentalDecorators": true,                   /* Enable experimental support for legacy experimental decorators. */
-		"emitDecoratorMetadata": true,                    /* Emit design-type metadata for decorated declarations in source files. */
-		"module": "commonjs",                                /* Specify what module code is generated. */
-		"baseUrl": "./",                                  /* Specify the base directory to resolve non-relative module names. */
-		"declaration": true,                              /* Generate .d.ts files from TypeScript and JavaScript files in your project. */
-		"sourceMap": true,
-		"outDir": "./dist",                                   /* Specify an output folder for all emitted files. */
-		"removeComments": true,                           /* Disable emitting comments. */
-		"skipLibCheck": true,                                 /* Skip type checking all .d.ts files. */
-		"allowSyntheticDefaultImports": true,
-	},
-	"include": [
-		"./source",
-		"./test"
-	]
+	  "module": "commonjs",
+	  "declaration": true,
+	  "removeComments": true,
+	  "emitDecoratorMetadata": true,
+	  "experimentalDecorators": true,
+	  "allowSyntheticDefaultImports": true,
+	  "target": "ES2021",
+	  "sourceMap": true,
+	  "outDir": "./dist",
+	  "baseUrl": "./",
+	  "incremental": true,
+	  "skipLibCheck": true
+	}
 }
