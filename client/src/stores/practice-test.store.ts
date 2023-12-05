@@ -1,6 +1,6 @@
 import { HttpService } from "../assets/ts/http.service";
 import { defineStore } from "pinia";
-import type { SubjectCreateDto, SubjectDto } from "./subject.store";
+import type { SubjectDto } from "./subject.store";
 
 export interface PracticeTestDto
 {
@@ -14,7 +14,7 @@ export interface PracticeTestDto
 
 export interface PracticeTestCreateDto extends Pick<PracticeTestDto, 'date' | 'number_of_questions' | 'number_of_hits'>
 {
-	Subject: SubjectCreateDto;
+	subject: Pick<SubjectDto, 'id'>;
 }
 
 export interface PracticeTestUpdateDto extends Partial<PracticeTestCreateDto> {}

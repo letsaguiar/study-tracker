@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, type Prop } from 'vue';
 
 export default defineComponent({
 
@@ -24,7 +24,7 @@ export default defineComponent({
 		type: String,
 		placeholder: String,
 		required: Boolean,
-		value: String,
+		value: String as Prop<string | number>,
 	},
 
 });
