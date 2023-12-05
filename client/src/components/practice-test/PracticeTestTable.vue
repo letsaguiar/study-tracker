@@ -29,6 +29,8 @@
 	</Table>
 
 	<PracticeTestUpdateModal :practiceTest="selectedTest" :active="updateModalActive" />
+
+	<PracticeTestDeleteModal :practiceTest="selectedTest" :active="deleteModalActive" />
 </template>
   
   <script lang="ts">
@@ -43,6 +45,7 @@ import Table from '../base/table/Table.vue';
 import TableHead from '../base/table/TableHead.vue';
 import TableItem from '../base/table/TableItem.vue';
 import TableRow from '../base/table/TableRow.vue';
+import PracticeTestDeleteModal from './PracticeTestDeleteModal.vue';
 import PracticeTestUpdateModal from './PracticeTestUpdateModal.vue';
   
 export default defineComponent({
@@ -54,6 +57,7 @@ export default defineComponent({
 	  TableRow,
 	  TableItem,
 	  PracticeTestUpdateModal,
+	  PracticeTestDeleteModal,
 	},
   
 	data() {
