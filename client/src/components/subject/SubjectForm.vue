@@ -76,8 +76,7 @@ export default defineComponent({
 	},
 
 	mounted() {
-		this.load();
-
+		this.load(this.subject);
 		if (this.subjects.length === 0)
 			this.updateSubjects();
 	},

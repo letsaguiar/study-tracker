@@ -98,7 +98,7 @@ export default defineComponent({
 
 	mounted()
 	{
-		this.load();
+		this.load(this.practiceTest);
 
 		if (!this.subjects.length)
 			this.updateSubjects();

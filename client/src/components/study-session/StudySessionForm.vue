@@ -105,8 +105,7 @@ export default defineComponent({
 	},
 
 	mounted() {
-		this.load();
-
+		this.load(this.studySession);
 		if (this.subjects.length === 0)
 			this.updateSubjects();
 	},
