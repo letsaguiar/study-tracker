@@ -1,11 +1,11 @@
 <template>
 	<form @submit.prevent="submit">
-		<Select label="matéria" :value="subject_id" :options="subjectOptions" @change="(value) => subject_id = value" />
-		<Date label="Data" :value="date" @change="(value) => date = value" />
+		<Select label="matéria" :value="subject_id" :options="subjectOptions" v-model="subject_id" />
+		<Date label="Data" :value="date" v-model="date" />
 		<div class="container">
 			<div class="grid grid-cols-2 gap-4">
-				<Time label="início" :value="init" @change="(value) => init = value" />
-				<Time label="fim" :value="end" @change="(value) => end = value" />
+				<Time label="início" v-model="init" />
+				<Time label="fim" v-model="end" />
 			</div>
 		</div>
 		<Button type="submit" color="green" class="w-full">salvar</Button>
@@ -38,10 +38,10 @@ export default defineComponent({
 	data()
 	{
 		return {
-			subject_id: '',
-			date: dayjs().toISOString(),
-			init: dayjs().toISOString(),
-			end: dayjs().toISOString()
+			subject_id: null as unknown as string, 
+			date: null as unknown as string,
+			init: null as unknown as string,
+			end: null as unknown as string,
 		};
 	},
 
@@ -73,6 +73,14 @@ export default defineComponent({
 				.toISOString();
 		},
 
+		load(session?: StudySessionDto)
+		{
+			this.subject_id = session?.subject.id || '';
+			this.date = session?.init || dayjs().toISOString();
+			this.init = session?.init || dayjs().toISOString();
+			this.end = session?.end || dayjs().toISOString();
+		},
+
 		submit()
 		{
 			const study_session: StudySessionCreateDto = {
@@ -82,6 +90,7 @@ export default defineComponent({
 			};
 
 			this.$emit('submit', study_session);
+			this.load();
 		}
 
 	},
@@ -90,25 +99,14 @@ export default defineComponent({
 
 		studySession()
 		{
-			if (this.studySession)
-			{
-				this.subject_id = this.studySession.subject.id;
-				this.date = dayjs(this.studySession.init).toISOString();
-				this.init = dayjs(this.studySession.init).toISOString();
-				this.end = dayjs(this.studySession.end).toISOString();
-			}
-			else
-			{
-				this.subject_id = '';
-				this.date = dayjs().toISOString();
-				this.init = dayjs().toISOString();
-				this.end = dayjs().toISOString();
-			}
+			this.load(this.studySession);
 		}
 
 	},
 
 	mounted() {
+		this.load();
+
 		if (this.subjects.length === 0)
 			this.updateSubjects();
 	},

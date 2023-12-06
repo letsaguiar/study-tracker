@@ -1,11 +1,11 @@
 <template>
 	<form @submit.prevent="submit">
-		<Select label="matéria" :value="subject_id" :options="subjectOptions" :required="true" @change="(value) => subject_id = value" />
-		<Date label="Data" :value="date" @change="(value) => date = value" />
+		<Select label="matéria" :options="subjectOptions" :required="true" v-model="subject_id" />
+		<Date label="Data" :value="date" v-model="date" />
 		<div class="container">
 			<div class="grid grid-cols-2 gap-4">
-				<Input label="número de questões" :type="'number'" :required="true" :value="number_of_questions" @change="(value) => number_of_questions = value" />
-				<Input label="número de acertos" :type="'number'" :required="true" :value="number_of_hits" @change="(value) => number_of_hits = value" />
+				<Input label="número de questões" :type="'number'" :required="true" v-model="number_of_questions" />
+				<Input label="número de acertos" :type="'number'" :required="true" v-model="number_of_hits" />
 			</div>
 		</div>
 		<Button type="submit" color="green" class="w-full">salvar</Button>
@@ -38,10 +38,10 @@ export default defineComponent({
 	data()
 	{
 		return {
-			subject_id: '',
-			date: dayjs().toISOString(),
-			number_of_questions: 0,
-			number_of_hits: 0,
+			subject_id: null as unknown as string,
+			date: null as unknown as string,
+			number_of_questions: null as unknown as number,
+			number_of_hits: null as unknown as number,
 		};
 	},
 
@@ -64,6 +64,14 @@ export default defineComponent({
 			updateSubjects: 'get',
 		}),
 
+		load(practice_test?: PracticeTestDto)
+		{
+			this.subject_id = practice_test?.subject?.id  || '';
+			this.date = practice_test?.date || dayjs().toISOString();
+			this.number_of_questions = practice_test?.number_of_questions || 0;
+			this.number_of_hits = practice_test?.number_of_hits || 0;
+		},
+
 		submit()
 		{
 			const practice_test: PracticeTestCreateDto = {
@@ -74,6 +82,7 @@ export default defineComponent({
 			};
 
 			this.$emit('submit', practice_test);
+			this.load();
 		}
 
 	},
@@ -82,19 +91,15 @@ export default defineComponent({
 
 		practiceTest()
 		{
-			if (this.practiceTest)
-			{
-				this.subject_id = this.practiceTest.subject.id;
-				this.date = this.practiceTest.date;
-				this.number_of_questions = this.practiceTest.number_of_questions;
-				this.number_of_hits = this.practiceTest.number_of_hits;
-			}
+			this.load(this.practiceTest);	
 		},
 
 	},
 
 	mounted()
 	{
+		this.load();
+
 		if (!this.subjects.length)
 			this.updateSubjects();
 	}

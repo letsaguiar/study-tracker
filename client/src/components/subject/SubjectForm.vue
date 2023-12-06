@@ -1,18 +1,18 @@
 <template>
 	<form @submit.prevent="submit">
-		<Input type="text" placeholder="Português" :required="true" label="nome" :value="subject?.name" @change="(data) => name = data" />
-		<Select label="área do conhecimento" :options="subjectOptions" :value="subject?.parent?.id" @change="(data) => parent_id = data" />
+		<Input type="text" placeholder="Português" label="nome" :required="true" v-model="name" />
+		<Select label="área do conhecimento" :options="subjectOptions" v-model="parent_id" />
 		<Button type="submit" color="green" class="w-full">salvar</Button>
 	</form>
 </template>
 
 <script lang="ts">
 import { mapActions, mapState } from 'pinia';
-import { type SubjectCreateDto, useSubjectStore } from '../../stores/subject.store';
 import { defineComponent } from 'vue';
+import { useSubjectStore, type SubjectCreateDto, type SubjectDto } from '../../stores/subject.store';
+import Button from '../base/button/Button.vue';
 import Input from '../base/form/Input.vue';
 import Select from '../base/form/Select.vue';
-import Button from '../base/button/Button.vue';
 
 export default defineComponent({
 
@@ -24,8 +24,8 @@ export default defineComponent({
 
 	data() {
 		return {
-			name: '',
-			parent_id: '',
+			name: null as unknown as string,
+			parent_id: null as unknown as string,
 		};
 	},
 
@@ -47,6 +47,12 @@ export default defineComponent({
 		...mapActions(useSubjectStore, {
 			updateSubjects: 'get',
 		}),
+
+		load(subject?: SubjectDto)
+		{
+			this.name = subject?.name || '';
+			this.parent_id = subject?.parent?.id || '';
+		},
 		
 		submit()
 		{
@@ -55,11 +61,23 @@ export default defineComponent({
 				subject.parent = { id: this.parent_id };
 
 			this.$emit('submit', subject);
+			this.load();
 		},
 
 	},
 
+	watch: {
+
+		subject()
+		{
+			this.load(this.subject);
+		}
+
+	},
+
 	mounted() {
+		this.load();
+
 		if (this.subjects.length === 0)
 			this.updateSubjects();
 	},
