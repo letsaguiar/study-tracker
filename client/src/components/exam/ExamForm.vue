@@ -2,7 +2,7 @@
 	<form @submit.prevent="submit">
 		<Input type="text" label="nome" placeholder="ENEM" :required="true" v-model="name" />
 		<div class="container">
-			<div class="grid grid-cols-2">
+			<div class="grid grid-cols-2 gap-4">
 				<Date label="primeiro dia de prova" v-model="first_application_date" />
 				<Date label="segundo dia de prova" v-model="second_application_date" />
 			</div>
@@ -32,8 +32,8 @@ export default defineComponent({
 	data() {
 		return {
 			name: null as unknown as string,
-			first_application_date: null as unknown as string,
-			second_application_date: null as unknown as string,
+			first_application_date: null as unknown as string | undefined,
+			second_application_date: null as unknown as string | undefined,
 		};
 	},
 
@@ -42,8 +42,8 @@ export default defineComponent({
 		load(exam?: ExamDto)
 		{
 			this.name = exam?.name || '';
-			this.first_application_date = exam?.first_application_date || dayjs().toISOString();
-			this.second_application_date = exam?.second_application_date || dayjs().toISOString();
+			this.first_application_date = exam?.first_application_date;
+			this.second_application_date = exam?.second_application_date;
 		},
 
 		submit()
