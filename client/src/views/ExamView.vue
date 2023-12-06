@@ -3,6 +3,7 @@
 	<ExamCreateModal :active="createModalActive" />
 
 	<Card title="Exames">
+		<ExamTable />
 	</Card>
 </template>
 
@@ -12,10 +13,11 @@ import { defineComponent } from 'vue';
 import Button from '../components/base/button/Button.vue';
 import Card from '../components/base/card/Card.vue';
 import ExamCreateModal from '../components/exam/ExamCreateModal.vue';
+import ExamTable from '../components/exam/ExamTable.vue';
 
 export default defineComponent({
 
-	components: { Button, Card, ExamCreateModal },
+	components: { Button, Card, ExamCreateModal, ExamTable },
 
 	data()
 	{
