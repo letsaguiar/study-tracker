@@ -29,6 +29,8 @@
 	</Table>
 
 	<ExamUpdateModal :exam="selectedExam" :active="updateModalActive" />
+
+	<ExamDeleteModal :exam="selectedExam" :active="deleteModalActive" />
 </template>
   
 <script lang="ts">
@@ -44,6 +46,7 @@ import TableHead from '../base/table/TableHead.vue';
 import TableItem from '../base/table/TableItem.vue';
 import TableRow from '../base/table/TableRow.vue';
 import ExamUpdateModal from './ExamUpdateModal.vue';
+import ExamDeleteModal from './ExamDeleteModal.vue';
   
 export default defineComponent({
   
@@ -54,6 +57,7 @@ export default defineComponent({
 		TableRow,
 		TableItem,
 		ExamUpdateModal,
+		ExamDeleteModal,
 	},
   
 	data() {
