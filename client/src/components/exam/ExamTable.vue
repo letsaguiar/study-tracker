@@ -27,6 +27,8 @@
 			</TableRow>
 		</template>
 	</Table>
+
+	<ExamUpdateModal :exam="selectedExam" :active="updateModalActive" />
 </template>
   
 <script lang="ts">
@@ -41,6 +43,7 @@ import Table from '../base/table/Table.vue';
 import TableHead from '../base/table/TableHead.vue';
 import TableItem from '../base/table/TableItem.vue';
 import TableRow from '../base/table/TableRow.vue';
+import ExamUpdateModal from './ExamUpdateModal.vue';
   
 export default defineComponent({
   
@@ -50,6 +53,7 @@ export default defineComponent({
 		TableHead,
 		TableRow,
 		TableItem,
+		ExamUpdateModal,
 	},
   
 	data() {
@@ -97,6 +101,5 @@ export default defineComponent({
 	},
 
 });
-  
-  </script>
+</script>
   
