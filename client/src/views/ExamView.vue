@@ -5,6 +5,11 @@
 	<Card title="Exames">
 		<ExamTable />
 	</Card>
+
+	<Button color="pink" class="relative my-5" @click="openCreateModal">novo simulado</Button>
+	<Card title="Simulados"
+	
+	></Card>
 </template>
 
 <script lang="ts">
