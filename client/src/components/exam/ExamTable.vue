@@ -20,8 +20,8 @@
 				</TableItem>
 				<TableItem>
 					<div class="flex justify-end">
-						<Button color="pink" size="xs" class="me-3" @click="openUpdateModal(exam)">edit</Button>
-						<Button color="red" size="xs" @click="openDeleteModal(exam)">delete</Button>
+						<Button color="pink" size="xs" class="me-3" @click="openUpdateModal(exam)">editar</Button>
+						<Button color="red" size="xs" @click="openDeleteModal(exam)">deletar</Button>
 					</div>
 				</TableItem>
 			</TableRow>

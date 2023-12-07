@@ -32,8 +32,8 @@ export default defineComponent({
 	data() {
 		return {
 			name: null as unknown as string,
-			first_application_date: null as unknown as string | undefined,
-			second_application_date: null as unknown as string | undefined,
+			first_application_date: null as unknown as string,
+			second_application_date: null as unknown as string,
 		};
 	},
 
@@ -42,8 +42,8 @@ export default defineComponent({
 		load(exam?: ExamDto)
 		{
 			this.name = exam?.name || '';
-			this.first_application_date = exam?.first_application_date;
-			this.second_application_date = exam?.second_application_date;
+			this.first_application_date = exam?.first_application_date || dayjs().toISOString();
+			this.second_application_date = exam?.second_application_date || dayjs().toISOString();
 		},
 
 		submit()
