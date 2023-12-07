@@ -9,9 +9,9 @@
 	<Button color="pink" class="relative my-5" @click="openPracticeExamCreateModal">novo simulado</Button>
 	<PracticeExamCreateModal :active="createPracticeExamModalActive" />
 
-	<Card title="Simulados"
-	
-	></Card>
+	<Card title="Simulados">
+		<PracticeExamTable />	
+	</Card>
 </template>
 
 <script lang="ts">
@@ -22,10 +22,11 @@ import Card from '../components/base/card/Card.vue';
 import ExamCreateModal from '../components/exam/ExamCreateModal.vue';
 import ExamTable from '../components/exam/ExamTable.vue';
 import PracticeExamCreateModal from '../components/practice-exam/PracticeExamCreateModal.vue';
+import PracticeExamTable from '../components/practice-exam/PracticeExamTable.vue';
 
 export default defineComponent({
 
-	components: { Button, Card, ExamCreateModal, ExamTable, PracticeExamCreateModal },
+	components: { Button, Card, ExamCreateModal, ExamTable, PracticeExamCreateModal, PracticeExamTable },
 
 	data()
 	{

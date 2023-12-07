@@ -80,6 +80,15 @@ export default defineComponent({
 			this.$emit('submit', exam);
 			this.load();
 		}
+		
+	},
+
+	watch: {
+
+		practiceExam()
+		{
+			this.load(this.practiceExam);
+		}
 
 	},
 
