@@ -1,7 +1,7 @@
 <template>
 	<form @submit.prevent="submit">
 		<Select label="matéria" :options="subjectOptions" :required="true" v-model="subject_id" />
-		<Date label="Data" :value="date" v-model="date" />
+		<Date label="Data" v-model="date" />
 		<div class="container">
 			<div class="grid grid-cols-2 gap-4">
 				<Input label="número de questões" :type="'number'" :required="true" v-model="number_of_questions" />
