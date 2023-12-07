@@ -20,9 +20,11 @@ export class PracticeExamDto
 
 	@IsInt()
 	@Min(1)
+	@Type(() => Number)
 	public number_of_questions: number;
 
 	@IsInt()
+	@Type(() => Number)
 	public number_of_hits: number;
 
 	@IsNumber()

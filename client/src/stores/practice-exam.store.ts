@@ -1,6 +1,6 @@
-import { HttpService } from "../assets/ts/http.service";
 import { defineStore } from "pinia";
-import type { ExamCreateDto, ExamDto } from "./exam.store";
+import { HttpService } from "../assets/ts/http.service";
+import type { ExamDto } from "./exam.store";
 
 export interface PracticeExamDto {
   id: string;
@@ -13,7 +13,7 @@ export interface PracticeExamDto {
 
 export interface PracticeExamCreateDto extends Pick<PracticeExamDto, 'date' | 'number_of_questions' | 'number_of_hits'>
 {
-  exam: ExamCreateDto;
+  exam: Pick<ExamDto, 'id'>;
 }
 
 export interface PracticeExamUpdateDto extends Partial<PracticeExamCreateDto> {}
